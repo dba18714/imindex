@@ -41,9 +41,25 @@ docker ps
 ```shell
 docker ps -a
 ```
-查看日志
+查看日志 docker-compose
 ```shell
 docker-compose -f docker-compose-prod.yml logs web
+```
+```shell
+docker-compose -f docker-compose-prod.yml logs db
+```
+```shell
+docker-compose -f docker-compose-prod.yml logs redis
+```
+查看日志 docker
+```shell
+docker logs imindex-web-1
+```
+```shell
+docker logs imindex-db-1
+```
+```shell
+docker logs imindex-redis-1
 ```
 
 进入 web, db, redis 容器命令行

@@ -50,21 +50,5 @@ jobs:
             
             echo "拉取 Docker 镜像"
             docker pull dba18714/imindex:latest     
-            
-            echo "打印当前工作目录："
-            pwd
-            echo "列出当前目录内容："
-            ls -la
-            
-            echo "执行 Docker Compose："
-            if ! command -v curl &>/dev/null; then
-                echo "Installing Curl..."
-                sudo apt-get update
-                sudo apt-get install -y curl
-            fi
-            if ! command -v docker-compose &>/dev/null; then
-                echo "Installing Docker Compose..."
-                sudo curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                sudo chmod +x /usr/local/bin/docker-compose
-            fi
-            docker run -d dba18714/imindex:latest
+                        
+            docker run -p 8000:8000 -it --name imindex -d dba18714/imindex:latest
