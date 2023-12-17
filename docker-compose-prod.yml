@@ -12,13 +12,24 @@ services:
       - "8000:8000"
     environment:
       SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
-      DJANGO_DEBUG: True
+      DJANGO_DEBUG: False
       DB_NAME: pgdb
       DB_USER: pgdb
       DB_PASSWORD: pgpass
     depends_on:
       - db
       - redis
+
+  celery:
+      build: .
+      command: celery -A mysite worker --loglevel=info
+      volumes:
+        - .:/code
+      environment:
+        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+        DB_NAME: pgdb
+        DB_USER: pgdb
+        DB_PASSWORD: pgpass
 
   db:
     container_name: imindex-db-1

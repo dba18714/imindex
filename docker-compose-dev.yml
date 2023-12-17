@@ -4,7 +4,7 @@ services:
   web:
     container_name: imindex-web-1
     build: .
-    command: /bin/bash -c "./wait-for-db.sh db"
+    command: /bin/bash -c "./wait-for-db.sh db && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: always
     volumes:
       - .:/code
@@ -19,6 +19,17 @@ services:
     depends_on:
       - db
       - redis
+
+  celery:
+      build: .
+      command: celery -A mysite worker --loglevel=info
+      volumes:
+        - .:/code
+      environment:
+        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+        DB_NAME: pgdb
+        DB_USER: pgdb
+        DB_PASSWORD: pgpass
 
   db:
     container_name: imindex-db-1
