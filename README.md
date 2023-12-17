@@ -33,7 +33,14 @@ docker build -t dba18714/imindex:latest . \
 ```shell
 python manage.py test
 ```
-
+列出所有运行中的容器
+```shell
+docker ps
+```
+列出所有容器（包括未运行的）
+```shell
+docker ps -a
+```
 查看日志
 ```shell
 docker-compose -f docker-compose-prod.yml logs web
