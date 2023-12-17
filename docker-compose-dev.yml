@@ -35,6 +35,7 @@ services:
     build: .
     volumes:
       - .:/code
+      - ./logs:/var/log
       - ./django_cron_job:/etc/cron.d/django_cron_job
     command: cron -f
 
