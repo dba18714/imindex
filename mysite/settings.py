@@ -21,6 +21,9 @@ from django.utils.translation import get_language_info
 
 print("Testing .env loading:", os.getenv("SECRET_KEY", default="Env not loaded"))
 
+print("DJANGO_DEBUG:", os.getenv("DJANGO_DEBUG"))
+print("SECRET_KEY:", os.getenv("SECRET_KEY"))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
