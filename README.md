@@ -25,7 +25,7 @@ docker build -t dba18714/imindex:latest . \
 
 ### 启动服务
 ```shell
-docker-compose -f docker-compose-prod.yml up
+docker-compose -f docker-compose-prod.yml up --build
 ```
 ### 停止服务
 ```shell

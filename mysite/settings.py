@@ -39,7 +39,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # DEBUG = True
 DEBUG = os.getenv("DJANGO_DEBUG", False)
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'None'
+# SECURE_CROSS_ORIGIN_OPENER_POLICY = 'None'
 
 ALLOWED_HOSTS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
 
