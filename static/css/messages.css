@@ -1,0 +1,16 @@
+/* CSS 文件 */
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+.warning {
+    color: orange;
+}
+
+.info {
+    color: blue;
+}

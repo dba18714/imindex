@@ -1,0 +1,16 @@
+asgiref==3.7.2
+Django
+sqlparse==0.4.4
+gunicorn
+django-debug-toolbar
+whitenoise
+psycopg2-binary==2.9.9
+django-environ
+django_unicorn
+uuid
+ulid
+requests
+beautifulsoup4
+lxml
+celery
+redis
