@@ -27,6 +27,12 @@ jobs:
           push: true
           tags: dba18714/imindex:latest
 
+      - name: Print GITHUB_WORKSPACE
+        run: echo $GITHUB_WORKSPACE
+
+      - name: List files in current directory
+        run: ls -la
+
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
