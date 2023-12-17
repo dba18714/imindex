@@ -19,13 +19,16 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            echo "创建目录 /app/imindex（如果不存在）"
+            mkdir -p /app/imindex
+
             echo "检查并安装 Rsync"
             if ! command -v rsync &> /dev/null; then
               sudo DEBIAN_FRONTEND=noninteractive apt-get update
               sudo DEBIAN_FRONTEND=noninteractive apt-get install -y rsync
             fi
             
-            rsync -avz --exclude='.git/*' --exclude='node_modules/*' ./ /app/imindex
+            rsync -avz --exclude='.git/*' --exclude='node_modules/*' ./ /app/imindex/
             
             echo "检查并安装 Curl"
             if ! command -v curl &> /dev/null; then
