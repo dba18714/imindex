@@ -5,6 +5,9 @@ services:
     container_name: imindex-web-1
     build: .
     command: /bin/bash -c "./wait-for-db.sh db && python manage.py migrate && gunicorn mysite.wsgi:application --bind 0.0.0.0:8000"
+    restart: always
+    volumes:
+      - .:/code
     ports:
       - "8000:8000"
     environment:
