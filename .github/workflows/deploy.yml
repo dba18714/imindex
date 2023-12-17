@@ -19,6 +19,8 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            set -e
+            
             directory_path="/app/imindex"
             
             echo "创建目录 $directory_path（如果不存在）"
