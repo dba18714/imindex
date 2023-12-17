@@ -5,6 +5,7 @@ services:
     container_name: imindex-web-1
     build: .
     command: /bin/bash -c "./wait-for-db.sh db && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    restart: always
     volumes:
       - .:/code
     ports:
@@ -22,6 +23,7 @@ services:
   db:
     container_name: imindex-db-1
     image: postgres
+    restart: always
     environment:
       POSTGRES_DB: pgdb
       POSTGRES_USER: pgdb
