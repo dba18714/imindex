@@ -12,7 +12,7 @@ services:
       - "8000:8000"
     environment:
       SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
-      DJANGO_DEBUG: False
+      DJANGO_DEBUG: True
       DB_NAME: pgdb
       DB_USER: pgdb
       DB_PASSWORD: pgpass
