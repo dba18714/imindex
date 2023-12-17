@@ -30,7 +30,7 @@ jobs:
               sudo apt-get install -y git
             fi
             
-            cd /app/imindex
+            cd $directory_path
             
             if [ -z "$(ls -A $directory_path)" ]; then
               echo "目录为空，Clone git"
