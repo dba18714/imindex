@@ -19,6 +19,12 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
+            echo "检查并安装 Rsync"
+            if ! command -v rsync &> /dev/null; then
+              sudo apt-get update
+              sudo apt-get install -y rsync
+            fi
+            
             rsync -avz --exclude='.git/*' --exclude='node_modules/*' ./ /app/imindex
             
             echo "检查并安装 Curl"
