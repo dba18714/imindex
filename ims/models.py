@@ -10,7 +10,7 @@ from django.utils.timezone import now
 
 from ims import tasks
 
-logger = logging.getLogger(__name__)
+from django.utils.autoreload import logger
 
 
 class Link(models.Model):
@@ -30,6 +30,7 @@ class Link(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # 调用父类的 save 方法
         tasks.verified_telegram.delay(self.id)
+        logger.error(f"------ call tasks.verified_telegram.delay")
 
     def verified_telegram(self):
         try:

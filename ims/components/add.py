@@ -8,7 +8,7 @@ from django_unicorn.components import UnicornView
 from django.core.paginator import Paginator
 from ..models import Link
 
-logger = logging.getLogger(__name__)
+from django.utils.autoreload import logger
 
 
 def is_valid_url(url):
@@ -21,10 +21,12 @@ def is_valid_url(url):
 
 
 class AddView(UnicornView):
+
     url = ""
     links = []
 
     def add(self):
+        logger.error(f"zzzzzzxxxxxxx------")
         self.links = []
         url = self.url
 
