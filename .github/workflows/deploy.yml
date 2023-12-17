@@ -12,13 +12,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Create Archive of Repository
-        run: tar -czf repo.tar.gz ./
-#        run: tar -czf repo.tar.gz --exclude='.git/*' --exclude='node_modules/*' .
-
-      - name: Transfer Archive to Server
-        run: rsync -avz -e "ssh -o StrictHostKeyChecking=no" repo.tar.gz ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/app/imindex/
-
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -26,9 +19,45 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            echo "在服务器上解压归档"
+            directory_path="/app/imindex"
+            
+            echo "创建目录 $directory_path（如果不存在）"
+            mkdir -p $directory_path
+            
+            echo "检查并安装 Git"
+            if ! command -v git &> /dev/null; then
+              sudo apt-get update
+              sudo apt-get install -y git
+            fi
+            
             cd /app/imindex
-            tar -xzf repo.tar.gz
-            rm repo.tar.gz
+            
+            if [ -z "$(ls -A $directory_path)" ]; then
+              echo "目录为空，Clone git"
+              git clone https://github.com/dba18714/imindex.git .
+            else
+              echo "目录不为空 Pull git"
+              git pull
+            fi
 
-            # ...（其他服务器上的安装和部署命令）
+            echo "检查并安装 Curl"
+            if ! command -v curl &> /dev/null; then
+              sudo DEBIAN_FRONTEND=noninteractive apt-get update
+              sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl
+            fi
+  
+            echo "检查并安装 Docker"
+            if ! command -v docker &>/dev/null; then
+              echo "Installing Docker..."
+              sudo DEBIAN_FRONTEND=noninteractive apt-get update
+              sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker.io
+            fi
+            
+            echo "检查并安装 Docker Compose"
+            if ! command -v docker-compose &> /dev/null; then
+              sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+            fi
+            
+            docker-compose -f docker-compose-prod.yml down
+            docker-compose -f docker-compose-prod.yml up -d
