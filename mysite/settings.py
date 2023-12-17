@@ -16,7 +16,8 @@ from pathlib import Path
 import environ
 from django.utils.translation import get_language_info
 
-# env = environ.Env()
+env = environ.Env()
+env.read_env()
 # env.read_env('.env')
 
 print("Testing .env loading:", os.getenv("SECRET_KEY", default="Env not loaded"))
@@ -37,7 +38,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.getenv("DJANGO_DEBUG", False)
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
+# DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
