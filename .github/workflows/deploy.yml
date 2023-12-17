@@ -29,6 +29,7 @@ jobs:
             fi
             
             rsync -avz --exclude='.git/*' --exclude='node_modules/*' ./ /app/imindex/
+            ls -l /app/imindex
             
             echo "检查并安装 Curl"
             if ! command -v curl &> /dev/null; then
