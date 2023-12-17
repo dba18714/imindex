@@ -13,7 +13,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create Archive of Repository
-        run: tar -czf repo.tar.gz --exclude='.git/*' --exclude='node_modules/*' .
+        run: tar -czf repo.tar.gz ./
+#        run: tar -czf repo.tar.gz --exclude='.git/*' --exclude='node_modules/*' .
 
       - name: Transfer Archive to Server
         run: rsync -avz -e "ssh -o StrictHostKeyChecking=no" repo.tar.gz ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/app/imindex/
