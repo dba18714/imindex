@@ -49,6 +49,10 @@ docker ps
 ```shell
 docker ps -a
 ```
+查看所有服务的状态 docker-compose
+```shell
+docker-compose -f docker-compose-prod.yml ps
+```
 查看日志 docker-compose
 ```shell
 docker-compose -f docker-compose-prod.yml logs web

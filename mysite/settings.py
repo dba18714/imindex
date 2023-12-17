@@ -43,7 +43,12 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = 'None'
 
 ALLOWED_HOSTS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1',
+    'http://23.95.85.37',
+    'https://imindex.fly.dev',
+    'http://localhost',
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-build')
 
