@@ -24,6 +24,8 @@ services:
     container_name: imindex-db-1
     image: postgres
     restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: pgdb
       POSTGRES_USER: pgdb

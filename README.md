@@ -23,6 +23,14 @@ docker build -t dba18714/imindex:latest . \
 # 生产环境
 部署在 Ubuntu 20.04 64 Bit 的 Docker 上
 
+### 启动服务
+```shell
+docker-compose -f docker-compose-prod.yml up
+```
+### 停止服务
+```shell
+docker-compose -f docker-compose-prod.yml down
+```
 
 
 
