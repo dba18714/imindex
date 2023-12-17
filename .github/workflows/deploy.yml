@@ -48,6 +48,9 @@ jobs:
                 sudo apt-get install -y docker.io
             fi
             
+            docker stop imindex
+            docker rm imindex
+            
             echo "拉取 Docker 镜像"
             docker pull dba18714/imindex:latest     
                         
