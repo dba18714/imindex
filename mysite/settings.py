@@ -41,6 +41,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = env.bool('DJANGO_DEBUG', default=False)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
+CRON_CLASSES = [
+    "my_app.cron.MyCronJob",
+    # 其他 cron 作业
+]
+
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 ALLOWED_HOSTS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']

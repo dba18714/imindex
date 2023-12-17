@@ -11,7 +11,7 @@ class Command(BaseCommand):
     help = 'Run the web scraper'
 
     def handle(self, *args, **kwargs):
-        for i in range(1000):
+        for i in range(10):
             random_integer = random.randint(2000, 3762832)
             url = f"https://www.tgcng.com/info.php?gid={random_integer}"
             xpath = '/html/body/div[@id="__nuxt"]/div[@id="__layout"]/div[@id="app"]/div[@class="container"]/div[@class="info"]/a[@class="item"]/div[@class="member"]'

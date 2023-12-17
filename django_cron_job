@@ -1,0 +1,1 @@
+* * * * * cd /path/to/your/django/project && python manage.py runcrons >> /var/log/cron.log 2>&1

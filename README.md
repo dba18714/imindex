@@ -6,7 +6,7 @@ docker-compose -f docker-compose-dev.yml build
 ```
 ### 启动服务
 ```shell
-docker-compose -f docker-compose-dev.yml up
+docker-compose -f docker-compose-dev.yml up --build
 ```
 ### 停止服务
 ```shell

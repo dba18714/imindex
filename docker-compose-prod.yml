@@ -31,6 +31,13 @@ services:
         DB_USER: pgdb
         DB_PASSWORD: pgpass
 
+  cron:
+    build: .
+    volumes:
+      - .:/code
+      - ./django_cron_job:/etc/cron.d/django_cron_job
+    command: cron -f
+
   db:
     container_name: imindex-db-1
     image: postgres
