@@ -11,6 +11,7 @@ class Command(BaseCommand):
     help = 'Run the web scraper'
 
     def handle(self, *args, **kwargs):
+        self.stdout.write(self.style.SUCCESS('is running runspider.py'))
         for i in range(10):
             random_integer = random.randint(2000, 3762832)
             url = f"https://www.tgcng.com/info.php?gid={random_integer}"
