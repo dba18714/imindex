@@ -29,8 +29,10 @@ jobs:
             fi
             
             rsync -avz --exclude='.git/*' --exclude='node_modules/*' ./ /app/imindex/
-            ls -l /app/imindex
             
+            echo "列出 /app/imindex 目录中的文件"
+            ls -l /app/imindex
+
             echo "检查并安装 Curl"
             if ! command -v curl &> /dev/null; then
               sudo DEBIAN_FRONTEND=noninteractive apt-get update
