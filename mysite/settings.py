@@ -39,6 +39,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # DEBUG = True
 DEBUG = os.getenv("DJANGO_DEBUG", False)
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 ALLOWED_HOSTS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
@@ -132,7 +134,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
