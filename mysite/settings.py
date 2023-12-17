@@ -42,7 +42,7 @@ DEBUG = env.bool('DJANGO_DEBUG', default=False)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 CRON_CLASSES = [
-    "my_app.cron.MyCronJob",
+    "ims.cron.MyCronJob",
     # 其他 cron 作业
 ]
 
@@ -122,6 +122,7 @@ CACHES = {
 CSRF_COOKIE_SECURE = False
 
 INSTALLED_APPS = [
+    "django_cron",
     "crawler",
     "common",
     "django_unicorn",
