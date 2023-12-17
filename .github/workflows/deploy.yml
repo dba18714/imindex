@@ -34,8 +34,8 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-#            echo "切换到代码库目录"
-#            cd $GITHUB_WORKSPACE  # 使用环境变量引用工作目录
+            echo "切换到代码库目录"
+            cd $GITHUB_WORKSPACE  # 使用环境变量引用工作目录
             echo "拉取 Docker 镜像"
             docker pull dba18714/imindex:latest            
             echo "打印当前工作目录："
