@@ -41,7 +41,7 @@ DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 ALLOWED_HOSTS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://imindex.fly.dev']
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-build')
 
