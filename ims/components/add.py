@@ -1,14 +1,14 @@
 import time
 import logging
 
-logger = logging.getLogger(__name__)
-
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django_unicorn.components import UnicornView
 from django.core.paginator import Paginator
 from ..models import Link
+
+logger = logging.getLogger(__name__)
 
 
 def is_valid_url(url):
@@ -29,7 +29,7 @@ class AddView(UnicornView):
         url = self.url
 
         if not url:
-            messages.error(self.request, "链接不能为空")
+            messages.error(self.request, "链接不能为空！")
             return
 
         # 分割字符串为行
