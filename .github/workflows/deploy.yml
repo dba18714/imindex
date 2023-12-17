@@ -40,9 +40,6 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            WORKDIR=${{ github.workspace }}
-            echo "工作目录: $WORKDIR"
-            cd $WORKDIR
             
             echo "检查并安装 Docker"
             if ! command -v docker &>/dev/null; then
@@ -70,4 +67,4 @@ jobs:
                 sudo curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                 sudo chmod +x /usr/local/bin/docker-compose
             fi
-            docker-compose up -d
+            docker run -d dba18714/imindex:latest
