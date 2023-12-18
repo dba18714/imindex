@@ -9,8 +9,3 @@
 .idea/dataSources.local.xml
 fly.toml
 venv
-logs
-.idea
-jstoolchain
-.DS_Store
-pgdata

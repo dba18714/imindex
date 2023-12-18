@@ -1,4 +1,4 @@
 #!/bin/bash
 
-service cron restart
-tail -f /var/log/cron.log
+service cron start
+tail -f /code/logs/cron.log

@@ -1,4 +1,4 @@
-/logs/
+logs
 .idea
 jstoolchain/node_modules
 .DS_Store
