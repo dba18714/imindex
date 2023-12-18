@@ -39,7 +39,7 @@ jobs:
               git clone https://github.com/dba18714/imindex.git .
             else
               echo "目录不为空 Pull git"
-              git pull
+              git reset --hard origin/main && git pull origin main
             fi
 
             echo "检查并安装 Curl"
