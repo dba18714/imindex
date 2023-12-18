@@ -20,16 +20,16 @@ services:
       - db
       - redis
 
-  celery:
-      build: .
-      command: celery -A mysite worker --loglevel=info
-      volumes:
-        - .:/code
-      environment:
-        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
-        DB_NAME: pgdb
-        DB_USER: pgdb
-        DB_PASSWORD: pgpass
+#  celery:
+#      build: .
+#      command: celery -A mysite worker --loglevel=info
+#      volumes:
+#        - .:/code
+#      environment:
+#        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+#        DB_NAME: pgdb
+#        DB_USER: pgdb
+#        DB_PASSWORD: pgpass
 
   cron:
     build: .
