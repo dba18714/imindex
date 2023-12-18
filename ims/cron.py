@@ -14,6 +14,6 @@ class MyCronJob(CronJobBase):
     code = 'ims.my_cron_job'  # 一个唯一的代码
 
     def do(self):
-        logger.error("MyCronJob start ---------------------------------------")
-        return "MyCronJob Done"
+        # logger.error("MyCronJob start ---------------------------------------")
+        # return "MyCronJob Done"
         call_command('runspider')
