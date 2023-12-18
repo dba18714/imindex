@@ -1,5 +1,10 @@
 # 开发环境 macOS Docker
 
+### 前端资源处理
+```shell
+python npm_run.py
+```
+
 ### 构建镜像
 ```shell
 docker-compose -f docker-compose-dev.yml build

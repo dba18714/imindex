@@ -25,6 +25,10 @@ class AddView(UnicornView):
     url = ""
     links = []
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # time.sleep(3)
+
     def add(self):
         logger.error(f"zzzzzzxxxxxxx------")
         self.links = []
