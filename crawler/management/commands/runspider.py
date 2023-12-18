@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.SUCCESS('is running runspider.py'))
-        for i in range(10):
+        for i in range(2):
             random_integer = random.randint(2000, 3762832)
             url = f"https://www.tgcng.com/info.php?gid={random_integer}"
             xpath = '/html/body/div[@id="__nuxt"]/div[@id="__layout"]/div[@id="app"]/div[@class="container"]/div[@class="info"]/a[@class="item"]/div[@class="member"]'

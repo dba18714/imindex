@@ -17,8 +17,8 @@ import environ
 from django.utils.translation import get_language_info
 
 env = environ.Env()
-env.read_env()
-# env.read_env('.env')
+# env.read_env()
+env.read_env('.env')
 
 print("Testing .env loading:", os.getenv("SECRET_KEY", default="Env not loaded"))
 

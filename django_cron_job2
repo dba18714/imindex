@@ -1,0 +1,1 @@
+* * * * * root export PATH=$PATH:/usr/local/bin && cd /code && python manage.py runcrons >> /var/log/cron.log 2>&1

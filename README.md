@@ -37,6 +37,14 @@ docker-compose -f docker-compose-prod.yml down
 
 # Docker 环境调试
 
+停止所有容器
+```shell
+docker stop $(docker ps -a -q)
+```
+删除所有容器
+```shell
+docker rm $(docker ps -a -q)
+```
 运行 Django 测试
 ```shell
 python manage.py test
