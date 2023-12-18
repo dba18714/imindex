@@ -16,3 +16,4 @@ celery
 redis
 environ
 django_cron
+python-decouple

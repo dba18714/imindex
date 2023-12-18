@@ -13,17 +13,28 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-import environ
+# import environ
 from django.utils.translation import get_language_info
+from decouple import config
 
-env = environ.Env()
+
+# env = environ.Env()
 # env.read_env()
-env.read_env('.env')
+# env.read_env('.env')
 
 print("Testing .env loading:", os.getenv("SECRET_KEY", default="Env not loaded"))
 
 print("DJANGO_DEBUG:", os.getenv("DJANGO_DEBUG"))
 print("SECRET_KEY:", os.getenv("SECRET_KEY"))
+print("TMP_XXX0:", config('TMP_XXX0', default=False, cast=bool))
+print("TMP_XXX1:", config('TMP_XXX1', default=False, cast=bool))
+print("TMP_XXX2:", config('TMP_XXX2', default=False, cast=bool))
+print("TMP_XXX3:", config('TMP_XXX3', default=False, cast=bool))
+print("TMP_XXX4:", config('TMP_XXX4', default=False, cast=bool))
+print("TMP_XXX5:", config('TMP_XXX5', default=False, cast=bool))
+print("TMP_XXX6:", config('TMP_XXX6', default=False, cast=bool))
+print("TMP_XXX7:", config('TMP_XXX7', default=False, cast=bool))
+print("TMP_XXX8:", config('TMP_XXX8', default=False, cast=bool))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,13 +43,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
 # DJANGO_ENV = os.getenv("DJANGO_ENV", False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = env.bool('DJANGO_DEBUG', default=False)
+DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
+# DEBUG = env.bool('DJANGO_DEBUG', default=False)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 CRON_CLASSES = [
@@ -57,10 +69,10 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static-build')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
     # other folders
 ]
 
@@ -179,9 +191,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "CONN_MAX_AGE": 600,
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
         "HOST": "db",
         "PORT": "5432",
     }
