@@ -20,23 +20,20 @@ services:
       - db
       - redis
 
-#  celery:
-#      build: .
-#      command: celery -A mysite worker --loglevel=info
-#      volumes:
-#        - .:/code
-#      environment:
-#        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
-#        DB_NAME: pgdb
-#        DB_USER: pgdb
-#        DB_PASSWORD: pgpass
-
-#  cron:
-#    build: .
-#    volumes:
-#      - .:/code
-#      - ./django_cron_job:/etc/cron.d/django_cron_job
-#    command: cron -f
+  celery:
+      container_name: imindex-celery-1
+      build: .
+      command: celery -A mysite worker --loglevel=info
+      volumes:
+        - .:/code
+      environment:
+        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+        DB_NAME: pgdb
+        DB_USER: pgdb
+        DB_PASSWORD: pgpass
+      depends_on:
+        - db
+        - redis
 
   db:
     container_name: imindex-db-1
