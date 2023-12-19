@@ -2,6 +2,8 @@ from django.core.management import call_command
 from django.utils.autoreload import logger
 from django_cron import CronJobBase, Schedule
 
+from ims.models import Link
+
 
 # 运行 Cron Job:
 # python manage.py runcrons
@@ -29,3 +31,13 @@ class VerifiedTelegram(CronJobBase):
         # logger.error("MyCronJob start ---------------------------------------")
         # return "MyCronJob Done"
         call_command('verified_telegram')
+
+
+class DeleteInvalidLinks(CronJobBase):
+    schedule = Schedule(run_at_times=['13:00'])  # 数字 0 到 6 分别代表星期天到星期六
+    code = 'ims.cron.DeleteInvalidLinks'  # 一个唯一的代码
+
+    def do(self):
+        # logger.error("MyCronJob start ---------------------------------------")
+        # return "MyCronJob Done"
+        Link.objects.verified_and_invalid().delete()

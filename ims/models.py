@@ -15,16 +15,23 @@ from ims import tasks
 from django.utils.autoreload import logger
 
 
+class Manager(models.Manager):
+    def verified_and_invalid(self):
+        return self.filter(verified_at__isnull=False, is_valid=False)
+
+
 class Link(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(default="Update...", max_length=128, verbose_name=_("Name"))
     description = models.CharField(max_length=512, verbose_name=_("Description"))
     member_count = models.IntegerField(default=0)
     url = models.URLField(unique=True)  # Telegram链接
-    is_valid = models.BooleanField(default=False, verbose_name=_("是否有效"))
+    is_valid = models.BooleanField(default=False, verbose_name=_("有效的"))
     verified_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = Manager()
 
     def __str__(self):
         return self.name

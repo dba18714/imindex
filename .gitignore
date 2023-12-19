@@ -5,3 +5,4 @@ jstoolchain/node_modules
 pgdata
 venv
 redisdata
+.coverage

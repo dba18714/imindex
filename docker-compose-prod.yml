@@ -22,19 +22,19 @@ services:
       - redis
 
   celery:
-      container_name: imindex-celery-1
-      build: .
-      command: celery -A mysite worker --loglevel=info
-      volumes:
-        - .:/code
-      environment:
-        SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
-        DB_NAME: pgdb
-        DB_USER: pgdb
-        DB_PASSWORD: pgpass
-      depends_on:
-        - db
-        - redis
+    container_name: imindex-celery-1
+    build: .
+    command: celery -A mysite worker --loglevel=info
+    volumes:
+      - .:/code
+    environment:
+      SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+      DB_NAME: pgdb
+      DB_USER: pgdb
+      DB_PASSWORD: pgpass
+    depends_on:
+      - db
+      - redis
 
   cron:
     build: .
