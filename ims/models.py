@@ -28,9 +28,23 @@ class Link(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)  # 调用父类的 save 方法
-        tasks.verified_telegram.delay(self.id)
-        logger.error(f"------ call tasks.verified_telegram.delay")
+        # 检查是否是新创建的对象
+        if self.pk is None:
+            url_changed = True
+        else:
+            # 获取当前数据库中的对象
+            old_object = Link.objects.get(pk=self.pk)
+            # 检查 'url' 字段是否改变
+            url_changed = old_object.url != self.url
+
+        # 调用父类的 save 方法保存对象
+        super().save(*args, **kwargs)
+
+        # 如果 'url' 发生了变化，则执行操作
+        if url_changed:
+            tasks.verified_telegram.delay(self.id)
+            logger.error("------ call tasks.verified_telegram.delay")
+
 
     def verified_telegram(self):
         try:
