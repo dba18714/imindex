@@ -20,9 +20,10 @@ class IndexView(UnicornView):
     def load_links(self):
         query = self.request.GET.get("q")  # 获取搜索查询参数
         if query:
-            links = Link.objects.order_by('-id').filter(Q(name__icontains=query) | Q(description__icontains=query))
+            links = (Link.objects.verified_and_valid().order_by('-id')
+                     .filter(Q(name__icontains=query) | Q(description__icontains=query)))
         else:
-            links = Link.objects.order_by('-id').all()
+            links = Link.objects.verified_and_valid().order_by('-id').all()
 
         paginator = Paginator(links, 10)  # 每页 10 项
         total_pages = paginator.num_pages  # 获取总页数

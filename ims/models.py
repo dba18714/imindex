@@ -19,6 +19,9 @@ class Manager(models.Manager):
     def verified_and_invalid(self):
         return self.filter(verified_at__isnull=False, is_valid=False)
 
+    def verified_and_valid(self):
+        return self.filter(verified_at__isnull=False, is_valid=True)
+
 
 class Link(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
