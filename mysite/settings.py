@@ -55,6 +55,7 @@ DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 
 CRON_CLASSES = [
     "ims.cron.MyCronJob",
+    "ims.cron.VerifiedTelegram",
     # 其他 cron 作业
 ]
 

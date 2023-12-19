@@ -17,3 +17,15 @@ class MyCronJob(CronJobBase):
         # logger.error("MyCronJob start ---------------------------------------")
         # return "MyCronJob Done"
         call_command('runspider')
+
+
+class VerifiedTelegram(CronJobBase):
+    RUN_EVERY_MINS = 10  # 每N分钟运行一次
+
+    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
+    code = 'ims.cron.VerifiedTelegram'  # 一个唯一的代码
+
+    def do(self):
+        # logger.error("MyCronJob start ---------------------------------------")
+        # return "MyCronJob Done"
+        call_command('verified_telegram')

@@ -5,7 +5,7 @@ from .models import Link
 
 class Admin(admin.ModelAdmin):
     list_display = ["name", "description", "member_count", "url"]
-    list_filter = ["uuid", "name"]
+    list_filter = ["is_valid", "verified_at"]
     search_fields = ["uuid", "name", "description", "member_count", "url"]
 
 
