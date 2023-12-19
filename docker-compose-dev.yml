@@ -50,5 +50,7 @@ services:
     container_name: imindex-redis-1
     image: redis
     restart: always
+    volumes:
+      - ./redisdata:/data
     ports:
       - "6379:6379"

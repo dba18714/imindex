@@ -5,8 +5,10 @@ import uuid
 
 import requests
 from bs4 import BeautifulSoup
+from django.contrib import admin
 from django.db import models
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 
 from ims import tasks
 
@@ -15,11 +17,11 @@ from django.utils.autoreload import logger
 
 class Link(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
-    name = models.CharField(max_length=128)
-    description = models.CharField(max_length=512)
+    name = models.CharField(default="Update...", max_length=128, verbose_name=_("Name"))
+    description = models.CharField(max_length=512, verbose_name=_("Description"))
     member_count = models.IntegerField(default=0)
     url = models.URLField(unique=True)  # Telegram链接
-    is_valid = models.BooleanField(default=False)
+    is_valid = models.BooleanField(default=False, verbose_name=_("是否有效"))
     verified_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
