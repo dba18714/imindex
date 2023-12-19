@@ -45,7 +45,6 @@ class Link(models.Model):
             tasks.verified_telegram.delay(self.id)
             logger.error("------ call tasks.verified_telegram.delay")
 
-
     def verified_telegram(self):
         try:
             url = self.url
