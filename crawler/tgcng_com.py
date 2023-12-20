@@ -7,6 +7,7 @@
 # # 提取关键词
 # key_words = keywords(words).split('\n')
 # print(key_words)
+import random
 import re
 from urllib.parse import quote
 
@@ -83,7 +84,8 @@ def get_info_ids(tag):
                 gid = match.group(1)
                 gids.append(gid)
 
-        # 打印所有的 gid 值
+        # 打乱 gids 列表
+        random.shuffle(gids)
         return gids
 
 
