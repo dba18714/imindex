@@ -24,6 +24,19 @@ class Manager(models.Manager):
 
 
 class Link(models.Model):
+    UNKNOWN = 'unknown'
+    GROUP = 'group'
+    CHANNEL = 'channel'
+    PERSONAL = 'personal'
+
+    CATEGORY_CHOICES = [
+        (UNKNOWN, _('Unknown')),
+        (GROUP, _('Group')),
+        (CHANNEL, _('Channel')),
+        (PERSONAL, _('Personal')),
+    ]
+
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default=UNKNOWN)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(default="Update...", max_length=128, verbose_name=_("Name"))
     description = models.CharField(max_length=512, verbose_name=_("Description"))
@@ -82,9 +95,14 @@ class Link(models.Model):
                     match = re.search(r'(\d+) members', telegram_member_count.text)
                     if match:
                         member_count = int(match.group(1))
+                        self.category = self.GROUP
                     match = re.search(r'(\d+) subscribers', telegram_member_count.text)
                     if match:
                         member_count = int(match.group(1))
+                        self.category = self.CHANNEL
+                    match = re.search(r'^@\w+$', telegram_member_count.text)
+                    if match:
+                        self.category = self.PERSONAL
                     self.member_count = member_count
 
                 # 检查是否有效
