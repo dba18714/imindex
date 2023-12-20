@@ -39,7 +39,7 @@ def get_words(url='https://www.tgcng.com/tags.php'):
         word_counts = Counter(words)
 
         # 获取最常见的词
-        most_common_words = word_counts.most_common(1000)
+        most_common_words = word_counts.most_common()
 
         words = []
 
