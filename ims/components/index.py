@@ -62,7 +62,7 @@ class IndexView(UnicornView):
 
         if self.page <= total_pages:
             # 获取从第一页到当前页的所有数据
-            self.links = list(links_query[start_index:end_index])
+            self.links = links_query[start_index:end_index]
         else:
             # 如果当前页面超过总页数，标记为所有文章都已加载
             self.all_articles_loaded = True
