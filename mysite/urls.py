@@ -24,7 +24,6 @@ from django.urls import path, include, re_path
 urlpatterns = [
     # re_path('^stiaic/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),  # 用于处理static里的文件
 
-
     path('i18n/', include('django.conf.urls.i18n')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

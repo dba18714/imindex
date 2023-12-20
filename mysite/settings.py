@@ -53,6 +53,10 @@ DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 # DEBUG = env.bool('DJANGO_DEBUG', default=False)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 CRON_CLASSES = [
     "ims.cron.Runspider",
     "ims.cron.VerifiedTelegram",
@@ -153,10 +157,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -242,7 +246,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
+LANGUAGE_CODE = 'zh-hans'
 # LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = [

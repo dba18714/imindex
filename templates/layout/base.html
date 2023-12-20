@@ -1,9 +1,8 @@
 {% load i18n %}
 {% load static %}
-{#{% load language_tags %}#}
-{% get_current_language as LANGUAGE_CODE %}
+{% load custom_tags %}
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{% get_lang_code %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
