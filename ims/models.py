@@ -15,12 +15,22 @@ from ims import tasks
 from django.utils.autoreload import logger
 
 
-class Manager(models.Manager):
+class LinkManager(models.Manager):
     def verified_and_invalid(self):
         return self.filter(verified_at__isnull=False, is_valid=False)
 
     def verified_and_valid(self):
         return self.filter(verified_at__isnull=False, is_valid=True)
+
+
+class Search(models.Model):
+    keyword = models.CharField(max_length=255, unique=True)
+    search_count = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_search_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.keyword
 
 
 class Link(models.Model):
@@ -47,7 +57,7 @@ class Link(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = Manager()
+    objects = LinkManager()
 
     def __str__(self):
         return self.name
