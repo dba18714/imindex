@@ -1,12 +1,7 @@
-import random
-import time
-
 from django.core.management.base import BaseCommand
 
-import common.utils
-from crawler.spiders.spider import save_data_to_model, scrape_with_xpath
-from ims.models import Link
 from ims import tasks
+from ims.models import Link
 
 
 class Command(BaseCommand):
