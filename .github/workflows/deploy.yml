@@ -68,8 +68,10 @@ jobs:
               sudo apt-get install -y nodejs
             fi
             
-            echo "npm run tailwind-build"
             cd jstoolchain
+            echo "安装 npm 依赖"
+            npm install
+            echo "npm run tailwind-build"
             npm run tailwind-build
             cd ..
             
