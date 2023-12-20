@@ -15,7 +15,7 @@ class IndexView(UnicornView):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.links = []
-        self.query = self.request.GET.get('q')
+        self.query = self.request.GET.get(key='q', default='')
         self.all_articles_loaded = False
         self.load_links()
 
