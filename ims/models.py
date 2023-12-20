@@ -91,19 +91,17 @@ class Link(models.Model):
 
                 telegram_member_count = soup.select_one('.tgme_page_extra')
                 if telegram_member_count:
-                    member_count = 0
-                    match = re.search(r'(\d+) members', telegram_member_count.text)
+                    match = re.search(r'(\d[\d\s,]*)members', telegram_member_count.text)
                     if match:
-                        member_count = int(match.group(1))
+                        self.member_count = int(re.sub(r'\D', '', match.group(1)))
                         self.category = self.GROUP
-                    match = re.search(r'(\d+) subscribers', telegram_member_count.text)
+                    match = re.search(r'(\d[\d\s,]*)subscribers', telegram_member_count.text)
                     if match:
-                        member_count = int(match.group(1))
+                        self.member_count = int(re.sub(r'\D', '', match.group(1)))
                         self.category = self.CHANNEL
                     match = re.search(r'^@\w+$', telegram_member_count.text)
                     if match:
                         self.category = self.PERSONAL
-                    self.member_count = member_count
 
                 # 检查是否有效
                 self.is_valid = True

@@ -29,10 +29,11 @@ class Admin(admin.ModelAdmin):
     show_name.short_description = Link._meta.get_field('name').verbose_name
 
     def show_time(self, obj):
-        created_at = date_format(obj.created_at, format='DATETIME_FORMAT') if obj.created_at else 'N/A'
-        updated_at = date_format(obj.updated_at, format='DATETIME_FORMAT') if obj.updated_at else 'N/A'
-        verified_at = date_format(obj.verified_at, format='DATETIME_FORMAT') if obj.verified_at else 'N/A'
-        return format_html('<div style="white-space: nowrap;">创建于 {}<br>更新于 {}<br>验证于 {}</div>', created_at, updated_at, verified_at)
+        created_at = date_format(obj.created_at.astimezone(), format='DATETIME_FORMAT') if obj.created_at else 'N/A'
+        updated_at = date_format(obj.updated_at.astimezone(), format='DATETIME_FORMAT') if obj.updated_at else 'N/A'
+        verified_at = date_format(obj.verified_at.astimezone(), format='DATETIME_FORMAT') if obj.verified_at else 'N/A'
+        return format_html('<div style="white-space: nowrap;">创建于 {}<br>更新于 {}<br>验证于 {}</div>',
+                           created_at, updated_at, verified_at)
 
     show_time.short_description = _('time')
 
