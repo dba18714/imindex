@@ -54,8 +54,9 @@ DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 CRON_CLASSES = [
-    "ims.cron.MyCronJob",
+    "ims.cron.Runspider",
     "ims.cron.VerifiedTelegram",
+    "ims.cron.DeleteInvalidLinks",
     # 其他 cron 作业
 ]
 

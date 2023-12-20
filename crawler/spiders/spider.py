@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from lxml import html
 
-from ims.models import Link
+# from ims.models import Link
 
 
 def scrape_with_xpath(url, xpath):
@@ -16,7 +16,3 @@ def scrape_with_xpath(url, xpath):
     elements = tree.xpath(xpath)
     return [element.text.strip() for element in elements if element.text]
 
-
-def save_data_to_model(url):
-    link, created = Link.objects.get_or_create(url=url)
-    return link, created
