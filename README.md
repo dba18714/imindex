@@ -11,11 +11,11 @@ docker-compose -f docker-compose-dev.yml build
 ```
 ### 启动服务
 ```shell
-docker-compose -f docker-compose-dev.yml up --build
+docker-compose -f docker-compose-dev.yml up --build --remove-orphans
 ```
 ### 停止服务
 ```shell
-docker-compose -f docker-compose-dev.yml down
+docker-compose -f docker-compose-dev.yml down --remove-orphans
 ```
 启动后即可访问：http://127.0.0.1:8000/
 
@@ -30,11 +30,11 @@ docker build -t dba18714/imindex:latest . \
 
 ### 启动服务
 ```shell
-docker-compose -f docker-compose-prod.yml up --build
+docker-compose -f docker-compose-prod.yml up --build --remove-orphans
 ```
 ### 停止服务
 ```shell
-docker-compose -f docker-compose-prod.yml down
+docker-compose -f docker-compose-prod.yml down --remove-orphans
 ```
 
 
