@@ -61,6 +61,13 @@ jobs:
               sudo chmod +x /usr/local/bin/docker-compose
             fi 
             
+            echo "检查并安装 Node.js 和 npm"
+            if ! command -v node &> /dev/null || ! command -v npm &> /dev/null; then
+              echo "Installing Node.js and npm..."
+              curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            
             echo "npm run tailwind-build"
             npm run tailwind-build
             
