@@ -14,14 +14,16 @@
                 </button>
             </div>
         </form>
-        <div class="max-w-3xl mx-auto mt-5 text-gray-300 space-y-2 space-x-1">
-            热门关键词：
-            {% for search in top_searches %}
-                <a href="{% url 'ims:index' %}?q={{ search.keyword|urlencode }}" class="inline-flex items-center justify-center h-8 gap-2 px-4 text-xs font-medium tracking-wide transition duration-300 rounded-full focus-visible:outline-none justify-self-center whitespace-nowrap bg-fuchsia-200 text-fuchsia-500 hover:bg-fuchsia-300 hover:text-fuchsia-600 focus:bg-fuchsia-400 focus:text-fuchsia-700 disabled:cursor-not-allowed disabled:border-fuchsia-300 disabled:bg-fuchsia-300 disabled:text-fuchsia-400 disabled:shadow-none">
-                    <span>{{ search.keyword }}</span>
-                </a>
-            {% endfor %}
-        </div>
+        {% if top_searches %}
+            <div class="max-w-3xl mx-auto mt-5 text-gray-300 space-y-2 space-x-1">
+                热门关键词：
+                {% for search in top_searches %}
+                    <a href="{% url 'ims:index' %}?q={{ search.keyword|urlencode }}" class="inline-flex items-center justify-center h-8 gap-2 px-4 text-xs font-medium tracking-wide transition duration-300 rounded-full focus-visible:outline-none justify-self-center whitespace-nowrap bg-fuchsia-200 text-fuchsia-500 hover:bg-fuchsia-300 hover:text-fuchsia-600 focus:bg-fuchsia-400 focus:text-fuchsia-700 disabled:cursor-not-allowed disabled:border-fuchsia-300 disabled:bg-fuchsia-300 disabled:text-fuchsia-400 disabled:shadow-none">
+                        <span>{{ search.keyword }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
 
     </div>
 
