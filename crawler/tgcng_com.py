@@ -1,12 +1,3 @@
-# import jieba
-# from gensim.summarization import keywords
-#
-# text = "您的中文文本数据放在这里..."
-# words = " ".join(jieba.cut(text))
-#
-# # 提取关键词
-# key_words = keywords(words).split('\n')
-# print(key_words)
 import random
 import re
 from urllib.parse import quote
@@ -56,6 +47,8 @@ def get_words(url='https://www.tgcng.com/tags.php'):
         for v, word_count in most_common_words:
             words.append(v)
 
+        # 打乱列表
+        random.shuffle(words)
         return words
         # print(words)
 
@@ -84,7 +77,7 @@ def get_info_ids(tag):
                 gid = match.group(1)
                 gids.append(gid)
 
-        # 打乱 gids 列表
+        # 打乱列表
         random.shuffle(gids)
         return gids
 
@@ -99,6 +92,8 @@ def get_telegram_url(info_id):
 
 
 if __name__ == '__main__':
+    print(get_words())
+    exit()
     i = 0
     for word in get_words():
         i += 1
