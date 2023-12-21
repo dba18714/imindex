@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     nano \
     postgresql-client \
     cron \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制和设置 wait-for-db.sh 脚本
