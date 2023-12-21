@@ -1,17 +1,16 @@
-import re
+import os
+import django
+from django.db.models import F
 
-str = '0 members, 24 online'
+# 设置 Django 环境
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
-# 使用正则表达式匹配 'members' 前的数字
-match = re.search(r'(\d[\d\s,]*)members', str)
+# 初始化 Django
+django.setup()
 
-# 检查是否找到匹配项
-if match:
-    number_str = match.group(1)  # 提取数字字符串
-    number_str = re.sub(r'\D', '', number_str)
+from ims.models import Link
 
-    # 转换为整数
-    number = int(number_str)
-    print(number)
-else:
-    number = None  # 如果没有找到相应的数字
+links = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at')[:2000]
+
+for link in links:
+    print(link.verified_at)
