@@ -36,8 +36,6 @@ services:
     depends_on:
       - db
       - redis
-    networks:
-      - mynetwork
 
   db:
     container_name: imindex-db-1
@@ -51,8 +49,6 @@ services:
       POSTGRES_PASSWORD: pgpass
     ports:
       - "5432:5432"
-    networks:
-      - mynetwork
 
   redis:
     container_name: imindex-redis-1
@@ -62,8 +58,3 @@ services:
       - ./redisdata:/data
     ports:
       - "6379:6379"
-    networks:
-      - mynetwork
-
-networks:
-  mynetwork:

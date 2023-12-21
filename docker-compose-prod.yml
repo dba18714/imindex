@@ -53,6 +53,8 @@ services:
       POSTGRES_DB: pgdb
       POSTGRES_USER: pgdb
       POSTGRES_PASSWORD: pgpass
+    ports:
+      - "5432:5432"
 
   redis:
     container_name: imindex-redis-1
