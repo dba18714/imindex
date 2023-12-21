@@ -15,7 +15,6 @@ class Runspider(CronJobBase):
 
     def do(self):
         logger.info("CronJob:Runspider start ---------------------------------------")
-        return
         call_command('runspider')
 
 
