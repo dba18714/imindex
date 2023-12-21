@@ -57,9 +57,9 @@
                     class="group inline-flex items-center justify-center h-8 gap-2 px-4 text-xs font-medium tracking-wide transition duration-300 border rounded focus-visible:outline-none whitespace-nowrap border-orange-500 text-orange-500 hover:border-orange-600 hover:text-orange-600 focus:border-orange-700 focus:text-orange-700 disabled:cursor-not-allowed disabled:border-orange-300 disabled:text-orange-300 disabled:shadow-none">
                 <span>
                     {% if all_articles_loaded %}
-                        已加载全部
+                        {% trans "已加载全部" %}
                     {% else %}
-                        加载更多
+                        {% trans "加载更多" %}
                     {% endif %}
                 </span>
                 <span class="relative only:-mx-6" unicorn:loading unicorn:target="load_more">

@@ -16,3 +16,4 @@ jstoolchain
 pgdata
 redisdata
 .coverage
+locale/**/*.mo
