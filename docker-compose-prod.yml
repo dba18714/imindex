@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "80:8000"
     environment:
       SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
       DJANGO_DEBUG: False

@@ -6,3 +6,4 @@ pgdata
 venv
 redisdata
 .coverage
+locale/**/*.mo
