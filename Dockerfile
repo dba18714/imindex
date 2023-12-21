@@ -20,11 +20,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制和设置 wait-for-db.sh 脚本
-COPY wait-for-db.sh /wait-for-db.sh
-RUN chmod +x ./wait-for-db.sh
+COPY _for_deploy/wait-for-db.sh /_for_deploy/wait-for-db.sh
+RUN chmod +x _for_deploy/wait-for-db.sh
 
 # 复制 cron 任务文件并设置权限
-COPY django_cron_job /etc/cron.d/django_cron_job
+COPY _for_deploy/django_cron_job /etc/cron.d/django_cron_job
 RUN chmod 0644 /etc/cron.d/django_cron_job
 RUN crontab /etc/cron.d/django_cron_job
 

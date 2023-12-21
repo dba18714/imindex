@@ -5,7 +5,7 @@ services:
   web:
     container_name: imindex-web-1
     build: .
-    command: /bin/bash -c "python manage.py compilemessages && python manage.py collectstatic --noinput && ./wait-for-db.sh db && python manage.py migrate && python manage.py imindex_install && gunicorn mysite.wsgi:application --bind 0.0.0.0:8000"
+    command: /bin/bash -c "python manage.py compilemessages && python manage.py collectstatic --noinput && _for_deploy/wait-for-db.sh db && python manage.py migrate && python manage.py imindex_install && gunicorn mysite.wsgi:application --bind 0.0.0.0:8000"
     restart: always
     volumes:
       - .:/code
@@ -50,7 +50,7 @@ services:
     build: .
     volumes:
       - .:/code
-      - ./django_cron_job:/etc/cron.d/django_cron_job
+      - ./_for_deploy/django_cron_job:/etc/cron.d/django_cron_job
     command: cron -f
 
   db:
