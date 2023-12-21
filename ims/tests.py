@@ -1,12 +1,64 @@
 import uuid
 from unittest.mock import patch
 
+from django.core.management import call_command
+from django.db.models import F
 from django.test import TestCase
 from django.utils import timezone
 
+import ims.management.commands.verified_telegram
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from .models import Link
 from .cron import DeleteInvalidLinks
+
+
+class GetFirstLinkTest(TestCase):
+    def setUp(self):
+        # 创建测试数据
+        Link.objects.create(url='https://x1.com',
+                            verified_at=timezone.now(), created_at=timezone.now())
+        Link.objects.create(url='https://x2.com',
+                            verified_at=None, created_at=timezone.now() - timezone.timedelta(days=1))
+        # 可以根据需要添加更多测试数据
+
+    def test_get_first_link(self):
+        # 调用函数
+        link = ims.management.commands.verified_telegram.get_first_link()
+
+        # 断言：检查返回的 Link 是否是预期的
+        self.assertIsNotNone(link)
+        # 进一步的断言，比如检查 verified_at 是否为 None 或检查特定的 created_at 值
+        self.assertIsNone(link.verified_at)
+
+
+class VerifiedTelegramCommandTest(TestCase):
+    def setUp(self):
+        # 创建测试数据
+        Link.objects.create(
+            # 设置 Link 对象的必要字段
+            url='https://x1.com',
+            verified_at=None,  # 假设这是重要的字段
+            created_at=timezone.now(),
+            # ... 其他必要的字段
+        )
+        Link.objects.create(
+            # 设置 Link 对象的必要字段
+            url='https://x2.com',
+            verified_at=timezone.now(),  # 假设这是重要的字段
+            created_at=timezone.now(),
+            # ... 其他必要的字段
+        )
+
+    @patch('ims.tasks.verified_telegram.delay')
+    def test_command_calls_task_with_first_link_id(self, mock_task):
+        # 调用管理命令
+        call_command('verified_telegram')
+
+        # 获取应该被处理的 Link 对象
+        link = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at').first()
+
+        # 检查是否调用了任务，并传递了正确的 Link ID
+        mock_task.assert_called_once_with(link.id)
 
 
 class DeleteInvalidLinksTest(TestCase):
