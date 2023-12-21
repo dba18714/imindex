@@ -5,6 +5,7 @@ from django.core.management import call_command
 from django.db.models import F
 from django.test import TestCase
 from django.utils import timezone
+from ims.management.commands.verified_telegram import get_first_link
 
 import ims.management.commands.verified_telegram
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
@@ -23,7 +24,7 @@ class GetFirstLinkTest(TestCase):
 
     def test_get_first_link(self):
         # 调用函数
-        link = ims.management.commands.verified_telegram.get_first_link()
+        link = get_first_link()
 
         # 断言：检查返回的 Link 是否是预期的
         self.assertIsNotNone(link)
