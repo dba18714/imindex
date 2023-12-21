@@ -20,7 +20,7 @@ class Runspider(CronJobBase):
 
 
 class VerifiedTelegram(CronJobBase):
-    schedule = Schedule(run_every_mins=10)
+    schedule = Schedule(run_every_mins=1)
     code = 'ims.cron.VerifiedTelegram'  # 一个唯一的代码
 
     def do(self):
