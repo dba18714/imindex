@@ -7,8 +7,8 @@ services:
     build: .
     command: /bin/bash -c "python manage.py compilemessages && python manage.py collectstatic --noinput && _for_deploy/wait-for-db.sh db && python manage.py migrate && python manage.py imindex_install && gunicorn mysite.wsgi:application --bind 0.0.0.0:8000"
     restart: always
-    volumes:
-      - .:/code
+#    volumes:
+#      - .:/code
     ports:
       - "8000:8000"
 #      - "80:8000"

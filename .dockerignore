@@ -1,19 +1,9 @@
-# flyctl launch added from .idea/.gitignore
-# 默认忽略的文件
-.idea/shelf
-.idea/workspace.xml
-# 基于编辑器的 HTTP 客户端请求
-.idea/httpRequests
-# Datasource local storage ignored files
-.idea/dataSources
-.idea/dataSources.local.xml
-fly.toml
-venv
-logs
-.idea
-jstoolchain
-.DS_Store
-pgdata
-redisdata
-.coverage
-locale/**/*.mo
+/.DS_Store
+/.idea/
+/logs/
+/jstoolchain/node_modules/
+/pgdata/
+/venv/
+/redisdata/
+/.coverage
+/locale/**/*.mo

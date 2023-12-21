@@ -1,10 +1,11 @@
+# docker-compose-dev.yml
 version: '3'
 
 services:
   web:
     container_name: imindex-web-1
     build: .
-    command: /bin/bash -c "python manage.py compilemessages && python manage.py collectstatic --noinput && _for_deploy/wait-for-db.sh db && service cron start && python manage.py migrate && python manage.py imindex_install && python manage.py runserver 0.0.0.0:8000"
+    command: /code/_for_deploy/start.sh
     restart: always
     volumes:
       - .:/code

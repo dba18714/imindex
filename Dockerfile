@@ -23,12 +23,10 @@ RUN apt-get update && apt-get install -y \
 COPY _for_deploy/wait-for-db.sh /_for_deploy/wait-for-db.sh
 RUN chmod +x _for_deploy/wait-for-db.sh
 
+COPY _for_deploy/start.sh /code/_for_deploy/start.sh
+RUN chmod +x /code/_for_deploy/start.sh
+
 # 复制 cron 任务文件并设置权限
 COPY _for_deploy/django_cron_job /etc/cron.d/django_cron_job
 RUN chmod 0644 /etc/cron.d/django_cron_job
 RUN crontab /etc/cron.d/django_cron_job
-
-# CMD 指令启动应用和 cron 服务
-#RUN chmod +x ./start.sh
-#CMD ["./start.sh"]
-#CMD service cron start
