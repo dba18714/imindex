@@ -22,6 +22,7 @@ class Runspider(CronJobBase):
 class VerifiedTelegram(CronJobBase):
     schedule = Schedule(run_every_mins=1)
     code = 'ims.cron.VerifiedTelegram'  # 一个唯一的代码
+    allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
         logger.info("CronJob:VerifiedTelegram start ---------------------------------------")
@@ -31,6 +32,7 @@ class VerifiedTelegram(CronJobBase):
 class DeleteInvalidLinks(CronJobBase):
     schedule = Schedule(run_at_times=['13:00'])
     code = 'ims.cron.DeleteInvalidLinks'  # 一个唯一的代码
+    allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
         logger.info("CronJob:DeleteInvalidLinks start ---------------------------------------")

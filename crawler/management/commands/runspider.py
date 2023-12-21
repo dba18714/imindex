@@ -13,16 +13,17 @@ class Command(BaseCommand):
     help = 'Run the web scraper'
 
     def handle(self, *args, **kwargs):
-        sleep = 30.0
+        num_a = 10.0
+        num_b = 30.0
         for word in get_words():
             ids = get_info_ids(word)
             for info_id in ids:
                 url = get_telegram_url(info_id)
                 if url:
                     link, created = Link.objects.get_or_create(url=url)
-                time.sleep(random.uniform(1.0, sleep))
+                time.sleep(random.uniform(num_a, num_b))
 
-                url = get_telegram_url(random.randint(2000, 6762832))
-                if url:
-                    link, created = Link.objects.get_or_create(url=url)
-                time.sleep(random.uniform(1.0, sleep))
+                # url = get_telegram_url(random.randint(2000, 6762832))
+                # if url:
+                #     link, created = Link.objects.get_or_create(url=url)
+                # time.sleep(random.uniform(1.0, sleep))
