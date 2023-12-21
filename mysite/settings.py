@@ -54,9 +54,9 @@ DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
 # 日期和时间格式
-DATE_FORMAT = 'Y-m-d'  # 例如 '2023-03-28'
-TIME_FORMAT = 'H:i:s'  # 例如 '14:30:59'
-DATETIME_FORMAT = 'Y-m-d H:i:s'  # 例如 '2023-03-28 14:30:59'
+# DATE_FORMAT = 'Y-m-d'  # 例如 '2023-03-28'
+# TIME_FORMAT = 'H:i:s'  # 例如 '14:30:59'
+# DATETIME_FORMAT = 'Y-m-d H:i:s'  # 例如 '2023-03-28 14:30:59'
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
@@ -171,7 +171,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -188,6 +188,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'common.context_processors.my_custom_context',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -262,11 +263,10 @@ LANGUAGES = [
 ]
 
 TIME_ZONE = 'Asia/Shanghai'
+USE_TZ = True
 
 USE_I18N = True
-USE_L10N = False
-
-USE_TZ = True
+USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
