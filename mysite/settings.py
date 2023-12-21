@@ -53,6 +53,11 @@ DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 # DEBUG = env.bool('DJANGO_DEBUG', default=False)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
 
+# 日期和时间格式
+DATE_FORMAT = 'Y-m-d'  # 例如 '2023-03-28'
+TIME_FORMAT = 'H:i:s'  # 例如 '14:30:59'
+DATETIME_FORMAT = 'Y-m-d H:i:s'  # 例如 '2023-03-28 14:30:59'
+
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
@@ -259,7 +264,7 @@ LANGUAGES = [
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 

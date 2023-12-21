@@ -40,10 +40,10 @@ class Link(models.Model):
     PERSONAL = 'personal'
 
     CATEGORY_CHOICES = [
-        (UNKNOWN, _('Unknown')),
-        (GROUP, _('Group')),
-        (CHANNEL, _('Channel')),
-        (PERSONAL, _('Personal')),
+        (UNKNOWN, _('未知')),
+        (GROUP, _('群组')),
+        (CHANNEL, _('频道')),
+        (PERSONAL, _('个人')),
     ]
 
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default=UNKNOWN)
