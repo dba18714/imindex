@@ -10,4 +10,4 @@ services:
       - ./letsencrypt/:/etc/letsencrypt/
     ports:
       - "80:80"
-    command: certonly --standalone -d tnav.me --agree-tos --non-interactive
+    command: certonly --standalone -d tnav.me --email qzj2ymvcid@gmail.com --agree-tos --non-interactive
