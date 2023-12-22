@@ -9,7 +9,7 @@ services:
     volumes:
       - ./letsencrypt/:/etc/letsencrypt/
       - ./logs/:/var/log/letsencrypt/
-#      - ./certbot:/var/www/certbot
+      - ./certbot:/var/www/certbot
     ports:
       - "80:80"
     command: certonly --standalone -d tnav.me --email dba18714@gmail.com --agree-tos --non-interactive
