@@ -70,6 +70,7 @@ jobs:
             
             if [ ! -d "$directory_path/letsencrypt/live" ]; then
               docker-compose -f docker-compose-prod.yml down --remove-orphans
+              docker-compose -f docker-compose-prod-apply-for-ssl.yml down --remove-orphans
             
               echo "$directory_path/letsencrypt/live 目录不存在"
               docker-compose -f docker-compose-prod-apply-for-ssl.yml up -d --build --remove-orphans
