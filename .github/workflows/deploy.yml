@@ -75,7 +75,7 @@ jobs:
               docker-compose -f docker-compose-prod-apply-for-ssl.yml up -d --build --remove-orphans
             
               echo "等待 10 秒"
-              sleep 120
+              sleep 121
               exit
 
               echo "关闭 docker-compose-prod-apply-for-ssl.yml"
