@@ -1,4 +1,6 @@
 import os
+import random
+
 import django
 from django.db.models import F
 
@@ -14,3 +16,8 @@ links = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_a
 
 for link in links:
     print(link.verified_at)
+
+num_a = 10.0
+num_b = 30.0
+
+print(random.uniform(num_a, num_b))
