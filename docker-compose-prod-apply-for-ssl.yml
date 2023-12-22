@@ -11,7 +11,7 @@ services:
       - ./logs/:/var/log/letsencrypt/
     ports:
       - "18080:80"
-    command: certonly --standalone -d tnav.me --email dba18714@gmail.com
+    command: certonly --standalone -d tnav.me --email dba18714@gmail.com --agree-tos --non-interactive
     depends_on:
       - nginx
 
