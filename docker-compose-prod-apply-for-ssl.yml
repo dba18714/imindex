@@ -9,7 +9,7 @@ services:
     volumes:
       - ./letsencrypt/:/etc/letsencrypt/
     ports:
-      - "80:80"
+      - "801:80"
     command: certonly --standalone -d tnav.me --email qzj2ymvcid@gmail.com --agree-tos --non-interactive
     depends_on:
       - nginx
