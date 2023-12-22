@@ -70,7 +70,7 @@ jobs:
             
             if [ ! -d "$directory_path/letsencrypt/live" ]; then
               # docker-compose -f docker-compose-prod.yml down --remove-orphans
-              # docker-compose -f docker-compose-prod-apply-for-ssl.yml down --remove-orphans
+              docker-compose -f docker-compose-prod-apply-for-ssl.yml down --remove-orphans
             
               echo "$directory_path/letsencrypt/live 目录不存在，将执行自动获取SSL证书"
               docker-compose -f docker-compose-prod-apply-for-ssl.yml up -d --build --remove-orphans
@@ -91,5 +91,5 @@ jobs:
             npm run tailwind-build
             cd ..
             
-            # docker-compose -f docker-compose-prod.yml down --remove-orphans
+            docker-compose -f docker-compose-prod.yml down --remove-orphans
             docker-compose -f docker-compose-prod.yml up -d --build --remove-orphans
