@@ -76,6 +76,7 @@ ALLOWED_HOSTS = [host.strip() for host in config('ALLOWED_HOSTS', default='').sp
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1',
     'http://23.95.85.37',
+    'https://tnav.me',
     'https://imindex.fly.dev',
     'http://localhost',
 ]
