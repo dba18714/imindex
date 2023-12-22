@@ -24,7 +24,7 @@ class IndexView(UnicornView):
         super().__init__(*args, **kwargs)
         self.top_searches = Search.objects.order_by('-search_count')[:15]
         self.links = []
-        self.query = self.request.GET.get(key='q', default='')
+        self.query = self.request.GET.get(key='q', default='').strip()
         self.all_articles_loaded = False
         self.load_links()
 
