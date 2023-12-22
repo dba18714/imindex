@@ -62,7 +62,7 @@ docker ps
 ```shell
 docker ps -a
 ```
-查看所有服务的状态 docker-compose
+查看所有相关的服务的状态 docker-compose
 ```shell
 docker-compose -f docker-compose-prod.yml ps
 ```
