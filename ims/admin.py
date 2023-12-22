@@ -27,6 +27,7 @@ class Admin(admin.ModelAdmin):
         return truncatechars(obj.name, 20)
 
     show_name.short_description = Link._meta.get_field('name').verbose_name
+    show_name.admin_order_field = 'name'
 
     def show_time(self, obj):
         created_at = date_format(obj.created_at.astimezone(), format='DATETIME_FORMAT') if obj.created_at else 'N/A'

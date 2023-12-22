@@ -71,7 +71,7 @@ CRON_CLASSES = [
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
-ALLOWED_HOSTS = ['23.95.85.37', 'imindex.fly.dev', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [host.strip() for host in config('ALLOWED_HOSTS', default='').split(',')]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1',
