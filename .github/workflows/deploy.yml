@@ -68,6 +68,18 @@ jobs:
               sudo apt-get install -y nodejs
             fi
             
+            if [ ! -d "$directory_path/letsencrypt" ]; then
+              echo "$directory_path/letsencrypt 目录不存在"
+              docker-compose -f docker-compose-prod-apply-for-ssl.yml up -d --build --remove-orphans
+            
+              echo "等待 10 秒"
+              sleep 10
+
+              echo "关闭 docker-compose-prod-apply-for-ssl.yml"
+              docker-compose -f docker-compose-prod-apply-for-ssl.yml down --remove-orphans
+            
+            fi
+            
             cd jstoolchain
             echo "安装 npm 依赖"
             npm install
