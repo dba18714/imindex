@@ -8,19 +8,6 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./letsencrypt/:/etc/letsencrypt/
-      - ./logs/:/var/log/letsencrypt/
-      - ./certbot:/var/www/certbot
     ports:
       - "80:80"
-    command: certonly --standalone -d tnav.me --email dba18714@gmail.com --agree-tos --non-interactive
-    depends_on:
-      - nginx
-
-#  nginx:
-#    image: nginx:latest
-#    container_name: nginx-apply-for-ssl
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - ./nginx-apply-for-ssl.conf:/etc/nginx/conf.d/default.conf
-#      - ./certbot:/var/www/certbot
+    command: certonly --standalone -d tnav.me --agree-tos --non-interactive
