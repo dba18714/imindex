@@ -6,8 +6,6 @@ from django.apps import apps
 from django.utils.autoreload import logger
 
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
-# from ims.models import Link
-Link = apps.get_model('ims', 'Link')
 
 @shared_task
 def verified_telegram(link_id):
@@ -22,6 +20,7 @@ def verified_telegram(link_id):
 
 @shared_task
 def spider_for_tgcng_com():
+    from ims.models import Link
     num_a = 1.0
     num_b = 20.0
     for word in get_words():
