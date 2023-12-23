@@ -16,15 +16,14 @@ def verify_telegram(link_id):
 
 @shared_task
 def spider_for_tgcng_com():
-    pass
-    # from ims.models import Link
-    # num_a = 1.0
-    # num_b = 20.0
-    # for word in get_words():
-    #     ids = get_info_ids(word)
-    #     for info_id in ids:
-    #         url = get_telegram_url(info_id)
-    #         if url:
-    #             link, created = Link.objects.get_or_create(url=url)
-    #         time.sleep(random.uniform(num_a, num_b))
+    from ims.models import Link
+    num_a = 1.0
+    num_b = 20.0
+    for word in get_words():
+        ids = get_info_ids(word)
+        for info_id in ids:
+            url = get_telegram_url(info_id)
+            if url:
+                link, created = Link.objects.get_or_create(url=url)
+            time.sleep(random.uniform(num_a, num_b))
 

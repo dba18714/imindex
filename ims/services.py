@@ -4,13 +4,13 @@ import re
 
 import requests
 from bs4 import BeautifulSoup
-from .models import Link
 from django.utils.timezone import now
 
 from django.utils.autoreload import logger
 
 
 def verify_telegram(link_id):
+    from ims.models import Link
     link = Link.objects.get(id=link_id)
     try:
         url = link.url
