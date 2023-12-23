@@ -6,7 +6,6 @@
         </h1>
         <div class="text-gray-500 my-3">
             用户数：{{ link.member_count }}
-            更新时间：{{ link.verified_at }}
         </div>
         <div class="text-gray-500">
             {{ link.description|default:"数据正在更新中" }}
@@ -17,6 +16,9 @@
             <span>前往 Telegram</span>
         </a>
         <!-- End Base primary basic button -->
+        <div class="text-gray-500 mt-5 text-sm">
+            更新时间：{{ link.verified_at }}
+        </div>
     </div>
 
 </div>

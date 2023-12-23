@@ -18,13 +18,23 @@ from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.views import serve
 from django.urls import path, include, re_path
+
+from ims.sitemaps import LinkSitemap
+
+sitemaps = {
+    'link': LinkSitemap,
+}
 
 urlpatterns = [
     # re_path('^stiaic/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),  # 用于处理static里的文件
 
     path('i18n/', include('django.conf.urls.i18n')),
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += i18n_patterns(

@@ -15,7 +15,7 @@ class Runspider(CronJobBase):
     allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
-        logger.info("CronJob:Runspider start --------------------------------------")
+        logger.info("CronJob:Runspider start -----------------")
         call_command('runspider')
 
 
@@ -25,7 +25,7 @@ class VerifiedTelegram(CronJobBase):
     allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
-        logger.info("CronJob:VerifiedTelegram start ---------------------------------------")
+        logger.info("CronJob:VerifiedTelegram start -----------------")
         call_command('verified_telegram')
 
 
@@ -35,5 +35,5 @@ class DeleteInvalidLinks(CronJobBase):
     allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
-        logger.info("CronJob:DeleteInvalidLinks start ---------------------------------------")
+        logger.info("CronJob:DeleteInvalidLinks start -----------------")
         Link.objects.verified_and_invalid().delete()

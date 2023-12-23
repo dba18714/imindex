@@ -146,6 +146,7 @@ CACHES = {
 CSRF_COOKIE_SECURE = False
 
 INSTALLED_APPS = [
+    'django.contrib.sitemaps',
     "django_cron",
     "crawler",
     "common",
