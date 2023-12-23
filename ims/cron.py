@@ -1,4 +1,5 @@
 from django.core.management import call_command
+from django.db.models import F
 from django.utils.autoreload import logger
 from django_cron import CronJobBase, Schedule
 
@@ -21,14 +22,20 @@ class Runspider(CronJobBase):
         tasks.spider_for_tgcng_com.delay()
 
 
-class VerifiedTelegram(CronJobBase):
+def get_first_link():
+    return Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at').first()
+
+
+class VerifyTelegram(CronJobBase):
     schedule = Schedule(run_every_mins=1)
-    code = 'ims.cron.VerifiedTelegram'  # 一个唯一的代码
+    code = 'ims.cron.VerifyTelegram'  # 一个唯一的代码
     allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
-        logger.info("CronJob:VerifiedTelegram start -----------------")
-        call_command('verified_telegram')
+        logger.info("CronJob:VerifyTelegram start -----------------")
+        link = get_first_link()
+        if link:
+            tasks.verify_telegram.delay(link.id)
 
 
 class DeleteInvalidLinks(CronJobBase):

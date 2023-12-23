@@ -81,58 +81,58 @@ class Link(models.Model):
 
         # 如果 'url' 发生了变化，则执行操作
         if url_changed:
-            tasks.verified_telegram.delay(self.id)
+            tasks.verify_telegram.delay(self.id)
 
-    def verified_telegram(self):
-        try:
-            url = self.url
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-            }
-            response = requests.get(url, headers=headers)
-
-            if response.status_code == 200:
-                html = response.text
-                soup = BeautifulSoup(html, 'lxml')
-
-                # 提取 Telegram 名称和描述
-                telegram_name = soup.select_one('.tgme_page_title span')
-                self.name = telegram_name.text if telegram_name else 'none'
-
-                telegram_description = soup.select_one('.tgme_page_description')
-                self.description = telegram_description.text if telegram_description else 'none'
-
-                telegram_member_count = soup.select_one('.tgme_page_extra')
-                if telegram_member_count:
-                    match = re.search(r'(\d[\d\s,]*)members', telegram_member_count.text)
-                    if match:
-                        self.member_count = int(re.sub(r'\D', '', match.group(1)))
-                        self.category = self.GROUP
-                    match = re.search(r'(\d[\d\s,]*)subscribers', telegram_member_count.text)
-                    if match:
-                        self.member_count = int(re.sub(r'\D', '', match.group(1)))
-                        self.category = self.CHANNEL
-                    match = re.search(r'^@\w+$', telegram_member_count.text)
-                    if match:
-                        self.category = self.PERSONAL
-
-                # 检查是否有效
-                self.is_valid = True
-                robots_meta = soup.find('meta', attrs={'name': 'robots'})
-                if robots_meta and robots_meta.get('content') != 'none':
-                    self.is_valid = False
-
-                self.verified_at = now()
-                self.save()
-
-            else:
-                # 记录错误日志
-                logger.error("HTTP 请求失败" + pprint.pformat({
-                    'URL': url,
-                    'status': response.status_code,
-                    'headers': response.headers,
-                    'body': response.text,
-                }, indent=4))
-
-        except Exception as e:
-            logger.error(f"发生异常: {e}")
+    # def verified_telegram(self):
+        # try:
+        #     url = self.url
+        #     headers = {
+        #         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+        #     }
+        #     response = requests.get(url, headers=headers)
+        #
+        #     if response.status_code == 200:
+        #         html = response.text
+        #         soup = BeautifulSoup(html, 'lxml')
+        #
+        #         # 提取 Telegram 名称和描述
+        #         telegram_name = soup.select_one('.tgme_page_title span')
+        #         self.name = telegram_name.text if telegram_name else 'none'
+        #
+        #         telegram_description = soup.select_one('.tgme_page_description')
+        #         self.description = telegram_description.text if telegram_description else 'none'
+        #
+        #         telegram_member_count = soup.select_one('.tgme_page_extra')
+        #         if telegram_member_count:
+        #             match = re.search(r'(\d[\d\s,]*)members', telegram_member_count.text)
+        #             if match:
+        #                 self.member_count = int(re.sub(r'\D', '', match.group(1)))
+        #                 self.category = self.GROUP
+        #             match = re.search(r'(\d[\d\s,]*)subscribers', telegram_member_count.text)
+        #             if match:
+        #                 self.member_count = int(re.sub(r'\D', '', match.group(1)))
+        #                 self.category = self.CHANNEL
+        #             match = re.search(r'^@\w+$', telegram_member_count.text)
+        #             if match:
+        #                 self.category = self.PERSONAL
+        #
+        #         # 检查是否有效
+        #         self.is_valid = True
+        #         robots_meta = soup.find('meta', attrs={'name': 'robots'})
+        #         if robots_meta and robots_meta.get('content') != 'none':
+        #             self.is_valid = False
+        #
+        #         self.verified_at = now()
+        #         self.save()
+        #
+        #     else:
+        #         # 记录错误日志
+        #         logger.error("HTTP 请求失败" + pprint.pformat({
+        #             'URL': url,
+        #             'status': response.status_code,
+        #             'headers': response.headers,
+        #             'body': response.text,
+        #         }, indent=4))
+        #
+        # except Exception as e:
+        #     logger.error(f"发生异常: {e}")

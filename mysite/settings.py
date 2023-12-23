@@ -64,7 +64,7 @@ LOCALE_PATHS = (
 
 CRON_CLASSES = [
     "ims.cron.Runspider",
-    "ims.cron.VerifiedTelegram",
+    "ims.cron.VerifyTelegram",
     "ims.cron.DeleteInvalidLinks",
     # 其他 cron 作业
 ]
