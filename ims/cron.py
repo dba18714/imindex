@@ -2,6 +2,7 @@ from django.core.management import call_command
 from django.utils.autoreload import logger
 from django_cron import CronJobBase, Schedule
 
+from ims import tasks
 from ims.models import Link
 
 
@@ -16,7 +17,8 @@ class Runspider(CronJobBase):
 
     def do(self):
         logger.info("CronJob:Runspider start -----------------")
-        call_command('runspider')
+        # call_command('runspider')
+        tasks.spider_for_tgcng_com.delay()
 
 
 class VerifiedTelegram(CronJobBase):
