@@ -2,11 +2,12 @@ import random
 import time
 
 from celery import shared_task
+from django.apps import apps
 from django.utils.autoreload import logger
 
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
-from ims.models import Link
-
+# from ims.models import Link
+Link = apps.get_model('ims', 'Link')
 
 @shared_task
 def verified_telegram(link_id):
