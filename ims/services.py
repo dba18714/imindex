@@ -1,4 +1,5 @@
 # services.py
+import logging
 import pprint
 import re
 
@@ -6,13 +7,14 @@ import requests
 from bs4 import BeautifulSoup
 from django.utils.timezone import now
 
-from django.utils.autoreload import logger
+# from django.utils.autoreload import logger
+logger = logging.getLogger(__name__)
 
 
 def verify_telegram(link_id):
     from ims.models import Link
-    link = Link.objects.get(id=link_id)
     try:
+        link = Link.objects.get(id=link_id)
         url = link.url
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'

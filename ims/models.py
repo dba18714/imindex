@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ims import tasks
 
-from django.utils.autoreload import logger
+# from django.utils.autoreload import logger
 
 
 class LinkManager(models.Manager):

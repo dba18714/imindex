@@ -12,12 +12,22 @@ django.setup()
 
 from ims.models import Link
 
-links = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at')[:2000]
+link = Link.objects.get(id=52)
+print(link.url)
+
+exit()
+
+links = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at')[:3]
 
 for link in links:
-    print(link.verified_at)
+    print(link.id)
 
-num_a = 10.0
-num_b = 30.0
+links_list = list(links)
+print(links_list)
 
-print(random.uniform(num_a, num_b))
+# 对列表进行随机排序
+random.shuffle(links_list)
+
+# 打印随机排序后的顺序
+for link in links_list:
+    print(link.id)

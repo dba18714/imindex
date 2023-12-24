@@ -135,6 +135,9 @@ INTERNAL_IPS = [
 ]
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_LOG_LEVEL = 'INFO'
+CELERY_LOG_FORMAT = '[%(asctime)s: %(levelname)s/%(processName)s] %(message)s'
+CELERY_TASK_LOG_FORMAT = '[%(asctime)s: %(levelname)s/%(processName)s][%(task_name)s(%(task_id)s)] %(message)s'
 
 CACHES = {
     "default": {

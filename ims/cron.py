@@ -1,10 +1,14 @@
+import logging
+
 from django.core.management import call_command
 from django.db.models import F
-from django.utils.autoreload import logger
+# from django.utils.autoreload import logger
 from django_cron import CronJobBase, Schedule
 
 from ims import tasks
 from ims.models import Link
+
+logger = logging.getLogger(__name__)
 
 
 # 运行 Cron Job:
@@ -12,7 +16,7 @@ from ims.models import Link
 # 通常，你会在服务器上设置一个定期运行 runcrons 命令的计划任务（例如，使用 crontab）。
 
 class Runspider(CronJobBase):
-    schedule = Schedule(run_every_mins=2)
+    schedule = Schedule(run_every_mins=5)
     code = 'ims.cron.Runspider'  # 一个唯一的代码
     allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
@@ -35,7 +39,7 @@ class VerifyTelegram(CronJobBase):
     def do(self):
         logger.info("CronJob:VerifyTelegram start -----------------")
         link = get_first_link()
-        if link:
+        if link.id:
             tasks.verify_telegram.delay(link.id)
 
 

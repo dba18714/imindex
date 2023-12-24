@@ -3,7 +3,7 @@ import time
 
 from celery import shared_task
 from django.apps import apps
-from django.utils.autoreload import logger
+# from django.utils.autoreload import logger
 
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from crawler.tgsou_me import get_telegram_urls
