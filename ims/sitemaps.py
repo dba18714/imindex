@@ -8,7 +8,7 @@ class LinkSitemap(Sitemap):
     limit = 1000
 
     def items(self):
-        return Link.objects.verified_and_valid().all()
+        return Link.objects.verified_and_valid().order_by('-id').all()
 
     def lastmod(self, obj):
         return obj.updated_at
