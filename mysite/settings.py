@@ -259,8 +259,8 @@ LANGUAGE_CODE = 'zh-hans'
 LANGUAGES = [
     ('en', 'English'),
     ('zh-hans', 'Simplified Chinese'),
-    ('ja', 'Japanese'),
-    ('ko', 'Korean'),
+    # ('ja', 'Japanese'),
+    # ('ko', 'Korean'),
 ]
 
 TIME_ZONE = 'Asia/Shanghai'

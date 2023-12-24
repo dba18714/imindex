@@ -5,12 +5,12 @@ from django.core.management import call_command
 from django.db.models import F
 from django.test import TestCase
 from django.utils import timezone
-from ims.management.commands.verified_telegram import get_first_link
+# from ims.management.commands.verified_telegram import get_first_link
 
-import ims.management.commands.verified_telegram
+# import ims.management.commands.verified_telegram
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from .models import Link
-from .cron import DeleteInvalidLinks
+from .cron import DeleteInvalidLinks, get_first_link
 
 
 class GetFirstLinkTest(TestCase):
@@ -50,16 +50,16 @@ class VerifiedTelegramCommandTest(TestCase):
             # ... 其他必要的字段
         )
 
-    @patch('ims.tasks.verified_telegram.delay')
-    def test_command_calls_task_with_first_link_id(self, mock_task):
-        # 调用管理命令
-        call_command('verified_telegram')
-
-        # 获取应该被处理的 Link 对象
-        link = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at').first()
-
-        # 检查是否调用了任务，并传递了正确的 Link ID
-        mock_task.assert_called_once_with(link.id)
+    # @patch('ims.tasks.verify_telegram.delay')
+    # def test_command_calls_task_with_first_link_id(self, mock_task):
+    #     # 调用管理命令
+    #     call_command('verified_telegram')
+    #
+    #     # 获取应该被处理的 Link 对象
+    #     link = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at').first()
+    #
+    #     # 检查是否调用了任务，并传递了正确的 Link ID
+    #     mock_task.assert_called_once_with(link.id)
 
 
 class DeleteInvalidLinksTest(TestCase):

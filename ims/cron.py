@@ -12,7 +12,7 @@ from ims.models import Link
 # 通常，你会在服务器上设置一个定期运行 runcrons 命令的计划任务（例如，使用 crontab）。
 
 class Runspider(CronJobBase):
-    schedule = Schedule(run_at_times=['03:00'])
+    schedule = Schedule(run_every_mins=2)
     code = 'ims.cron.Runspider'  # 一个唯一的代码
     allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
@@ -20,6 +20,7 @@ class Runspider(CronJobBase):
         logger.info("CronJob:Runspider start -----------------")
         # call_command('runspider')
         tasks.spider_for_tgcng_com.delay()
+        tasks.spider_for_tgsou_me.delay()
 
 
 def get_first_link():
