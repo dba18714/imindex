@@ -138,6 +138,8 @@ CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_LOG_LEVEL = 'INFO'
 CELERY_LOG_FORMAT = '[%(asctime)s: %(levelname)s/%(processName)s] %(message)s'
 CELERY_TASK_LOG_FORMAT = '[%(asctime)s: %(levelname)s/%(processName)s][%(task_name)s(%(task_id)s)] %(message)s'
+CELERY_BROKER_CONNECTION_RETRY = True  # Celery 5.x
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # 未来的 Celery 6.0 或更高版本
 
 CACHES = {
     "default": {
