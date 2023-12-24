@@ -34,7 +34,9 @@ def spider_for_tgsou_me():
     from ims.models import Link
     num_a = 1.0
     num_b = 10.0
-    for telegram_url in get_telegram_urls():
-        link, created = Link.objects.get_or_create(url=telegram_url)
-        time.sleep(random.uniform(num_a, num_b))
+    telegram_urls = get_telegram_urls()[:20]
+    for telegram_url in telegram_urls:
+        if telegram_url:
+            link, created = Link.objects.get_or_create(url=telegram_url)
+            time.sleep(random.uniform(num_a, num_b))
 
