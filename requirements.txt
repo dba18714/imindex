@@ -20,3 +20,4 @@ python-decouple
 jieba
 gensim
 nltk
+flower

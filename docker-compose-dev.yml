@@ -21,6 +21,15 @@ services:
       - db
       - redis
 
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_BASIC_AUTH=admin:12345678  # 使用环境变量
+    command: ["flower", "--broker=redis://redis:6379/0", "--basic_auth=${FLOWER_BASIC_AUTH}"]
+    ports:
+      - "5555:5555"
+
   celery:
     container_name: imindex-celery-1
     build: .
