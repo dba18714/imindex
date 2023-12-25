@@ -17,10 +17,7 @@ logger = logging.getLogger('django')
 
 @shared_task
 def verify_telegram(link_id):
-    from ims.models import Link
     logger.info("task verify_telegram start -----------------")
-    link = Link.objects.get(id=link_id)
-    logger.info(f"verify_telegram - Data: {model_to_dict(link)} -----------------")
     services.verify_telegram(link_id)
 
 

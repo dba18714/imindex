@@ -2,6 +2,8 @@ import logging
 
 from django.core.management import call_command
 from django.db.models import F
+from django.forms import model_to_dict
+from django.utils.formats import date_format
 # from django.utils.autoreload import logger
 from django_cron import CronJobBase, Schedule
 
@@ -39,6 +41,11 @@ class VerifyTelegram(CronJobBase):
     def do(self):
         logger.info("CronJob:VerifyTelegram start -----------------")
         link = get_first_link()
+        link_dict = model_to_dict(link)
+        link_dict['created_at'] = date_format(link.created_at.astimezone(), format='DATETIME_FORMAT') if link.created_at else 'N/A'
+        link_dict['updated_at'] = date_format(link.updated_at.astimezone(), format='DATETIME_FORMAT') if link.updated_at else 'N/A'
+        link_dict['verified_at'] = date_format(link.verified_at.astimezone(), format='DATETIME_FORMAT') if link.verified_at else 'N/A'
+        logger.info(f"verify_telegram - Data: {link_dict} -----------------")
         if link.id:
             tasks.verify_telegram.delay(link.id)
 
