@@ -67,4 +67,4 @@ def verify_telegram(link_id):
             }, indent=4))
 
     except Exception as e:
-        logger.error(f"发生异常: {e}")
+        logger.error(f"处理 link_id:{link_id} 时发生异常: {e}")
