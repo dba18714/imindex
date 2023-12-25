@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 import requests
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 def get_telegram_urls(url='https://tgsou.me/sitemap.xml'):

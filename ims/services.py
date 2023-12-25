@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from django.utils.timezone import now
 
 # from django.utils.autoreload import logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 def verify_telegram(link_id):

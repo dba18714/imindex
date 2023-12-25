@@ -10,7 +10,7 @@ from ..models import Link
 
 # from django.utils.autoreload import logger
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 def is_valid_url(url):
