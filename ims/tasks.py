@@ -10,7 +10,7 @@ from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from crawler.tgsou_me import get_telegram_urls
 from ims import services
 
-logger = logging.getLogger('django')
+logger = logging.getLogger('celery')
 
 
 @shared_task
