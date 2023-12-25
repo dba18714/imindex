@@ -97,8 +97,9 @@ LOGGING = {
     'disable_existing_loggers': False,
     "formatters": {
         "verbose": {
-            "format": "{levelname} [{asctime} {name}] {message}",
-            "style": "{",
+            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s',
+            # "format": "{levelname} [{asctime} {name}] {message}",
+            # "style": "{",
         },
         "simple": {
             "format": "{levelname} {message}",
