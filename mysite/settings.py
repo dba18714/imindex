@@ -98,7 +98,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             # 'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s',
-            "format": "{levelname} [{asctime} {name}:{lineno}] {message}",
+            "format": "{levelname} [{asctime} {name}:{pathname}:{lineno}] {message}",
             "style": "{",
         },
         "simple": {
@@ -112,7 +112,7 @@ LOGGING = {
             # 'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'django.log'),
-            'maxBytes': 1024 * 1024 * 5,  # 日志文件大小限制
+            'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
             'backupCount': 5,  # 备份文件数量
             "formatter": "verbose",
         },
@@ -125,7 +125,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'celery.log'),  # 日志文件路径
-            'maxBytes': 1024 * 1024 * 5,  # 日志文件大小限制
+            'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
             'backupCount': 5,  # 备份文件数量
             'formatter': 'verbose',
         },
