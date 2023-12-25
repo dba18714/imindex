@@ -18,7 +18,9 @@ docker-compose -f docker-compose-dev.yml up --build --remove-orphans
 docker-compose -f docker-compose-dev.yml down --remove-orphans
 ```
 启动后即可访问：http://127.0.0.1:8000/
-Celery队列管理面板(Flower)：http://localhost:5555/ 用户名密码：admin 12345678
+
+Celery队列管理面板(Flower)：http://localhost:5555/ 
+用户名密码：admin 12345678
 
 ### 构建并推送到 Docker Hub
 ```shell
@@ -37,8 +39,10 @@ docker-compose -f docker-compose-prod.yml up --build --remove-orphans
 ```shell
 docker-compose -f docker-compose-prod.yml down --remove-orphans
 ```
-启动后即可访问：https://域名
-Celery队列管理面板(Flower)：http://域名:5555/ 用户名密码：admin 12345678
+启动后即可访问：https://tnav.me/
+
+Celery队列管理面板(Flower)：http://tnav.me:5555/ 
+用户名密码：admin 12345678
 
 
 
