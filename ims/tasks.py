@@ -15,6 +15,7 @@ logger = logging.getLogger('django')
 
 @shared_task
 def verify_telegram(link_id):
+    logger.info("task verify_telegram start -----------------")
     services.verify_telegram(link_id)
 
 
