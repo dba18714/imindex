@@ -15,6 +15,8 @@ app = Celery('mysite')
 # 使用 Django 的设置文件配置 Celery
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+app.conf.worker_hijack_root_logger = False
+
 # 自动从所有已注册的 Django app 加载任务
 app.autodiscover_tasks()
 

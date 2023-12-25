@@ -136,6 +136,7 @@ INTERNAL_IPS = [
 ]
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERYD_HIJACK_ROOT_LOGGER = False
 # CELERY_LOG_LEVEL = 'DEBUG'
 # CELERY_LOG_LEVEL = 'INFO'
 # CELERY_LOG_FORMAT = '[%(asctime)s: %(levelname)s/%(processName)s] %(message)s'
