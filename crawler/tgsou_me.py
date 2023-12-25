@@ -14,6 +14,8 @@ def get_telegram_urls(url='https://tgsou.me/sitemap.xml'):
     }
 
     try:
+        logger.info("get_telegram_urls start -----------------")
+
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
 
@@ -35,6 +37,7 @@ def get_telegram_urls(url='https://tgsou.me/sitemap.xml'):
                 telegram_urls.append(telegram_url)
 
         random.shuffle(telegram_urls)
+        logger.info("get_telegram_urls done -----------------")
         return telegram_urls
 
     except requests.RequestException as e:
