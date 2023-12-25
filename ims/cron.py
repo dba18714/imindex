@@ -2,13 +2,13 @@ import logging
 
 from django.core.management import call_command
 from django.db.models import F
-from django.utils.autoreload import logger
+# from django.utils.autoreload import logger
 from django_cron import CronJobBase, Schedule
 
 from ims import tasks
 from ims.models import Link
 
-# logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 # 运行 Cron Job:
