@@ -21,6 +21,7 @@ def verify_telegram(link_id):
 @shared_task
 def spider_for_tgcng_com():
     from ims.models import Link
+    logger.info("spider_for_tgcng_com start -----------------")
     num_a = 1.0
     num_b = 10.0
     # for word in get_words():
