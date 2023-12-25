@@ -97,9 +97,9 @@ LOGGING = {
     'disable_existing_loggers': False,
     "formatters": {
         "verbose": {
-            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s',
-            # "format": "{levelname} [{asctime} {name}] {message}",
-            # "style": "{",
+            # 'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s',
+            "format": "{levelname} [{asctime} {name}:{lineno}] {message}",
+            "style": "{",
         },
         "simple": {
             "format": "{levelname} {message}",
@@ -110,8 +110,10 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             # 'level': 'DEBUG',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'django.log'),
+            'maxBytes': 1024 * 1024 * 5,  # 日志文件大小限制
+            'backupCount': 5,  # 备份文件数量
             "formatter": "verbose",
         },
         'console': {
@@ -119,10 +121,22 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             "formatter": "verbose",
         },
+        'celery_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'celery.log'),  # 日志文件路径
+            'maxBytes': 1024 * 1024 * 5,  # 日志文件大小限制
+            'backupCount': 5,  # 备份文件数量
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
-        '': {
+        'django': {
             'handlers': ['file', 'console'],
+            'propagate': True,
+        },
+        'celery': {
+            'handlers': ['celery_file'],
             'propagate': True,
         },
     },
