@@ -4,6 +4,8 @@ import time
 
 from celery import shared_task
 from django.apps import apps
+from django.forms import model_to_dict
+
 # from django.utils.autoreload import logger
 
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
@@ -15,7 +17,10 @@ logger = logging.getLogger('django')
 
 @shared_task
 def verify_telegram(link_id):
+    from ims.models import Link
     logger.info("task verify_telegram start -----------------")
+    link = Link.objects.get(id=link_id)
+    logger.info(f"verify_telegram - Data: {model_to_dict(link)} -----------------")
     services.verify_telegram(link_id)
 
 
