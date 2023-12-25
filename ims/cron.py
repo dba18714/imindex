@@ -8,7 +8,7 @@ from django_cron import CronJobBase, Schedule
 from ims import tasks
 from ims.models import Link
 
-logger = logging.getLogger('django111111')
+logger = logging.getLogger('django')
 
 
 # 运行 Cron Job:

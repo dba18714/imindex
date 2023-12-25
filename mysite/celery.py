@@ -20,7 +20,8 @@ app.autodiscover_tasks()
 
 # 创建日志记录器
 logger = logging.getLogger('celery')
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.INFO)
 
 # 创建处理程序
 log_file_path = os.path.join(settings.BASE_DIR, 'logs/celery.log')
