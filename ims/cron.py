@@ -25,7 +25,8 @@ class Runspider(CronJobBase):
     def do(self):
         logger.info("CronJob:Runspider start -----------------")
         # call_command('runspider')
-        tasks.spider_for_tgcng_com.delay()
+        # tasks.spider_for_tgcng_com.delay()  # 先暂停
+        tasks.spider_for_tgsou_me_from_html.delay()
         # tasks.spider_for_tgsou_me.delay()  # 已被cf拦截请求
 
 

@@ -4,15 +4,47 @@ import re
 import xml.etree.ElementTree as ET
 
 import requests
+from bs4 import BeautifulSoup
+
+from common.utils import extract_url_of_str
+from crawler.spiders.spider import scrape_with_xpath
 
 logger = logging.getLogger('django')
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+}
 
-def get_telegram_urls(url='https://tgsou.me/sitemap.xml'):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-    }
 
+def get_telegram_urls_of_html():
+    try:
+        response = requests.get(f'https://tgsou.me/', headers=headers)
+        response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
+        soup = BeautifulSoup(response.text, 'lxml')
+
+        # 查找所有的 a 标签
+        divs = soup.find_all('div', class_='font-13 text-success mb-3')
+
+        telegram_urls = [div.get_text() for div in divs]
+
+        # 打乱列表
+        random.shuffle(telegram_urls)
+        return telegram_urls
+    except requests.RequestException as e:
+        logger.error(f"请求错误: {e}")
+    except ET.ParseError as e:
+        logger.error(f"XML 解析错误: {e}")
+    except Exception as e:
+        logger.error(f"未预期的错误: {e}")
+
+    return []
+
+
+if __name__ == "__main__":
+    print(len(get_telegram_urls_of_html()))
+
+
+def get_telegram_urls_of_xml(url='https://tgsou.me/sitemap.xml'):
     try:
         logger.info("get_telegram_urls start -----------------")
 

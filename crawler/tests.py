@@ -1,6 +1,6 @@
 from django.test import TestCase
 from unittest.mock import patch
-from .tgsou_me import get_telegram_urls  # 确保从正确的位置导入函数
+from .tgsou_me import get_telegram_urls_of_xml  # 确保从正确的位置导入函数
 
 
 class GetTelegramUrlsTestCase(TestCase):
@@ -22,4 +22,4 @@ class GetTelegramUrlsTestCase(TestCase):
 
         # 调用函数并验证结果
         expected_urls = ['https://t.me/username1', 'https://t.me/username2']
-        self.assertEqual(set(get_telegram_urls()), set(expected_urls))
+        self.assertEqual(set(get_telegram_urls_of_xml()), set(expected_urls))
