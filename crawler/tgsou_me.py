@@ -12,7 +12,7 @@ from crawler.spiders.spider import scrape_with_xpath
 logger = logging.getLogger('django')
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 }
 
 
@@ -20,7 +20,7 @@ def get_telegram_urls_of_html():
     with requests.Session() as session:
         session.headers = headers
         try:
-            response = requests.get(f'https://tgsou.me/', headers=headers)
+            response = session.get(f'https://tgsou.me/')
             response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
             soup = BeautifulSoup(response.text, 'lxml')
 
