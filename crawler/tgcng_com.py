@@ -8,6 +8,7 @@ from collections import Counter
 import requests
 from bs4 import BeautifulSoup
 import common.utils
+from common.utils import extract_keywords
 
 from crawler.spiders.spider import scrape_with_xpath
 
@@ -26,29 +27,31 @@ def get_words(url='https://www.tgcng.com/tags.php'):
         # 提取文本
         text = soup.get_text(separator=' ', strip=True)
 
-        # 使用正则表达式去除标点符号和非文字字符
-        text = re.sub(r'[^\w\s]', '', text)
+        # # 使用正则表达式去除标点符号和非文字字符
+        # text = re.sub(r'[^\w\s]', '', text)1
+        #
+        # # text = response.text
+        # # text = "您的中文文本数据放在这里..."
+        #
+        # # 使用 jieba 进行分词
+        # words = list(jieba.cut(text))1
+        #
+        # # 过滤掉空白字符
+        # words = [item for item in words if item.strip()]1
+        #
+        # # 计算词频
+        # word_counts = Counter(words)1
+        #
+        # # 获取最常见的词
+        # most_common_words = word_counts.most_common()1
+        #
+        # words = []1
+        #
+        # # 提取所有的 gid 值并添加到列表中
+        # for v, word_count in most_common_words:1
+        #     words.append(v)1
 
-        # text = response.text
-        # text = "您的中文文本数据放在这里..."
-
-        # 使用 jieba 进行分词
-        words = list(jieba.cut(text))
-
-        # 过滤掉空白字符
-        words = [item for item in words if item.strip()]
-
-        # 计算词频
-        word_counts = Counter(words)
-
-        # 获取最常见的词
-        most_common_words = word_counts.most_common()
-
-        words = []
-
-        # 提取所有的 gid 值并添加到列表中
-        for v, word_count in most_common_words:
-            words.append(v)
+        words = extract_keywords(text)
 
         # 打乱列表
         random.shuffle(words)

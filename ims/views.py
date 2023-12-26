@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views import generic
 
+from common.utils import extract_keywords
 from .models import Link
 
 
@@ -38,15 +39,8 @@ class DetailView(generic.DetailView):
         context['title'] = link.name
 
         text = link.name+link.description
-        text = re.sub(r'[^\w\s]', '', text)
-        words = list(jieba.cut(text))
-        words = [item for item in words if item.strip()]
-        word_counts = Counter(words)
-        most_common_words = [word for word, count in word_counts.most_common()]
-        keywords = ','.join(most_common_words)
-        context['keywords'] = keywords
-        print(keywords)
-        print(most_common_words)
+        keywords = extract_keywords(text)
+        context['keywords'] = ','.join(keywords)
 
         context['description'] = link.description
         return context
