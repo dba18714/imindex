@@ -11,7 +11,7 @@ class Admin(admin.ModelAdmin):
     list_per_page = 30
     list_display = ["show_name", "show_description", "member_count", "show_url", "show_time"]
     list_filter = ["is_valid", "verified_at"]
-    search_fields = ["uuid", "name", "description", "member_count", "url"]
+    search_fields = ["id", "uuid", "name", "description", "member_count", "url"]
 
     def show_url(self, obj):
         return format_html('<a href="{}" target="_blank">{}</a>', obj.url, obj.url)
