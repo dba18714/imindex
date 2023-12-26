@@ -6,7 +6,7 @@ import uuid
 import requests
 from bs4 import BeautifulSoup
 from django.contrib import admin
-from django.db import models
+from django.db import models, transaction
 from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
@@ -81,7 +81,9 @@ class Link(models.Model):
 
         # 如果 'url' 发生了变化，则执行操作
         if url_changed:
-            tasks.verify_telegram.delay(self.id)
+            # tasks.verify_telegram.delay(self.id)
+            # 确保在事务提交后执行任务
+            transaction.on_commit(lambda: tasks.verify_telegram.delay(self.id))
 
     # def verified_telegram(self):
         # try:
