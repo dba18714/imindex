@@ -17,25 +17,27 @@ headers = {
 
 
 def get_telegram_urls_of_html():
-    try:
-        response = requests.get(f'https://tgsou.me/', headers=headers)
-        response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
-        soup = BeautifulSoup(response.text, 'lxml')
+    with requests.Session() as session:
+        session.headers = headers
+        try:
+            response = requests.get(f'https://tgsou.me/', headers=headers)
+            response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
+            soup = BeautifulSoup(response.text, 'lxml')
 
-        # 查找所有的 a 标签
-        divs = soup.find_all('div', class_='font-13 text-success mb-3')
+            # 查找所有的 a 标签
+            divs = soup.find_all('div', class_='font-13 text-success mb-3')
 
-        telegram_urls = [div.get_text() for div in divs]
+            telegram_urls = [div.get_text() for div in divs]
 
-        # 打乱列表
-        random.shuffle(telegram_urls)
-        return telegram_urls
-    except requests.RequestException as e:
-        logger.error(f"请求错误: {e}")
-    except ET.ParseError as e:
-        logger.error(f"XML 解析错误: {e}")
-    except Exception as e:
-        logger.error(f"未预期的错误: {e}")
+            # 打乱列表
+            random.shuffle(telegram_urls)
+            return telegram_urls
+        except requests.RequestException as e:
+            logger.error(f"请求错误: {e}")
+        except ET.ParseError as e:
+            logger.error(f"XML 解析错误: {e}")
+        except Exception as e:
+            logger.error(f"未预期的错误: {e}")
 
     return []
 
