@@ -1,10 +1,21 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.template.defaultfilters import truncatechars
 from django.utils.formats import date_format
 from django.utils.html import format_html
 
+from . import tasks
 from .models import Link
 from django.utils.translation import gettext_lazy as _
+
+
+def action_verify_telegram(modeladmin, request, queryset):
+    for obj in queryset:
+        tasks.verify_telegram.delay(obj.id)
+
+    modeladmin.message_user(request, '成功在后台执行了验证 Telegram URL 操作', messages.SUCCESS)
+
+
+action_verify_telegram.short_description = '验证 Telegram URL'
 
 
 class Admin(admin.ModelAdmin):
@@ -12,6 +23,7 @@ class Admin(admin.ModelAdmin):
     list_display = ["show_name", "show_description", "member_count", "show_url", "show_time"]
     list_filter = ["is_valid", "verified_at"]
     search_fields = ["id", "uuid", "name", "description", "member_count", "url"]
+    actions = [action_verify_telegram]
 
     def show_url(self, obj):
         return format_html('<a href="{}" target="_blank">{}</a>', obj.url, obj.url)
