@@ -28,41 +28,22 @@ class IndexView(UnicornView):
         self.all_articles_loaded = False
         self.load_links()
 
-    # def load_links(self):
-    #     if self.query:
-    #         links = (Link.objects.verified_and_valid().order_by('-id')
-    #                  .filter(Q(name__icontains=self.query) | Q(description__icontains=self.query)))
-    #     else:
-    #         links = Link.objects.verified_and_valid().order_by('-id').all()
-    #
-    #     paginator = Paginator(links, 10)  # 每页 10 项
-    #     total_pages = paginator.num_pages  # 获取总页数
-    #
-    #     if self.page <= total_pages:
-    #         page_obj = paginator.page(self.page)
-    #         self.links.extend(page_obj.object_list)
-    #     else:
-    #         self.all_articles_loaded = True  # 如果当前页面超过总页数，标记为所有文章都已加载
-    #
-    #     # 在初次加载时判断是否已加载全部
-    #     if self.page == 1 and total_pages <= 1:
-    #         self.all_articles_loaded = True
-
     def load_links(self):
         max_pages = 30  # 定义允许最大页数为30
+        per_page = 20
 
+        links_query = Link.objects.verified_and_valid().order_by('-id')
         if self.query:
             update_search_statistics(self.query)
-            links_query = (Link.objects.verified_and_valid().order_by('-id')
-                           .filter(Q(name__icontains=self.query) | Q(description__icontains=self.query)))
-        else:
-            links_query = Link.objects.verified_and_valid().order_by('-id').all()
+            links_query = links_query.filter(Q(name__icontains=self.query) |
+                                             Q(description__icontains=self.query) |
+                                             Q(url__icontains=self.query))
 
-        paginator = Paginator(links_query, 10)  # 每页 10 项
+        paginator = Paginator(links_query, per_page)  # 每页 N 项
 
         # 计算截止当前页的所有数据的索引范围
         start_index = 0
-        end_index = self.page * 10
+        end_index = self.page * per_page
 
         if self.page > max_pages or self.page > paginator.num_pages:
             self.all_articles_loaded = True
