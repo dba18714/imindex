@@ -5,10 +5,18 @@
 <html lang="{% get_lang_code %}">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Site{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="keywords" content="Telegram中文搜,电报中文搜索,电报中文工具,小飞机vpn,电报索引工具,telegram索引机器人,telegram搜索工具,电报,中文,telegram群组,电报群,电报群组,电报群组大全,电报群组导航,tnav" />
-    <meta name="description" content="Tnav(tnav.me) 是一个 Telegram 群组分享平台，为 Telegram 用户提供各种 Telegram 群组/频道/机器人 等导航索引服务。" />
+    <title>{% if title %}{{ title }} - {% endif %}Telegram 导航索引大全</title>
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}" />
+    {% else %}
+        <meta name="keywords" content="Telegram中文搜,电报中文搜索,电报中文工具,小飞机vpn,电报索引工具,telegram索引机器人,telegram搜索工具,电报,中文,telegram群组,电报群,电报群组,电报群组大全,电报群组导航,tnav" />
+    {% endif %}
+    {% if description %}
+        <meta name="description" content="{{ description }}" />
+    {% else %}
+        <meta name="description" content="Tnav(tnav.me) 是一个 Telegram 群组分享平台，为 Telegram 用户提供各种 Telegram 群组/频道/机器人 等导航索引服务。" />
+    {% endif %}
 
     <style>
         [x-cloak] {

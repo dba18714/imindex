@@ -35,6 +35,9 @@ def get_words(url='https://www.tgcng.com/tags.php'):
         # 使用 jieba 进行分词
         words = list(jieba.cut(text))
 
+        # 过滤掉空白字符
+        words = [item for item in words if item.strip()]
+
         # 计算词频
         word_counts = Counter(words)
 
