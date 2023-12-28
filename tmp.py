@@ -4,6 +4,8 @@ import random
 import django
 from django.db.models import F
 
+from ims.tasks import get_or_create_link
+
 # 设置 Django 环境
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
@@ -12,9 +14,8 @@ django.setup()
 
 from ims.models import Link
 
-link = Link.objects.get(id=52)
-print(link.url)
-
+link, created = get_or_create_link('https://tnav.me/22')
+print(link.id, created)
 exit()
 
 links = Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at')[:3]
