@@ -101,10 +101,6 @@ LOGGING = {
             "format": "{levelname} [{asctime} {name}:{pathname}:{lineno}] {message}",
             "style": "{",
         },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
     },
     'handlers': {
         'file': {
@@ -112,6 +108,15 @@ LOGGING = {
             # 'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'django.log'),
+            'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
+            'backupCount': 5,  # 备份文件数量
+            "formatter": "verbose",
+        },
+        'file_error': {
+            'level': 'ERROR',
+            # 'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'django_error.log'),
             'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
             'backupCount': 5,  # 备份文件数量
             "formatter": "verbose",
@@ -129,14 +134,29 @@ LOGGING = {
             'backupCount': 5,  # 备份文件数量
             'formatter': 'verbose',
         },
+        'celery_error_file': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'celery_error.log'),  # 日志文件路径
+            'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
+            'backupCount': 5,  # 备份文件数量
+            'formatter': 'verbose',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['file', 'console'],
+            'handlers': [
+                'file',
+                'file_error',
+                'console',
+            ],
             'propagate': True,
         },
         'celery': {
-            'handlers': ['celery_file'],
+            'handlers': [
+                'celery_file',
+                'celery_error_file'
+            ],
             'propagate': True,
         },
     },
