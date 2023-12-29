@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
 from django_unicorn.components import UnicornView
 from django.core.paginator import Paginator
+
+from .. import tasks
 from ..models import Link
 from ..services import get_or_create_link
 
@@ -54,5 +56,7 @@ class AddView(UnicornView):
                 continue
 
             link, created = get_or_create_link(url=url)
+            if not created:
+                tasks.verify_telegram.delay(link.id)
             self.links.append(link)
             messages.success(self.request, "添加成功")
