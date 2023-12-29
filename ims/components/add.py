@@ -48,6 +48,7 @@ class AddView(UnicornView):
 
         # 遍历每一行
         for url in lines:
+            url = url.strip()
             if not url.startswith(('http://', 'https://')):
                 url = 'https://' + url
 
