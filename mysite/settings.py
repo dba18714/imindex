@@ -105,13 +105,22 @@ LOGGING = {
     'handlers': {
         'file': {
             'level': 'INFO',
-            # 'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'django.log'),
-            'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
-            'backupCount': 5,  # 备份文件数量
+            'when': 'midnight',  # 每天午夜轮换
+            'interval': 1,  # 每 1 天
+            'backupCount': 10,  # 备份文件数量
             "formatter": "verbose",
         },
+        # 'file': {
+        #     'level': 'INFO',
+        #     # 'level': 'DEBUG',
+        #     'class': 'logging.handlers.RotatingFileHandler',
+        #     'filename': os.path.join(LOG_DIR, 'django.log'),
+        #     'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
+        #     'backupCount': 5,  # 备份文件数量
+        #     "formatter": "verbose",
+        # },
         'file_error': {
             'level': 'ERROR',
             # 'level': 'DEBUG',
@@ -128,12 +137,21 @@ LOGGING = {
         },
         'celery_file': {
             'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(LOG_DIR, 'celery.log'),  # 日志文件路径
-            'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
-            'backupCount': 5,  # 备份文件数量
-            'formatter': 'verbose',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'celery.log'),
+            'when': 'midnight',  # 每天午夜轮换
+            'interval': 1,  # 每 1 天
+            'backupCount': 10,  # 备份文件数量
+            "formatter": "verbose",
         },
+        # 'celery_file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.handlers.RotatingFileHandler',
+        #     'filename': os.path.join(LOG_DIR, 'celery.log'),  # 日志文件路径
+        #     'maxBytes': 1024 * 1024 * 2,  # 日志文件大小限制
+        #     'backupCount': 5,  # 备份文件数量
+        #     'formatter': 'verbose',
+        # },
         'celery_error_file': {
             'level': 'ERROR',
             'class': 'logging.handlers.RotatingFileHandler',
