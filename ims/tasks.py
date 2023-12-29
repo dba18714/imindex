@@ -12,17 +12,9 @@ from django.forms import model_to_dict
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from crawler.tgsou_me import get_telegram_urls_of_xml, get_telegram_urls_of_html
 from ims import services
+from ims.services import get_or_create_link
 
 logger = logging.getLogger('django')
-
-
-def get_or_create_link(url):
-    from ims.models import Link
-    link, created = Link.objects.get_or_create(
-        url__iexact=url,
-        defaults={'url': url}  # 如果需要创建新对象，则使用这些默认值
-    )
-    return link, created
 
 
 @shared_task

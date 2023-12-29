@@ -7,6 +7,7 @@ from django.core.validators import URLValidator
 from django_unicorn.components import UnicornView
 from django.core.paginator import Paginator
 from ..models import Link
+from ..services import get_or_create_link
 
 # from django.utils.autoreload import logger
 
@@ -52,7 +53,6 @@ class AddView(UnicornView):
                 messages.error(self.request, "链接格式无效：" + url)
                 continue
 
-            link, created = Link.objects.get_or_create(url=url)
-            link.save()
+            link, created = get_or_create_link(url=url)
             self.links.append(link)
             messages.success(self.request, "添加成功")

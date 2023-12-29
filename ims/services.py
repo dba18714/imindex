@@ -12,6 +12,15 @@ from django.utils.timezone import now
 logger = logging.getLogger('django')
 
 
+def get_or_create_link(url):
+    from ims.models import Link
+    link, created = Link.objects.get_or_create(
+        url__iexact=url,
+        defaults={'url': url}  # 如果需要创建新对象，则使用这些默认值
+    )
+    return link, created
+
+
 def verify_telegram(link_id):
     from ims.models import Link
     try:
