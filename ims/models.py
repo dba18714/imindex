@@ -51,11 +51,11 @@ class Link(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(default="Updating...", max_length=128, verbose_name=_("Name"))
     description = models.CharField(max_length=512, verbose_name=_("Description"))
-    member_count = models.IntegerField(default=0)
+    member_count = models.IntegerField(default=0, verbose_name=_("用户数"))
     url = models.URLField(unique=True)  # Telegram链接
     is_valid = models.BooleanField(default=False, verbose_name=_("有效的"))
-    verified_at = models.DateTimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    verified_at = models.DateTimeField(null=True, blank=True, verbose_name=_("验证时间"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("创建时间"))
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = LinkManager()
