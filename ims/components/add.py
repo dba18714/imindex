@@ -35,7 +35,7 @@ class AddView(UnicornView):
         # time.sleep(3)
 
     def add(self):
-        logger.error(f"zzzzzzxxxxxxx------")
+        # logger.error(f"zzzzzzxxxxxxx------")
         self.links = []
         url = self.url
 

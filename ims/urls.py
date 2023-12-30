@@ -19,4 +19,5 @@ urlpatterns = [
     path("item/<str:uuid>/", views.DetailView.as_view(), name="detail"),
     path("", views.index, name="index"),
     path("add/", views.add, name="add"),
+    path("add_v2/", views.add_v2, name="add_v2"),  # 还未完成，已弃用，因为太繁琐了，还不如直接SSR前后端分离
 ]
