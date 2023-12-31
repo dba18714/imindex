@@ -2,12 +2,16 @@ import re
 from collections import Counter
 
 import jieba
+import requests
+from constance import config
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
 
 from common.utils import extract_keywords
 from .forms import AddForm, MultiURLForm
@@ -87,3 +91,21 @@ class DetailView(generic.DetailView):
 
         context['description'] = link.description
         return context
+
+
+@csrf_exempt
+def get_telegram_url(request, uuid):
+    recaptcha_response = request.POST.get('recaptcha_response')
+    data = {
+        'secret': config.RECAPTCHA_PRIVATE_KEY,
+        # 'secret': '6LcQzUApAAAAANs-5hxBDzXEynxcH6LDD_UuwjjS',
+        'response': recaptcha_response
+    }
+    r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+    result = r.json()
+
+    if result['success']:
+        link = get_object_or_404(Link, uuid=uuid)
+        return JsonResponse({'success': True, 'telegram_url': link.url})
+    else:
+        return JsonResponse({'success': False})

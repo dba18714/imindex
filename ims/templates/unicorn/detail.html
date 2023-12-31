@@ -11,10 +11,38 @@
             {{ link.description|default:"数据正在更新中" }}
         </div>
 
+        <div class="g-recaptcha inline-block mx-auto mt-8" data-sitekey="{{ config.RECAPTCHA_PUBLIC_KEY }}"
+             data-callback="setRecaptchaResponse"></div>
+        <script src='https://www.recaptcha.net/recaptcha/api.js' async defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            function setRecaptchaResponse(response) {
+                $("#message").html("");
+            }
+
+            function submitRecaptcha() {
+                let recaptchaResponse = grecaptcha.getResponse();
+
+                // 发送 AJAX 请求到后端
+                $.post("{% url 'ims:get-telegram-url' link.uuid %}", {
+                    recaptcha_response: recaptchaResponse
+                }, function (data) {
+                    if (data.success) {
+                        window.location.href = data.telegram_url;
+                    } else {
+                        $("#message").html("请先点击人机验证！");
+                    }
+                });
+            }
+        </script>
+
         <!-- Component: Base primary basic button -->
-        <a target="_blank" rel="nofollow" href="{{ link.url }}" class="mt-8 inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded-full focus-visible:outline-none whitespace-nowrap bg-sky-500 hover:bg-sky-600 focus:bg-sky-700 disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
+        <div id="message" class="text-red-500"></div>
+        <button rel="nofollow" onclick="submitRecaptcha()"
+                class="mt-3 inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded-full focus-visible:outline-none whitespace-nowrap bg-sky-500 hover:bg-sky-600 focus:bg-sky-700 disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">
+            {#        <a target="_blank" rel="nofollow" href="{{ link.url }}" class="mt-8 inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded-full focus-visible:outline-none whitespace-nowrap bg-sky-500 hover:bg-sky-600 focus:bg-sky-700 disabled:cursor-not-allowed disabled:border-sky-300 disabled:bg-sky-300 disabled:shadow-none">#}
             <span>前往 Telegram</span>
-        </a>
+        </button>
         <!-- End Base primary basic button -->
         <div class="text-gray-500 mt-5 text-sm">
             更新时间：{{ link.verified_at }}

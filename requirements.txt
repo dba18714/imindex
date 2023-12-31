@@ -21,3 +21,5 @@ jieba
 gensim
 nltk
 flower
+django-constance
+django-recaptcha

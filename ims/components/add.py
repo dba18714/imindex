@@ -1,6 +1,8 @@
 import time
 import logging
 
+from constance import config
+from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -35,6 +37,8 @@ class AddView(UnicornView):
         # time.sleep(3)
 
     def add(self):
+        print(config.MY_SETTING)
+        print(settings.ALLOWED_HOSTS)
         # logger.error(f"zzzzzzxxxxxxx------")
         self.links = []
         url = self.url

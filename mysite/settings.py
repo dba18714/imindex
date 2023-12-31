@@ -45,6 +45,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
+# 添加django-recaptcha的配置
+# RECAPTCHA_PUBLIC_KEY = '6LcQzUApAAAAAGEETkrFTI8G-sKQovA72TTl62Wq'
+# RECAPTCHA_PRIVATE_KEY = '6LcQzUApAAAAANs-5hxBDzXEynxcH6LDD_UuwjjS'
+# NOCAPTCHA = True  # 如果使用的是无障碍版本的reCAPTCHA
+
 # DJANGO_ENV = os.getenv("DJANGO_ENV", False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -52,6 +57,21 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
 # DEBUG = env.bool('DJANGO_DEBUG', default=False)
 # DEBUG = os.getenv("DJANGO_DEBUG", False)
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CONSTANCE_CONFIG = {
+    'RECAPTCHA_PUBLIC_KEY': ('', 'reCAPTCHA 客户端密钥'),
+    'RECAPTCHA_PRIVATE_KEY': ('', 'reCAPTCHA 服务端密钥'),
+}
+
+# CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
+CONSTANCE_REDIS_CONNECTION = {
+    'host': 'redis',  # 或者 'localhost' 或 '127.0.0.1'
+    'port': 6379,
+    'db': 0,
+}
 
 # 日期和时间格式
 # DATE_FORMAT = 'Y-m-d'  # 例如 '2023-03-28'
@@ -207,6 +227,9 @@ CACHES = {
 CSRF_COOKIE_SECURE = False
 
 INSTALLED_APPS = [
+    # 'modeltranslation',
+    # 'django_recaptcha',
+    'constance',
     'django.contrib.sitemaps',
     "django_cron",
     "crawler",
@@ -251,6 +274,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'common.context_processors.my_custom_context',
                 'django.template.context_processors.i18n',
+                'constance.context_processors.config',
             ],
         },
     },
@@ -316,6 +340,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-hans'
 # LANGUAGE_CODE = 'en-us'
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'zh-hans'
 
 LANGUAGES = [
     ('en', 'English'),

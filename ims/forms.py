@@ -1,4 +1,6 @@
 from django import forms
+# from django_recaptcha.fields import ReCaptchaField
+
 from .models import Link
 
 
@@ -11,6 +13,7 @@ class AddForm(forms.ModelForm):
 
 
 class MultiURLForm(forms.Form):
+    # captcha = ReCaptchaField()
     urls = forms.CharField(widget=forms.Textarea, help_text="输入多个URL，每行一个。")
     # urls = forms.CharField(
     #     widget=forms.Textarea(attrs={
