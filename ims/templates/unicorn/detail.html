@@ -49,4 +49,29 @@
         </div>
     </div>
 
+    {% if hot_links %}
+        <div class="text-gray-500 mt-8 px-4">其它热门 Telegram：</div>
+        <ul class="max-w-3xl mx-auto">
+            {% for link in hot_links %}
+                <li class="border py-3 px-4 m-2 shadow space-y-1">
+                    <a href="{% url 'ims:detail' link.uuid %}"
+                       class="border-b border-dashed border-gray-600 hover:border-gray-400 text-cyan-500">
+                        {{ link.name|truncatechars:50|default:"数据正在更新中" }}
+                    </a>
+                    <div class="text-gray-500 text-sm">
+                        {{ link.description|truncatechars:90 }}
+                    </div>
+                    <div class="text-gray-500 text-xs">
+                        <span class="inline-block border rounded px-2">
+                            用户数：{{ link.member_count }}
+                        </span>
+                        <span class="inline-block border rounded px-2">
+                            类型：{{ link.get_category_display }}
+                        </span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 </div>

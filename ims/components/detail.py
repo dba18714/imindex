@@ -6,4 +6,4 @@ from ..models import Link
 
 
 class DetailView(UnicornView):
-    pass
+    hot_links = Link.objects.verified_and_valid().order_by('-member_count')[:5]
