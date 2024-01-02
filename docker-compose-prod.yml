@@ -64,6 +64,7 @@ services:
       DB_USER: pgdb
       DB_PASSWORD: pgpass
     depends_on:
+      - web
       - db
       - redis
 
