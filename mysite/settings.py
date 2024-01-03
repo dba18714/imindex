@@ -70,7 +70,8 @@ CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
 CONSTANCE_REDIS_CONNECTION = {
     'host': 'redis',  # 或者 'localhost' 或 '127.0.0.1'
     'port': 6379,
-    'db': 0,
+    'db': 2,
+    'password': 'RDFGDxpI1h',  # Redis 密码
 }
 
 # 日期和时间格式
@@ -208,7 +209,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://:RDFGDxpI1h@redis:6379/0'
 CELERYD_HIJACK_ROOT_LOGGER = False
 # CELERY_LOG_LEVEL = 'DEBUG'
 # CELERY_LOG_LEVEL = 'INFO'
@@ -220,7 +221,7 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # 未来的 Celery 6.0 或更�
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis:6379",
+        "LOCATION": "redis://:RDFGDxpI1h@redis:6379/1",
     }
 }
 
