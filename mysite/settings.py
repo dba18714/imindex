@@ -209,8 +209,8 @@ INTERNAL_IPS = [
     # ...
 ]
 
-# CELERY_BROKER_URL = 'redis://:RDFGDxpI1h@redis:6379/0'
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://:RDFGDxpI1h@redis:6379/0'
+# CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERYD_HIJACK_ROOT_LOGGER = False
 # CELERY_LOG_LEVEL = 'DEBUG'
 # CELERY_LOG_LEVEL = 'INFO'
@@ -222,8 +222,8 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True  # 未来的 Celery 6.0 或更�
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
-        # "LOCATION": "redis://:RDFGDxpI1h@redis:6379/1",
+        # "LOCATION": "redis://redis:6379/1",
+        "LOCATION": "redis://:RDFGDxpI1h@redis:6379/1",
     }
 }
 
