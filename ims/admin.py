@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.contrib import admin, messages
 from django.template.defaultfilters import truncatechars
 from django.utils.formats import date_format
@@ -37,12 +39,16 @@ class Admin(admin.ModelAdmin):
     # show_description.short_description = Link._meta.get_field('description').verbose_name
 
     def show_name(self, obj):
-        return format_html(f'{truncatechars(obj.name, 20)}<br>'
-                           f'<span style="font-size: 12px;">介绍：{truncatechars(obj.description, 20)}</span>')
+        # return format_html('%s<br><span style="font-size: 12px;">介绍：%s</span>' %
+        #                    (truncatechars(obj.name, 20), truncatechars(obj.description, 20)))
+        name = obj.name.replace("{", "{{").replace("}", "}}")
+        description = obj.description.replace("{", "{{").replace("}", "}}")
+        return format_html(f'{truncatechars(name, 20)}<br>'
+                           f'<span style="font-size: 12px;">介绍：{truncatechars(description, 20)}</span>')
         # return truncatechars(obj.name, 20)
 
-    # show_name.short_description = Link._meta.get_field('name').verbose_name
-    # show_name.admin_order_field = 'name'
+    show_name.short_description = Link._meta.get_field('name').verbose_name
+    show_name.admin_order_field = 'name'
 
     # def show_time(self, obj):
     #     created_at = date_format(obj.created_at.astimezone(), format='DATETIME_FORMAT') if obj.created_at else 'N/A'
