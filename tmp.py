@@ -13,6 +13,19 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 django.setup()
 
 from ims.models import Link
+from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
+
+
+urls = [
+    # 'https://www.tgcng.com/tags.php',
+    # 'https://github.com/itgoyo/TelegramGroup',
+    # 'https://github.com/jackhawks/rectg',
+    'https://s.weibo.com/top/summary',
+]
+url = random.choice(urls)
+get_words = get_words(url=url)
+print(get_words)
+exit()
 
 link, created = get_or_create_link('https://tnav.me/22')
 print(link.id, created)

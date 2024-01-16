@@ -27,9 +27,16 @@ def verify_telegram(link_id):
 def spider_for_tgcng_com():
     logger.info("spider_for_tgcng_com start -----------------")
     num_a = 1.0
-    num_b = 3.0
+    num_b = 2.0
     # for word in get_words():
-    ids = get_info_ids(get_words(url='https://github.com/itgoyo/TelegramGroup')[0])
+    urls = [
+        'https://www.tgcng.com/tags.php',
+        'https://github.com/itgoyo/TelegramGroup',
+        'https://github.com/jackhawks/rectg',
+        'https://s.weibo.com/top/summary',
+    ]
+    url = random.choice(urls)
+    ids = get_info_ids(get_words(url=url)[0])
     for info_id in ids[:50]:
         telegram_url = get_telegram_url(info_id)
         if telegram_url:
