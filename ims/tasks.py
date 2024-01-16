@@ -29,7 +29,7 @@ def spider_for_tgcng_com():
     num_a = 1.0
     num_b = 10.0
     # for word in get_words():
-    ids = get_info_ids(get_words()[0])
+    ids = get_info_ids(get_words(url='https://github.com/itgoyo/TelegramGroup')[0])
     for info_id in ids[:50]:
         telegram_url = get_telegram_url(info_id)
         if telegram_url:
