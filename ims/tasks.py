@@ -27,18 +27,19 @@ def verify_telegram(link_id):
 def spider_for_tgcng_com():
     logger.info("spider_for_tgcng_com start -----------------")
     num_a = 1.0
-    num_b = 10.0
+    num_b = 3.0
     # for word in get_words():
     ids = get_info_ids(get_words(url='https://github.com/itgoyo/TelegramGroup')[0])
     for info_id in ids[:50]:
         telegram_url = get_telegram_url(info_id)
         if telegram_url:
             get_or_create_link(url=telegram_url)
-        time.sleep(random.uniform(num_a, num_b))
+            time.sleep(random.uniform(num_a, num_b))
 
 
 @shared_task
 def spider_for_tgsou_me():
+    exit()
     logger.info("spider_for_tgsou_me start -----------------")
     num_a = 1.0
     num_b = 10.0
@@ -52,6 +53,7 @@ def spider_for_tgsou_me():
 
 @shared_task
 def spider_for_tgsou_me_from_html():
+    exit()
     logger.info("spider_for_tgsou_me_from_html start -----------------")
     num_a = 1.0
     num_b = 10.0
