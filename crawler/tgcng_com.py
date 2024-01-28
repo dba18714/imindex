@@ -1,3 +1,4 @@
+import logging
 import random
 import re
 from urllib.parse import quote
@@ -12,15 +13,21 @@ from common.utils import extract_keywords
 
 from crawler.spiders.spider import scrape_with_xpath
 
+logger = logging.getLogger('django')
+
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
 }
 
 
 def get_words(url='https://www.tgcng.com/tags.php'):
-    response = requests.get(url, headers=headers)
+    try:
 
-    if response.status_code == 200:
+        response = requests.get(url, headers=headers)
+
+        response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
+
         # 解析 HTML
         soup = BeautifulSoup(response.text, 'lxml')
 
@@ -58,12 +65,21 @@ def get_words(url='https://www.tgcng.com/tags.php'):
         return words
         # print(words)
 
+    except requests.RequestException as e:
+        logger.error(f"请求错误: {e}")
+    except Exception as e:
+        logger.error(f"未预期的错误: {e}")
+
+    return []
+
 
 def get_info_ids(tag):
-    # response = requests.get('https://www.tgcng.com/', headers=headers)
-    response = requests.get(f'https://www.tgcng.com/tag.php?k={quote(tag)}', headers=headers)
+    try:
+        # response = requests.get('https://www.tgcng.com/', headers=headers)
+        response = requests.get(f'https://www.tgcng.com/tag.php?k={quote(tag)}', headers=headers)
 
-    if response.status_code == 200:
+        response.raise_for_status()  # 将触发 HTTPError，如果响应状态码不是 200
+
         soup = BeautifulSoup(response.text, 'lxml')
 
         # 查找所有的 a 标签
@@ -86,6 +102,13 @@ def get_info_ids(tag):
         # 打乱列表
         random.shuffle(gids)
         return gids
+
+    except requests.RequestException as e:
+        logger.error(f"请求错误: {e}")
+    except Exception as e:
+        logger.error(f"未预期的错误: {e}")
+
+    return []
 
 
 def get_telegram_url(info_id):
