@@ -71,7 +71,6 @@ def verify_telegram(link_id):
     except Exception as e:
         logger.error(f"处理 link_id:{link_id} 时发生未预期的错误: {e}")
 
-    return []
 
     # else:
     #         # 记录错误日志
