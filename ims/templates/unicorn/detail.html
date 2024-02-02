@@ -19,7 +19,7 @@
             function submitRecaptcha() {
                 // 更改grecaptcha.getResponse()的调用方式
                 grecaptcha.ready(function() {
-                    grecaptcha.execute('YOUR_RECAPTCHA_SITE_KEY', {action: 'submit'}).then(function(token) {
+                    grecaptcha.execute('{{ config.RECAPTCHA_PUBLIC_KEY }}', {action: 'submit'}).then(function(token) {
                         // 发送 AJAX 请求到后端
                         $.post("{% url 'ims:get-telegram-url' link.uuid %}", {
                             recaptcha_response: token
