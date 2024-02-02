@@ -13,11 +13,11 @@
 
 
         <!-- Recaptcha v3： -->
-        <script src='https://www.recaptcha.net/recaptcha/api.js?render={{ config.RECAPTCHA_PUBLIC_KEY }}' async defer></script>
+        <script src='https://www.recaptcha.net/recaptcha/api.js?render={{ config.RECAPTCHA_PUBLIC_KEY }}'></script>
 
         <script>
-            function submitRecaptcha() {
-                // 更改grecaptcha.getResponse()的调用方式
+            function submitRecaptcha(e) {
+                e.preventDefault();
                 grecaptcha.ready(function() {
                     grecaptcha.execute('{{ config.RECAPTCHA_PUBLIC_KEY }}', {action: 'submit'}).then(function(token) {
                         // 发送 AJAX 请求到后端
