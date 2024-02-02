@@ -1,0 +1,9 @@
+/.DS_Store
+/.idea/
+/logs/
+/jstoolchain/node_modules/
+/pgdata/
+/venv/
+/redisdata/
+/.coverage
+/locale/**/*.mo

@@ -1,0 +1,70 @@
+# docker-compose-dev.yml
+version: '3'
+
+services:
+  web:
+    container_name: imindex-web-1
+    build: .
+    command: /code/_for_deploy/start.sh
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+      DJANGO_DEBUG: True
+      DB_NAME: pgdb
+      DB_USER: pgdb
+      DB_PASSWORD: pgpass
+    depends_on:
+      - db
+      - redis
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_BASIC_AUTH=${FLOWER_BASIC_AUTH}
+    command: ["celery", "flower", "--broker=redis://redis:6379/0", "--basic_auth=${FLOWER_BASIC_AUTH}"]
+    ports:
+      - "5555:5555"
+
+  celery:
+    container_name: imindex-celery-1
+    build: .
+    command: celery -A mysite worker --loglevel=info
+    volumes:
+      - .:/code
+    environment:
+      SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+      DB_NAME: pgdb
+      DB_USER: pgdb
+      DB_PASSWORD: pgpass
+    depends_on:
+      - db
+      - redis
+
+  db:
+    container_name: imindex-db-1
+    image: postgres
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: pgdb
+      POSTGRES_USER: pgdb
+      POSTGRES_PASSWORD: pgpass
+    ports:
+      - "5432:5432"
+
+  redis:
+    container_name: imindex-redis-1
+    image: redis
+    restart: always
+    volumes:
+      - ./redisdata:/data
+      - ./_for_deploy/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    command: redis-server /usr/local/etc/redis/redis.conf

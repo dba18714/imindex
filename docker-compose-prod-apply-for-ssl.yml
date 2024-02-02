@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  certbot:
+    image: certbot/certbot
+    container_name: certbot-apply-for-ssl
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./letsencrypt/:/etc/letsencrypt/
+    ports:
+      - "80:80"
+    command: certonly --standalone -d tnav.me --email qzj2ymvcid@gmail.com --agree-tos --non-interactive
+#    depends_on:
+#      - nginx
+#
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx-apply-for-ssl
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./nginx-apply-for-ssl.conf:/etc/nginx/conf.d/default.conf

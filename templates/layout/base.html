@@ -1,0 +1,68 @@
+{% load i18n %}
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html>
+<html lang="{% get_lang_code %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% if title %}{{ title }} - {% endif %}Telegram 导航索引大全</title>
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}" />
+    {% else %}
+        <meta name="keywords" content="Telegram中文搜,电报中文搜索,电报中文工具,小飞机vpn,电报索引工具,telegram索引机器人,telegram搜索工具,电报,中文,telegram群组,电报群,电报群组,电报群组大全,电报群组导航,tnav" />
+    {% endif %}
+    {% if description %}
+        <meta name="description" content="{{ description }}" />
+    {% else %}
+        <meta name="description" content="Tnav(tnav.me) 是一个 Telegram 群组分享平台，为 Telegram 用户提供各种 Telegram 群组/频道/机器人 等导航索引服务。" />
+    {% endif %}
+
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    <link rel="stylesheet" href="{% static "css/messages.css" %}">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0/dist/alpine.js" defer></script>
+
+    {% block extra_scripts %}{% endblock %}
+</head>
+<body>
+<header class="bg-purple-500 shadow py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <!-- Logo -->
+        <a class="flex-shrink-0 rounded-xl border-2 overflow-hidden" href="/">
+            <img class="h-8 w-8" src="/static/logo/img.png" alt="Logo">
+        </a>
+
+        <!-- 网站名称，链接到首页 -->
+        <a href="/" class="text-white hover:text-gray-300">
+            Telegram 导航索引大全
+        </a>
+
+        <a href="{% url 'ims:add' %}" class="text-white hover:text-gray-300 flex items-center rounded border pl-1 pr-2 py-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+            </svg>
+            {% trans "Add" %}
+        </a>
+    </div>
+</header>
+
+<main>
+    {% block content %}
+        <!-- 主要内容区域 -->
+    {% endblock %}
+</main>
+
+<footer>
+    {% include 'layout/_language.html' %}
+</footer>
+</body>
+</html>

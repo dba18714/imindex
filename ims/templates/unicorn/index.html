@@ -1,0 +1,85 @@
+{% load i18n %}
+<div>
+
+    <div class="bg-purple-600 shadow-md mb-5 py-10 px-5">
+
+        <div class="flex justify-center max-w-3xl mx-auto mb-5 text-gray-300">
+            {% blocktrans %}请输入您要搜索的: 频道/群组/机器人/个人号{% endblocktrans %}
+        </div>
+        <form action="/">
+            <div class="relative flex justify-center max-w-3xl mx-auto">
+                <input type="search" name="q" placeholder="搜索..." value="{{ query }}"
+                       class="pl-3 pr-20 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent w-full"/>
+                <button class="absolute inset-y-0 right-0 px-4 text-white bg-blue-500 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                    搜索
+                </button>
+            </div>
+        </form>
+        {% if top_searches %}
+            <div class="max-w-3xl mx-auto mt-5 text-gray-300 space-y-2 space-x-1">
+                热门关键词：
+                {% for search in top_searches %}
+                    <a href="{% url 'ims:index' %}?q={{ search.keyword|urlencode }}" class="inline-flex items-center justify-center h-8 gap-2 px-4 text-xs font-medium tracking-wide transition duration-300 rounded-full focus-visible:outline-none justify-self-center whitespace-nowrap bg-fuchsia-200 text-fuchsia-500 hover:bg-fuchsia-300 hover:text-fuchsia-600 focus:bg-fuchsia-400 focus:text-fuchsia-700 disabled:cursor-not-allowed disabled:border-fuchsia-300 disabled:bg-fuchsia-300 disabled:text-fuchsia-400 disabled:shadow-none">
+                        <span>{{ search.keyword }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% if links %}
+        <ul class="max-w-3xl mx-auto">
+            {% for link in links %}
+                <li class="border py-3 px-4 m-2 shadow space-y-1">
+                    <a href="{% url 'ims:detail' link.uuid %}"
+                       class="border-b border-dashed border-gray-600 hover:border-gray-400 text-cyan-500">
+                        {{ link.name|truncatechars:50|default:"数据正在更新中" }}
+                    </a>
+                    <div class="text-gray-500 text-sm">
+                        {{ link.description|truncatechars:90 }}
+                    </div>
+                    <div class="text-gray-500 text-xs">
+                        <span class="inline-block border rounded px-2">
+                            用户数：{{ link.member_count }}
+                        </span>
+                        <span class="inline-block border rounded px-2">
+                            类型：{{ link.get_category_display }}
+                        </span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="flex justify-center items-center m-5">
+            <!-- Component: Small outline button with animation  -->
+            <button unicorn:click="load_more" unicorn:key="load_more"
+                    class="group inline-flex items-center justify-center h-8 gap-2 px-4 text-xs font-medium tracking-wide transition duration-300 border rounded focus-visible:outline-none whitespace-nowrap border-orange-500 text-orange-500 hover:border-orange-600 hover:text-orange-600 focus:border-orange-700 focus:text-orange-700 disabled:cursor-not-allowed disabled:border-orange-300 disabled:text-orange-300 disabled:shadow-none">
+                <span>
+                    {% if all_articles_loaded %}
+                        {% trans "已加载全部" %}
+                    {% else %}
+                        {% trans "加载更多" %}
+                    {% endif %}
+                </span>
+                <span class="relative only:-mx-6" unicorn:loading unicorn:target="load_more">
+                    <svg class="w-4 h-4 animate-spin text-orange-500 group-hover:text-orange-600 group-focus:text-orange-700"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" role="graphics-symbol"
+                         aria-labelledby="title-76 desc-76">
+                    <title id="title-76">Icon title</title>
+                    <desc id="desc-76">
+                    A more detailed description of the icon
+                    </desc>
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </span>
+            </button>
+            <!-- End Small outline button with animation  -->
+        </div>
+    {% else %}
+        <p class="text-center text-gray-500 text-xl">没有相关记录</p>
+    {% endif %}
+
+</div>
