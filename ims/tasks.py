@@ -36,13 +36,15 @@ def spider_for_tgcng_com():
         'https://s.weibo.com/top/summary',
     ]
     url = random.choice(urls)
-    ids = get_info_ids(get_words(url=url)[0])
-    for info_id in ids[:50]:
-        telegram_url = get_telegram_url(info_id)
-        if telegram_url:
-            get_or_create_link(url=telegram_url)
-            time.sleep(random.uniform(num_a, num_b))
-
+    words = get_words(url=url)
+    if words:
+        ids = get_info_ids(words[0])
+        for info_id in ids[:50]:
+            telegram_url = get_telegram_url(info_id)
+            if telegram_url:
+                get_or_create_link(url=telegram_url)
+                time.sleep(random.uniform(num_a, num_b))
+                
 
 @shared_task
 def spider_for_tgsou_me():
