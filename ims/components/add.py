@@ -37,7 +37,7 @@ class AddView(UnicornView):
         # time.sleep(3)
 
     def add(self):
-        print(config.MY_SETTING)
+        # print(config.MY_SETTING)
         print(settings.ALLOWED_HOSTS)
         # logger.error(f"zzzzzzxxxxxxx------")
         self.links = []
