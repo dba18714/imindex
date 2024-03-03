@@ -30,8 +30,9 @@ class Runspider(CronJobBase):
         # tasks.spider_for_tgsou_me.delay()  # 已被cf拦截请求
 
 
-def get_first_link():
-    return Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at').first()
+# 获取N个最早的验证的链接，未验证的排在前面
+def get_links(count=30):
+    return Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at')[:count]
 
 
 class VerifyTelegram(CronJobBase):
@@ -41,14 +42,15 @@ class VerifyTelegram(CronJobBase):
 
     def do(self):
         logger.info("CronJob:VerifyTelegram start -----------------")
-        link = get_first_link()
-        link_dict = model_to_dict(link)
-        link_dict['created_at'] = date_format(link.created_at.astimezone(), format='DATETIME_FORMAT') if link.created_at else 'N/A'
-        link_dict['updated_at'] = date_format(link.updated_at.astimezone(), format='DATETIME_FORMAT') if link.updated_at else 'N/A'
-        link_dict['verified_at'] = date_format(link.verified_at.astimezone(), format='DATETIME_FORMAT') if link.verified_at else 'N/A'
-        logger.info(f"verify_telegram - Data: {link_dict} -----------------")
-        if link.id:
-            tasks.verify_telegram.delay(link.id)
+        links = get_links()
+        for link in links:
+            link_dict = model_to_dict(link)
+            link_dict['created_at'] = date_format(link.created_at.astimezone(), format='DATETIME_FORMAT') if link.created_at else 'N/A'
+            link_dict['updated_at'] = date_format(link.updated_at.astimezone(), format='DATETIME_FORMAT') if link.updated_at else 'N/A'
+            link_dict['verified_at'] = date_format(link.verified_at.astimezone(), format='DATETIME_FORMAT') if link.verified_at else 'N/A'
+            logger.info(f"verify_telegram - Data: {link_dict} -----------------")
+            if link.id:
+                tasks.verify_telegram.delay(link.id)
 
 
 class DeleteInvalidLinks(CronJobBase):

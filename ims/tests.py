@@ -10,7 +10,7 @@ from django.utils import timezone
 # import ims.management.commands.verified_telegram
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from .models import Link
-from .cron import DeleteInvalidLinks, get_first_link
+from .cron import DeleteInvalidLinks, get_links
 
 
 class GetFirstLinkTest(TestCase):
@@ -24,12 +24,14 @@ class GetFirstLinkTest(TestCase):
 
     def test_get_first_link(self):
         # 调用函数
-        link = get_first_link()
+        links = get_links(30)
 
-        # 断言：检查返回的 Link 是否是预期的
-        self.assertIsNotNone(link)
-        # 进一步的断言，比如检查 verified_at 是否为 None 或检查特定的 created_at 值
-        self.assertIsNone(link.verified_at)
+        self.assertEqual(links.count(), 2)
+        for link in links:
+            # 断言：检查返回的 Link 是否是预期的
+            self.assertIsNotNone(link)
+            # 进一步的断言，比如检查 verified_at 是否为 None 或检查特定的 created_at 值
+            self.assertIsNone(link.verified_at)
 
 
 class VerifiedTelegramCommandTest(TestCase):
