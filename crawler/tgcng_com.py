@@ -116,6 +116,8 @@ def get_telegram_url(info_id):
     xpath = '/html/body/div[@id="__nuxt"]/div[@id="__layout"]/div[@id="app"]/div[@class="container"]/div[@class="info"]/a[@class="item"]/div[@class="member"]'
 
     text_contents = scrape_with_xpath(url, xpath)
+    if not text_contents:
+        return None
     telegram_url = common.utils.extract_url_of_str(text_contents[0])
     return telegram_url
 
