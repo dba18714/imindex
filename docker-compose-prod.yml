@@ -86,7 +86,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./data/pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: pgdb
       POSTGRES_USER: pgdb
@@ -99,7 +99,7 @@ services:
     image: redis
     restart: always
     volumes:
-      - ./redisdata:/data
+      - ./data/redisdata:/data
       - ./_for_deploy/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
