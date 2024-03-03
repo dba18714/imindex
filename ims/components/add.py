@@ -1,7 +1,7 @@
 import time
 import logging
 
-from constance import config
+# from constance import config
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ValidationError
