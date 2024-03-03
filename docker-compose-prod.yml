@@ -24,6 +24,7 @@ services:
       - redis
 
   flower:
+    restart: always
     image: mher/flower
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
@@ -33,6 +34,7 @@ services:
       - "5555:5555"
 
   nginx:
+    restart: always
     image: nginx:latest
     ports:
       - "80:80"
@@ -53,6 +55,7 @@ services:
 #    entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $$!; done;'
 
   celery:
+    restart: always
     container_name: imindex-celery-1
     build: .
     command: celery -A mysite worker --loglevel=info
@@ -69,6 +72,7 @@ services:
       - redis
 
   cron:
+    restart: always
     build: .
     volumes:
       - .:/code
