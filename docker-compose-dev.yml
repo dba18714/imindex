@@ -5,10 +5,12 @@ services:
   web:
     container_name: imindex-web-1
     build: .
-    command: /code/_for_deploy/start.sh
+    command: /bin/bash -c "chmod +x _for_deploy/start.sh && _for_deploy/start.sh"
     restart: always
     volumes:
-      - .:/code
+      - ./ims:/code/ims
+      - ./templates:/code/templates
+      - ./static:/code/static
     ports:
       - "8000:8000"
     environment:
@@ -24,9 +26,9 @@ services:
   flower:
     image: mher/flower
     environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://:RDFGDxpI1h@redis:6379/0
       - FLOWER_BASIC_AUTH=${FLOWER_BASIC_AUTH}
-    command: ["celery", "flower", "--broker=redis://redis:6379/0", "--basic_auth=${FLOWER_BASIC_AUTH}"]
+    command: ["celery", "flower", "--broker=redis://:RDFGDxpI1h@redis:6379/0", "--basic_auth=${FLOWER_BASIC_AUTH}"]
     ports:
       - "5555:5555"
 

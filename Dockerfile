@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制和设置 wait-for-db.sh 脚本
-COPY _for_deploy/wait-for-db.sh /_for_deploy/wait-for-db.sh
-RUN chmod +x _for_deploy/wait-for-db.sh
+COPY _for_deploy/wait-for-db.sh /code/_for_deploy/wait-for-db.sh
+RUN chmod +x /code/_for_deploy/wait-for-db.sh
 
 COPY _for_deploy/start.sh /code/_for_deploy/start.sh
 RUN chmod +x /code/_for_deploy/start.sh

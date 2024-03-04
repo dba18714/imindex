@@ -2,9 +2,8 @@
 /.idea/
 /logs/
 /jstoolchain/node_modules/
-/data/pgdata/
+/data/
 /venv/
-/data/redisdata/
 /.coverage
 /locale/**/*.mo
 /__deleting/
