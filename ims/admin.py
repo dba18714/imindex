@@ -23,7 +23,7 @@ action_verify_telegram.short_description = '验证 Telegram URL'
 class Admin(admin.ModelAdmin):
     list_per_page = 30
     list_display = ["id", "show_name", "member_count", "show_url", "verified_at", "created_at"]
-    list_filter = ["is_valid", "verified_at"]
+    list_filter = ["is_by_user", "is_valid", "verified_at"]
     search_fields = ["id", "uuid", "name", "description", "member_count", "url"]
     actions = [action_verify_telegram]
 
