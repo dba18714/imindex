@@ -60,7 +60,7 @@ class AddView(UnicornView):
                 messages.error(self.request, "链接格式无效：" + url)
                 continue
 
-            link, created = get_or_create_link(url=url)
+            link, created = get_or_create_link(url=url, is_by_user=True)
             if not created:
                 tasks.verify_telegram.delay(link.id)
             self.links.append(link)

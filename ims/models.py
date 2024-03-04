@@ -53,6 +53,10 @@ class Link(models.Model):
     description = models.CharField(max_length=512, verbose_name=_("Description"))
     member_count = models.IntegerField(default=0, verbose_name=_("用户数"))
     url = models.URLField(unique=True)  # Telegram链接
+    
+    # true则是用户提交的链接，false则是爬虫爬取的链接
+    is_by_user = models.BooleanField(default=False, verbose_name=_("是否是用户提交的链接"))
+
     is_valid = models.BooleanField(default=False, verbose_name=_("有效的"))
     verified_at = models.DateTimeField(null=True, blank=True, verbose_name=_("验证时间"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("创建时间"))

@@ -12,11 +12,11 @@ from django.utils.timezone import now
 logger = logging.getLogger('django')
 
 
-def get_or_create_link(url):
+def get_or_create_link(url, is_by_user=False):
     from ims.models import Link
     link, created = Link.objects.get_or_create(
         url__iexact=url,
-        defaults={'url': url}  # 如果需要创建新对象，则使用这些默认值
+        defaults={'url': url, 'is_by_user': is_by_user}  # 如果需要创建新对象，则使用这些默认值
     )
     return link, created
 
