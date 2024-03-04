@@ -27,7 +27,7 @@ services:
     restart: always
     image: mher/flower
     environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://:RDFGDxpI1h@redis:6379/0
       - FLOWER_BASIC_AUTH=${FLOWER_BASIC_AUTH}
     command: ["celery", "flower", "--broker=redis://redis:6379/0", "--basic_auth=${FLOWER_BASIC_AUTH}"]
     ports:
