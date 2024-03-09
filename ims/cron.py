@@ -42,7 +42,7 @@ class VerifyTelegram(CronJobBase):
 
     def do(self):
         logger.info("CronJob:VerifyTelegram start -----------------")
-        links = get_links()
+        links = get_links(2)
         for link in links:
             link_dict = model_to_dict(link)
             link_dict['created_at'] = date_format(link.created_at.astimezone(), format='DATETIME_FORMAT') if link.created_at else 'N/A'
