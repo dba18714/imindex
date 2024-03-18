@@ -26,7 +26,7 @@ def verify_telegram(link_id):
     try:
         link = Link.objects.get(id=link_id)
         url = link.url
-        # logger.info(f"verify_telegram URL：{url} - Data: {model_to_dict(link)} -----------------")
+        logger.info(f"verify_telegram URL：{url} - Data: {model_to_dict(link)} -----------------")
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
         }
@@ -65,6 +65,8 @@ def verify_telegram(link_id):
 
         link.verified_at = now()
         link.save()
+
+        logger.info(f"verify_telegram URL：{url} - success -----------------")
 
     except requests.RequestException as e:
         logger.error(f"处理 link_id:{link_id} 时发生请求错误: {e}")
