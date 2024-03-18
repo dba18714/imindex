@@ -32,7 +32,7 @@ class Runspider(CronJobBase):
 
 # 获取N个最早的验证的链接，未验证的排在前面
 def get_links(count=5):
-    return Link.objects.order_by(F('verified_at').asc(nulls_first=True), 'created_at')[:count]
+    return Link.objects.order_by(F('verified_start_at').asc(nulls_first=True), 'created_at')[:count]
 
 
 class VerifyTelegram(CronJobBase):

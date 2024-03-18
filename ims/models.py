@@ -59,6 +59,10 @@ class Link(models.Model):
 
     is_valid = models.BooleanField(default=False, verbose_name=_("有效的"))
     verified_at = models.DateTimeField(null=True, blank=True, verbose_name=_("验证时间"))
+
+    #验证开始时间，不管是否验证成功
+    verified_start_at = models.DateTimeField(null=True, blank=True, verbose_name=_("验证开始时间"))
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("创建时间"))
     updated_at = models.DateTimeField(auto_now=True)
 
