@@ -9,6 +9,7 @@ from django_cron import CronJobBase, Schedule
 
 from ims import tasks
 from ims.models import Link
+from django.utils.timezone import now
 
 logger = logging.getLogger('django')
 
@@ -50,6 +51,8 @@ class VerifyTelegram(CronJobBase):
             link_dict['verified_at'] = date_format(link.verified_at.astimezone(), format='DATETIME_FORMAT') if link.verified_at else 'N/A'
             logger.info(f"verify_telegram - Data: {link_dict} -----------------")
             if link.id:
+                link.verified_start_at = now()
+                link.save()
                 tasks.verify_telegram.delay(link.id)
 
 
