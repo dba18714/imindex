@@ -2,7 +2,7 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% load lang_switch %}
 
-<div class="flex justify-center items-center m-28">
+<div class="flex justify-center items-center">
     <!-- Component: Basic dropdown menu -->
     <div class="relative inline-flex" x-data="{ open: false, selectedLanguage: '' }"
          x-init="$watch('selectedLanguage', value => { if (value) setTimeout(() => { $refs.languageForm.submit() }, 1) })"
