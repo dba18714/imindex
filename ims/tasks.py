@@ -26,8 +26,8 @@ def verify_telegram(link_id):
 @shared_task
 def spider_for_tgcng_com():
     logger.info("spider_for_tgcng_com start -----------------")
-    num_a = 1.0
-    num_b = 2.0
+    num_a = 0.2
+    num_b = 1.0
     # for word in get_words():
     urls = [
         'https://www.tgcng.com/tags.php',
@@ -39,7 +39,7 @@ def spider_for_tgcng_com():
     words = get_words(url=url)
     if words:
         ids = get_info_ids(words[0])
-        for info_id in ids[:50]:
+        for info_id in ids[:80]:
             telegram_url = get_telegram_url(info_id)
             if telegram_url:
                 get_or_create_link(url=telegram_url)
