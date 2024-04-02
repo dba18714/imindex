@@ -64,8 +64,7 @@ admin.site.register(Link, Admin)
 
 
 class AdminSearch(admin.ModelAdmin):
-    pass
-    # list_display = ["id", "keyword", "search_count", "created_at", "last_search_at"]
+    list_display = ["id", "keyword", "search_count", "created_at", "last_search_at"]
 
 
 admin.site.register(Search, AdminSearch)
