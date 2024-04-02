@@ -105,7 +105,7 @@ def get_telegram_url(request, uuid):
     result = r.json()
 
     # 更改验证Recaptcha响应的方式
-    if result['success'] and result['action'] == 'submit' and result['score'] > 0.2: # （0.0 到 1.0），分数越高，可能是人类的概率越大
+    if result['success'] and result['action'] == 'submit' and result['score'] > 0.1: # （0.0 到 1.0），分数越高，可能是人类的概率越大
         link = get_object_or_404(Link, uuid=uuid)
         return JsonResponse({'success': True, 'score': result['score'], 'telegram_url': link.url})
     else:
