@@ -12,7 +12,7 @@ import common.utils
 from common.utils import extract_keywords
 
 from crawler.spiders.spider import scrape_with_xpath
-from ims.models import Link
+
 
 logger = logging.getLogger('django')
 
@@ -23,6 +23,7 @@ headers = {
 
 def get_words_by_db():
     # 随机获取5条Link
+    from ims.models import Link
     links = Link.objects.order_by('?')[:5]
     words = []
     for link in links:
