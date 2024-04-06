@@ -3,6 +3,7 @@ import logging
 
 from django.contrib import admin, messages
 from django.template.defaultfilters import truncatechars
+from django.urls import path
 from django.utils.formats import date_format
 from django.utils.html import format_html
 
@@ -24,7 +25,25 @@ def action_verify_telegram(modeladmin, request, queryset):
 action_verify_telegram.short_description = '验证 Telegram URL'
 
 
-class Admin(admin.ModelAdmin):
+from django.http import HttpResponseRedirect
+
+def clear_redis(request):
+    import redis
+    r = redis.Redis(host='redis', password='RDFGDxpI1h', port=6379, db=0)
+    # r.flushdb() # 清除当前数据库
+    r.flushall() # 清除所有数据库
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class LinkAdmin(admin.ModelAdmin):
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('clear-redis/', self.admin_site.admin_view(clear_redis), name='clear-redis'),
+        ]
+        return custom_urls + urls
+    
     list_per_page = 30
     list_display = ["id", "show_name", "member_count", "show_url", "verified_start_at", "verified_at", "created_at"]
     list_filter = ["is_by_user", "is_valid", "verified_start_at", "verified_at"]
@@ -64,12 +83,12 @@ class Admin(admin.ModelAdmin):
     # show_time.short_description = _('time')
 
 
-admin.site.register(Link, Admin)
+admin.site.register(Link, LinkAdmin)
 
 
-class AdminSearch(admin.ModelAdmin):
+class SearchAdmin(admin.ModelAdmin):
     list_display = ["id", "keyword", "search_count", "created_at", "last_search_at"]
 
 
-admin.site.register(Search, AdminSearch)
+admin.site.register(Search, SearchAdmin)
 
