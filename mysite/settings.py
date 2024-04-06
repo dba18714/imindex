@@ -209,7 +209,7 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CELERY_BROKER_URL = 'redis://:RDFGDxpI1h@redis:6379/0'
+CELERY_BROKER_URL = 'redis://:RDFGDxpI1h@redis:6379/1'
 # CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERYD_HIJACK_ROOT_LOGGER = False
 # CELERY_LOG_LEVEL = 'DEBUG'

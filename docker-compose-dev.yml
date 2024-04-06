@@ -26,9 +26,9 @@ services:
   flower:
     image: mher/flower
     environment:
-      - CELERY_BROKER_URL=redis://:RDFGDxpI1h@redis:6379/0
+      - CELERY_BROKER_URL=redis://:RDFGDxpI1h@redis:6379/1
       - FLOWER_BASIC_AUTH=${FLOWER_BASIC_AUTH}
-    command: ["celery", "flower", "--broker=redis://:RDFGDxpI1h@redis:6379/0", "--basic_auth=${FLOWER_BASIC_AUTH}"]
+    command: ["celery", "flower", "--broker=redis://:RDFGDxpI1h@redis:6379/1", "--basic_auth=${FLOWER_BASIC_AUTH}"]
     ports:
       - "5555:5555"
 
