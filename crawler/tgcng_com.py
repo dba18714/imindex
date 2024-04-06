@@ -112,14 +112,22 @@ def get_info_ids(tag):
 
 
 def get_telegram_url(info_id):
-    url = f"https://www.tgcng.com/info.php?gid={info_id}"
-    xpath = '/html/body/div[@id="__nuxt"]/div[@id="__layout"]/div[@id="app"]/div[@class="container"]/div[@class="info"]/a[@class="item"]/div[@class="member"]'
+    try:
+        url = f"https://www.tgcng.com/info.php?gid={info_id}"
+        xpath = '/html/body/div[@id="__nuxt"]/div[@id="__layout"]/div[@id="app"]/div[@class="container"]/div[@class="info"]/a[@class="item"]/div[@class="member"]'
 
-    text_contents = scrape_with_xpath(url, xpath)
-    if not text_contents:
-        return None
-    telegram_url = common.utils.extract_url_of_str(text_contents[0])
-    return telegram_url
+        text_contents = scrape_with_xpath(url, xpath)
+        if not text_contents:
+            return None
+        telegram_url = common.utils.extract_url_of_str(text_contents[0])
+        return telegram_url
+
+    except requests.RequestException as e:
+        logger.error(f"请求错误: {e}")
+    except Exception as e:
+        logger.error(f"未预期的错误: {e}")
+
+    return None
 
 
 if __name__ == '__main__':
