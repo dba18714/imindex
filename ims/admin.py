@@ -44,7 +44,7 @@ class LinkAdmin(admin.ModelAdmin):
         ]
         return custom_urls + urls
     
-    list_per_page = 30
+    list_per_page = 50
     list_display = ["id", "show_name", "member_count", "show_url", "verified_start_at", "verified_at", "created_at"]
     list_filter = ["is_by_user", "is_valid", "verified_start_at", "verified_at"]
     search_fields = ["id", "uuid", "name", "description", "member_count", "url"]
