@@ -9,7 +9,7 @@ from django.forms import model_to_dict
 
 # from django.utils.autoreload import logger
 
-from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
+from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url, get_words_by_db
 from crawler.tgsou_me import get_telegram_urls_of_xml, get_telegram_urls_of_html
 from ims import services
 from ims.services import get_or_create_link
@@ -36,14 +36,15 @@ def spider_for_tgcng_com():
     num_a = 0.2
     num_b = 1.0
     # for word in get_words():
-    urls = [
-        'https://www.tgcng.com/tags.php',
-        'https://github.com/itgoyo/TelegramGroup',
-        'https://github.com/jackhawks/rectg',
-        'https://s.weibo.com/top/summary',
-    ]
-    url = random.choice(urls)
-    words = get_words(url=url)
+    # urls = [
+    #     'https://www.tgcng.com/tags.php',
+    #     'https://github.com/itgoyo/TelegramGroup',
+    #     'https://github.com/jackhawks/rectg',
+    #     'https://s.weibo.com/top/summary',
+    # ]
+    # url = random.choice(urls)
+    # words = get_words(url=url)
+    words = get_words_by_db()
     if words:
         ids = get_info_ids(words[0])
         for info_id in ids[:80]:

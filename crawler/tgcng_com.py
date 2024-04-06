@@ -12,6 +12,7 @@ import common.utils
 from common.utils import extract_keywords
 
 from crawler.spiders.spider import scrape_with_xpath
+from ims.models import Link
 
 logger = logging.getLogger('django')
 
@@ -19,6 +20,14 @@ logger = logging.getLogger('django')
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
 }
+
+def get_words_by_db():
+    # 随机获取5条Link
+    links = Link.objects.order_by('?')[:5]
+    words = []
+    for link in links:
+        words += extract_keywords(link.description)
+    return words
 
 
 def get_words(url='https://www.tgcng.com/tags.php'):
@@ -131,7 +140,7 @@ def get_telegram_url(info_id):
 
 
 if __name__ == '__main__':
-    print(get_words())
+    print(get_words_by_db())
     exit()
     i = 0
     for word in get_words():
