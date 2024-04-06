@@ -16,7 +16,7 @@ logger = logging.getLogger('django')
 def action_verify_telegram(modeladmin, request, queryset):
     for obj in queryset:
         tasks.verify_telegram.delay(obj.id)
-        logger.info(f"action_verify_telegram link_id: {link_id} -----------------")
+        logger.info(f"action_verify_telegram link_id: {obj.id} -----------------")
 
     modeladmin.message_user(request, '成功在后台执行了验证 Telegram URL 操作', messages.SUCCESS)
 
