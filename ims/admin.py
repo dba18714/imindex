@@ -1,4 +1,5 @@
 from collections import defaultdict
+import logging
 
 from django.contrib import admin, messages
 from django.template.defaultfilters import truncatechars
@@ -9,10 +10,13 @@ from . import tasks
 from .models import Link, Search
 from django.utils.translation import gettext_lazy as _
 
+logger = logging.getLogger('django')
+
 
 def action_verify_telegram(modeladmin, request, queryset):
     for obj in queryset:
         tasks.verify_telegram.delay(obj.id)
+        logger.info("action_verify_telegram link_id: {link_id} -----------------")
 
     modeladmin.message_user(request, '成功在后台执行了验证 Telegram URL 操作', messages.SUCCESS)
 
