@@ -24,9 +24,9 @@ def get_or_create_link(url, is_by_user=False):
 def verify_telegram(link_id):
     from ims.models import Link
     try:
-        link = Link.objects.get(id=link_id)
-        link.verified_start_at = now()
-        link.save()
+        # link = Link.objects.get(id=link_id)
+        # link.verified_start_at = now()
+        # link.save()
 
         url = link.url
         logger.info(f"verify_telegram URL：{url} - Data: {model_to_dict(link)} -----------------")
