@@ -12,7 +12,6 @@ from django.forms import model_to_dict
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
 from crawler.tgsou_me import get_telegram_urls_of_xml, get_telegram_urls_of_html
 from ims import services
-from ims.models import Link
 from ims.services import get_or_create_link
 from django.utils.timezone import now
 
@@ -23,10 +22,11 @@ logger = logging.getLogger('django')
 def verify_telegram(link_id):
     logger.info(f"task verify_telegram start link_id: {link_id} -----------------")
 
+    from ims.models import Link
     link = Link.objects.get(id=link_id)
     link.verified_start_at = now()
     link.save()
-    
+
     services.verify_telegram(link_id)
 
 
