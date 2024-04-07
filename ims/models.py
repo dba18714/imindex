@@ -26,7 +26,7 @@ class LinkManager(models.Manager):
 
 class Search(models.Model):
     keyword = models.CharField(max_length=255, unique=True)
-    search_count = models.IntegerField(default=0)
+    search_count = models.IntegerField(default=0, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_search_at = models.DateTimeField(auto_now=True)
 
