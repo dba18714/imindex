@@ -56,7 +56,7 @@ def spider_for_tgcng_com():
     words = get_words_by_db()
     if words:
         ids = get_info_ids(words[0])
-        for info_id in ids[:80]:
+        for info_id in ids[:60]:
             telegram_url = get_telegram_url(info_id)
             if telegram_url:
                 get_or_create_link(url=telegram_url)
