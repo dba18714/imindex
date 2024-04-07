@@ -13,8 +13,12 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 django.setup()
 
 from ims.models import Link
-from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url
+from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url, get_words_by_db
 
+print("33333333333")
+print(get_words_by_db())
+print("get_words_by_db()")
+exit()
 
 urls = [
     # 'https://www.tgcng.com/tags.php',

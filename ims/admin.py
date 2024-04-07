@@ -27,6 +27,8 @@ action_verify_telegram.short_description = '验证 Telegram URL'
 
 from django.http import HttpResponseRedirect
 
+
+
 def clear_redis(request):
     import redis
     r = redis.Redis(host='redis', password='RDFGDxpI1h', port=6379, db=0)

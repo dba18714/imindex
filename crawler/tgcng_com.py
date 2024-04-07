@@ -25,9 +25,17 @@ def get_words_by_db():
     # 随机获取5条Link
     from ims.models import Link
     links = Link.objects.order_by('?')[:5]
-    words = []
+    str = ''
     for link in links:
-        words += extract_keywords(link.description)
+        s= link.name + ' ' + link.description + ' '
+        s = s.replace('none', '') # 删除‘none’字符
+        str += s
+
+    words = extract_keywords(str)
+
+    # 删除以‘http’开头的词
+    words = [word for word in words if not word.startswith('http')]
+    
     return words
 
 
