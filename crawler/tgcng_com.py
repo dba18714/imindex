@@ -36,6 +36,9 @@ def get_words_by_db():
     # 删除以‘http’开头的词
     words = [word for word in words if not word.startswith('http')]
     
+    # 打乱列表
+    random.shuffle(words)
+    
     return words
 
 
