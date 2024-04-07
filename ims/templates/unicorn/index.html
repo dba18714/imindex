@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load custom_filter %}
 <div>
 
     <div class="bg-purple-600 shadow-md mb-5 py-10 px-5">
@@ -41,7 +42,7 @@
                     </div>
                     <div class="text-gray-500 text-xs">
                         <span class="inline-block border rounded px-2">
-                            用户数：{{ link.member_count }}
+                            用户数：{{ link.member_count|format_number }}
                         </span>
                         <span class="inline-block border rounded px-2">
                             类型：{{ link.get_category_display }}

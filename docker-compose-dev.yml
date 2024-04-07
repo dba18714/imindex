@@ -8,6 +8,7 @@ services:
     command: /bin/bash -c "chmod +x _for_deploy/start.sh && _for_deploy/start.sh"
     restart: always
     volumes:
+      - ./common:/code/common
       - ./crawler:/code/crawler
       - ./tmp.py:/code/tmp.py
       - ./ims:/code/ims

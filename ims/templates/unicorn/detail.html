@@ -1,3 +1,4 @@
+{% load custom_filter %}
 <div class="max-w-2xl mx-auto mt-10">
 
     <div class="text-center">
@@ -5,7 +6,7 @@
             {{ link.name|default:"数据正在更新中" }}
         </h1>
         <div class="text-gray-500 my-3">
-            用户数：{{ link.member_count }}
+            用户数：{{ link.member_count|format_number }}
         </div>
         <div class="text-gray-500">
             {{ link.description|default:"数据正在更新中" }}
@@ -96,7 +97,7 @@
                     </div>
                     <div class="text-gray-500 text-xs">
                         <span class="inline-block border rounded px-2">
-                            用户数：{{ link.member_count }}
+                            用户数：{{ link.member_count|format_number }}
                         </span>
                         <span class="inline-block border rounded px-2">
                             类型：{{ link.get_category_display }}
@@ -121,7 +122,7 @@
                     </div>
                     <div class="text-gray-500 text-xs">
                         <span class="inline-block border rounded px-2">
-                            用户数：{{ link.member_count }}
+                            用户数：{{ link.member_count|format_number }}
                         </span>
                         <span class="inline-block border rounded px-2">
                             类型：{{ link.get_category_display }}
