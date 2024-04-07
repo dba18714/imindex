@@ -53,7 +53,7 @@ class VerifyTelegram(CronJobBase):
             if link.id:
                 # link.verified_start_at = now()
                 # link.save()
-                tasks.verify_telegram.delay(link.id)
+                tasks.verify_telegram_dispatch(link.id)
 
 
 class DeleteInvalidLinks(CronJobBase):

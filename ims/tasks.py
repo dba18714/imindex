@@ -22,12 +22,21 @@ logger = logging.getLogger('django')
 def verify_telegram(link_id):
     logger.info(f"task verify_telegram start link_id: {link_id} -----------------")
 
+    # from ims.models import Link
+    # link = Link.objects.get(id=link_id)
+    # link.verified_start_at = now()
+    # link.save()
+
+    services.verify_telegram(link_id)
+
+
+def verify_telegram_dispatch(link_id):
     from ims.models import Link
     link = Link.objects.get(id=link_id)
     link.verified_start_at = now()
     link.save()
 
-    services.verify_telegram(link_id)
+    verify_telegram.delay(link_id)
 
 
 @shared_task

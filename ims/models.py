@@ -91,7 +91,7 @@ class Link(models.Model):
         if url_changed:
             # tasks.verify_telegram.delay(self.id)
             # 确保在事务提交后执行任务
-            transaction.on_commit(lambda: tasks.verify_telegram.delay(self.id))
+            transaction.on_commit(lambda: tasks.verify_telegram_dispatch(self.id))
 
     # def verified_telegram(self):
         # try:

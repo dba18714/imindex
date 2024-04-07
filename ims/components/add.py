@@ -62,6 +62,6 @@ class AddView(UnicornView):
 
             link, created = get_or_create_link(url=url, is_by_user=True)
             if not created:
-                tasks.verify_telegram.delay(link.id)
+                tasks.verify_telegram_dispatch(link.id)
             self.links.append(link)
             messages.success(self.request, "添加成功")
