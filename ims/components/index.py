@@ -32,12 +32,13 @@ class IndexView(UnicornView):
         max_pages = 30  # 定义允许最大页数为30
         per_page = 20
 
-        links_query = Link.objects.verified_and_valid().order_by('-id')
+        links_query = Link.objects.verified_and_valid()
         if self.query:
             update_search_statistics(self.query)
             links_query = links_query.filter(Q(name__icontains=self.query) |
                                              Q(description__icontains=self.query) |
                                              Q(url__icontains=self.query))
+        links_query = links_query.order_by('-id')
 
         paginator = Paginator(links_query, per_page)  # 每页 N 项
 
