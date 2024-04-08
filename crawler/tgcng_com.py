@@ -12,6 +12,7 @@ import common.utils
 from common.utils import extract_keywords
 
 from crawler.spiders.spider import scrape_with_xpath
+from django.db.models.expressions import RawSQL
 
 
 logger = logging.getLogger('django')
@@ -24,7 +25,10 @@ headers = {
 def get_words_by_db():
     # 随机获取5条Link
     from ims.models import Link
-    links = Link.objects.order_by('?')[:10]
+    # links = Link.objects.verified_and_valid().order_by('?')[:10]
+    links = Link.objects.verified_and_valid().annotate(
+            random_order=RawSQL('RANDOM()', [])
+        ).order_by('random_order')[:10]
     str = ''
     for link in links:
         s= link.name + ' ' + link.description + ' '
