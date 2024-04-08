@@ -58,7 +58,7 @@ services:
     restart: always
     container_name: imindex-celery-1
     build: .
-    command: celery -A mysite worker --loglevel=info -c 2
+    command: celery -A mysite worker --loglevel=info -c 2 -O fair
     volumes:
       - .:/code
     environment:
