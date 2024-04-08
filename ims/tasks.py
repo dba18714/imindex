@@ -18,8 +18,8 @@ from django.utils.timezone import now
 logger = logging.getLogger('django')
 
 
-# @shared_task(priority=10)
-@shared_task
+@shared_task(priority=10)
+# @shared_task
 def verify_telegram(link_id):
     logger.info(f"task verify_telegram start link_id: {link_id} -----------------")
 
