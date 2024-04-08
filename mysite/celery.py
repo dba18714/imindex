@@ -19,14 +19,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.worker_hijack_root_logger = False
 
-app.conf.task_queues = (
-    Queue('queue1', routing_key='task.#'),
-    Queue('queue2', routing_key='web.#'),
-)
-app.conf.task_default_queue = 'queue1'
-app.conf.task_default_exchange = 'tasks'
-app.conf.task_default_routing_key = 'task.default'
-
 # 自动从所有已注册的 Django app 加载任务
 app.autodiscover_tasks()
 
