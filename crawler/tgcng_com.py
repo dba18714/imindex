@@ -24,7 +24,7 @@ headers = {
 def get_words_by_db():
     # 随机获取5条Link
     from ims.models import Link
-    links = Link.objects.order_by('?')[:5]
+    links = Link.objects.order_by('?')[:10]
     str = ''
     for link in links:
         s= link.name + ' ' + link.description + ' '
