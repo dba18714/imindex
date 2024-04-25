@@ -1,3 +1,4 @@
+import logging
 import random
 import time
 
@@ -9,11 +10,13 @@ from crawler.tgcng_com import get_telegram_url, get_words, get_info_ids, get_wor
 from ims.models import Link
 from ims.services import get_or_create_link
 
+logger = logging.getLogger('django')
 
 class Command(BaseCommand):
     help = 'Run the web scraper'
 
     def handle(self, *args, **kwargs):
+        logger.info("spider_for_tgcng_com start -----------------")
         num_a = 0.2
         num_b = 1.0
         # for word in get_words():
