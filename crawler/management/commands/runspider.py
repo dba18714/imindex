@@ -16,7 +16,7 @@ class Command(BaseCommand):
     help = 'Run the web scraper'
 
     def handle(self, *args, **kwargs):
-        logger.info("spider_for_tgcng_com start -----------------")
+        logger.info("Command: runspider start -----------------")
         num_a = 0.2
         num_b = 1.0
         # for word in get_words():
