@@ -31,7 +31,7 @@ class Command(BaseCommand):
         # url = random.choice(urls)
         # words = get_words(url=url)
         words = get_words_by_db()
-        for word in words[:5]:
+        for word in words[:1]:
             ids = get_info_ids(word)
             for info_id in ids:
                 telegram_url = get_telegram_url(info_id)
