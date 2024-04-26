@@ -23,7 +23,10 @@ from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url, get_wor
 
 
 print("33333333333")
-print(get_words_by_db())
+words = get_words_by_db()
+print(words)
+for word in words:
+    print(word)
 print("get_words_by_db()")
 exit()
 
