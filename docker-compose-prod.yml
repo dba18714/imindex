@@ -106,7 +106,7 @@ services:
     image: redis
     restart: always
     volumes:
-      - ./data/redisdata:/data
+      - redisdata:/data
       - ./_for_deploy/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
@@ -115,3 +115,4 @@ services:
 volumes:
   letsencrypt:
   certbot-www:
+  redisdata:
