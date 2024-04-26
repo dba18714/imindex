@@ -6,6 +6,7 @@ from celery import shared_task
 from django.apps import apps
 from django.db.models import Q
 from django.forms import model_to_dict
+import redis
 
 # from django.utils.autoreload import logger
 
@@ -28,7 +29,24 @@ def verify_telegram(link_id):
     # link.verified_start_at = now()
     # link.save()
 
-    services.verify_telegram(link_id)
+
+    # 创建一个Redis连接
+    r = redis.Redis(host='redis', port=6379, db=0, password='RDFGDxpI1h')
+
+    # 创建一个锁
+    lock = r.lock('verify_telegram')
+
+    # 获取锁
+    lock.acquire(blocking=True)
+
+    try:
+        # 在这里执行你的代码
+        services.verify_telegram(link_id)
+        time.sleep(10)
+    finally:
+        # 无论是否发生错误，都要释放锁
+        lock.release()
+
 
 
 def verify_telegram_dispatch(link_id):

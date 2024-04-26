@@ -1,5 +1,28 @@
+# import threading
+# import time
+
+# # 创建一个Lock对象
+# lock = threading.Lock()
+
+# def verify_telegram_synchronized(link_id):
+#     # 获取锁
+#     lock.acquire()
+#     try:
+#         # 执行需要同步的代码
+#         print("333333333333333")
+#         time.sleep(20)
+#     finally:
+#         # 无论是否发生错误，都要释放锁
+#         lock.release()
+
+# verify_telegram_synchronized(1)
+
+# exit()
+
+
 import os
 import random
+import time
 
 import django
 from django.db.models import F
@@ -14,6 +37,42 @@ django.setup()
 
 from ims.models import Link
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url, get_words_by_db
+
+
+
+import redis
+from redis.lock import Lock
+
+# 创建一个Redis连接
+r = redis.Redis(host='redis', port=6379, db=0, password='RDFGDxpI1h')
+
+# 创建一个锁
+lock = r.lock('my_lock')
+
+# 获取锁
+lock.acquire(blocking=True)
+
+# 在这里执行你的代码
+print("7865432243565787666666666")
+time.sleep(20)
+
+# 释放锁
+lock.release()
+
+exit()
+
+from django.db import transaction
+
+def verify_telegram_synchronized(link_id):
+    # 获取数据库锁
+    with transaction.atomic():
+        # 执行需要同步的代码
+        print("333333333333333")
+        time.sleep(20)
+
+verify_telegram_synchronized(1)
+
+exit()
 
 # print("33333333333")
 # # 获取5条Link
