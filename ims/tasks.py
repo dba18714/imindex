@@ -42,7 +42,7 @@ def verify_telegram(link_id):
     try:
         # 在这里执行你的代码
         services.verify_telegram(link_id)
-        time.sleep(10)
+        time.sleep(0.2)
     finally:
         # 无论是否发生错误，都要释放锁
         lock.release()
