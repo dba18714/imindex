@@ -15,11 +15,11 @@ django.setup()
 from ims.models import Link
 from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url, get_words_by_db
 
-print("33333333333")
-# 获取5条Link
-links = Link.objects.order_by("id").all()[:5]
-print(links)
-exit()
+# print("33333333333")
+# # 获取5条Link
+# links = Link.objects.order_by("id").all()[:5]
+# print(links)
+# exit()
 
 
 print("33333333333")

@@ -37,9 +37,21 @@ def get_words_by_db():
 
     words = extract_keywords(str)
 
-    # 删除以‘http’开头的词
-    words = [word for word in words if not word.startswith('http')]
+    # # 删除以‘http’开头的词
+    # words = [word for word in words if not word.startswith('http')]
+
+    # # 删除全字母的词，用正则表达式
+    # words = [word for word in words if not re.match(r'^[a-zA-Z]+$', word)]
     
+    # # 删除全数字的词
+    # words = [word for word in words if not word.isdigit()]
+
+    # 删除长度小于2的词
+    words = [word for word in words if len(word) > 1]
+
+    # 删除非中文的词
+    words = [word for word in words if re.match(r'^[\u4e00-\u9fa5]+$', word)]
+
     # 打乱列表
     random.shuffle(words)
     
