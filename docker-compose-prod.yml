@@ -78,8 +78,15 @@ services:
       - .:/code
       - ./_for_deploy/django_cron_job:/etc/cron.d/django_cron_job
     command: cron -f
+    environment:
+      SECRET_KEY: kNU9dV9SQYZyy1F3pSKw1KyvdeNuer07
+      DB_NAME: pgdb
+      DB_USER: pgdb
+      DB_PASSWORD: pgpass
     depends_on:
       - web
+      - db
+      - redis
 
   db:
     container_name: imindex-db-1
