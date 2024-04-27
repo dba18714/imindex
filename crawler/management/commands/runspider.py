@@ -33,7 +33,7 @@ class Command(BaseCommand):
         words = get_words_by_db()
         for word in words[:1]:
             ids = get_info_ids(word)
-            for info_id in ids[:10]:
+            for info_id in ids[:30]:
                 telegram_url = get_telegram_url(info_id)
                 if telegram_url:
                     get_or_create_link(url=telegram_url)
