@@ -21,7 +21,7 @@ logger = logging.getLogger('django')
 class Runspider(CronJobBase):
     schedule = Schedule(run_every_mins=1)
     code = 'ims.cron.Runspider'  # 一个唯一的代码
-    allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
+    # allow_parallel_runs = False  # 防止任务重叠，如果上一个任务实例仍在运行，新的实例将不会启动
 
     def do(self):
         logger.info("CronJob:Runspider start -----------------")
