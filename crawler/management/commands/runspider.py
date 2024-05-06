@@ -20,7 +20,7 @@ class Command(BaseCommand):
         super().__init__(*args, **kwargs)
         # 记录开始时间和允许的最大运行时间
         self.start_time = time.time()
-        self.max_minutes = 2
+        self.max_minutes = 9
 
     # 是否超时
     def is_timeout(self):
