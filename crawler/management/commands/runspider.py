@@ -20,7 +20,7 @@ class Command(BaseCommand):
         super().__init__(*args, **kwargs)
         # 记录开始时间和允许的最大运行时间
         self.start_time = time.time()
-        self.max_minutes = 1
+        self.max_minutes = 3
 
     # 是否超时
     def is_timeout(self):
@@ -42,9 +42,9 @@ class Command(BaseCommand):
         # url = random.choice(urls)
         # words = get_words(url=url)
         words = get_words_by_db()
-        for word in words[:10]:
+        for word in words[:100]:
             ids = get_info_ids(word)
-            for info_id in ids[:30]:
+            for info_id in ids[:100]:
 
                 # 如果运行超过N分钟，就停止
                 if self.is_timeout():
