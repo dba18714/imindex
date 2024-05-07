@@ -61,8 +61,7 @@ def verify_telegram_dispatch(link_id):
 @shared_task
 def spider_for_tgcng_com():
 
-    run_instance = Run()
-    run_instance.handle()
+    Run().handle()
 
     # logger.info("spider_for_tgcng_com start -----------------")
     # num_a = 0.2
