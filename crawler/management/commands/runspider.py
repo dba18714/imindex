@@ -32,7 +32,7 @@ class Command(BaseCommand):
             return True
         return False
 
-    def random_sleep(num_a, num_b):
+    def random_sleep(self, num_a, num_b):
         time.sleep(random.uniform(num_a, num_b))
 
     def handle(self, *args, **kwargs):
