@@ -40,8 +40,7 @@ class Command(BaseCommand):
         logger.info("Command: runspider start -----------------")
         # return
 
-        run_instance = Run()
-        run_instance.handle()
+        Run().handle()
 
         
 

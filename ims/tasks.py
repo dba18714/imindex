@@ -10,7 +10,7 @@ import redis
 
 # from django.utils.autoreload import logger
 
-from crawler.tgcng_com import get_words, get_info_ids, get_telegram_url, get_words_by_db
+from crawler.tgcng_com import Run, get_words, get_info_ids, get_telegram_url, get_words_by_db
 from crawler.tgsou_me import get_telegram_urls_of_xml, get_telegram_urls_of_html
 from ims import services
 from ims.services import get_or_create_link
@@ -60,27 +60,31 @@ def verify_telegram_dispatch(link_id):
 
 @shared_task
 def spider_for_tgcng_com():
-    logger.info("spider_for_tgcng_com start -----------------")
-    num_a = 0.2
-    num_b = 1.0
-    # for word in get_words():
-    # urls = [
-    #     'https://www.tgcng.com/tags.php',
-    #     'https://github.com/itgoyo/TelegramGroup',
-    #     'https://github.com/jackhawks/rectg',
-    #     'https://s.weibo.com/top/summary',
-    # ]
-    # url = random.choice(urls)
-    # words = get_words(url=url)
-    words = get_words_by_db()
-    for word in words[:10]:
-        ids = get_info_ids(word)
-        for info_id in ids[:14]:
-            telegram_url = get_telegram_url(info_id)
-            if telegram_url:
-                get_or_create_link(url=telegram_url)
-                time.sleep(random.uniform(num_a, num_b))
-        time.sleep(random.uniform(num_a, num_b))
+
+    run_instance = Run()
+    run_instance.handle()
+
+    # logger.info("spider_for_tgcng_com start -----------------")
+    # num_a = 0.2
+    # num_b = 1.0
+    # # for word in get_words():
+    # # urls = [
+    # #     'https://www.tgcng.com/tags.php',
+    # #     'https://github.com/itgoyo/TelegramGroup',
+    # #     'https://github.com/jackhawks/rectg',
+    # #     'https://s.weibo.com/top/summary',
+    # # ]
+    # # url = random.choice(urls)
+    # # words = get_words(url=url)
+    # words = get_words_by_db()
+    # for word in words[:10]:
+    #     ids = get_info_ids(word)
+    #     for info_id in ids[:14]:
+    #         telegram_url = get_telegram_url(info_id)
+    #         if telegram_url:
+    #             get_or_create_link(url=telegram_url)
+    #             time.sleep(random.uniform(num_a, num_b))
+    #     time.sleep(random.uniform(num_a, num_b))
                 
 
 @shared_task
