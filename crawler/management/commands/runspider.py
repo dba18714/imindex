@@ -26,6 +26,15 @@ class Command(BaseCommand):
     def is_timeout(self):
         return time.time() - self.start_time > self.max_minutes * 60
 
+    def check_timeout(self):
+        if self.is_timeout():
+            logger.info("Command: runspider timeout -----------------")
+            return True
+        return False
+
+    def random_sleep(num_a, num_b):
+        time.sleep(random.uniform(num_a, num_b))
+
     def handle(self, *args, **kwargs):
         logger.info("Command: runspider start -----------------")
         # return
@@ -43,18 +52,20 @@ class Command(BaseCommand):
         # words = get_words(url=url)
         words = get_words_by_db()
         for word in words[:100]:
+
+            if self.check_timeout():
+                return
+
             ids = get_info_ids(word)
             for info_id in ids[:100]:
 
-                # 如果运行超过N分钟，就停止
-                if self.is_timeout():
-                    logger.info("Command: runspider timeout -----------------")
+                if self.check_timeout():
                     return
 
                 telegram_url = get_telegram_url(info_id)
                 if telegram_url:
                     get_or_create_link(url=telegram_url)
 
-                time.sleep(random.uniform(num_a, num_b))
-            time.sleep(random.uniform(num_a, num_b))
+                self.random_sleep(num_a, num_b)
+            self.random_sleep(num_a, num_b)
     
