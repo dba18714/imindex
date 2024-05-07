@@ -28,6 +28,7 @@ class Runspider(CronJobBase):
         # call_command('runspider')
         tasks.spider_for_tgcng_com.delay()
         tasks.spider_for_tgcng_com.delay()
+        tasks.spider_for_tgcng_com.delay()
         # tasks.spider_for_tgsou_me_from_html.delay()  # 已被cf拦截请求
         # tasks.spider_for_tgsou_me.delay()  # 已被cf拦截请求
 
