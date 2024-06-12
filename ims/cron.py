@@ -27,7 +27,7 @@ class Runspider(CronJobBase):
         logger.info("CronJob:Runspider start -----------------")
         # call_command('runspider')
         tasks.spider_for_tgcng_com.delay()
-        tasks.spider_for_tgcng_com.delay()
+        # tasks.spider_for_tgcng_com.delay()
         # tasks.spider_for_tgcng_com.delay()
         # tasks.spider_for_tgsou_me_from_html.delay()  # 已被cf拦截请求
         # tasks.spider_for_tgsou_me.delay()  # 已被cf拦截请求
@@ -45,7 +45,7 @@ class VerifyTelegram(CronJobBase):
 
     def do(self):
         logger.info("CronJob:VerifyTelegram start -----------------")
-        links = get_links(25)
+        links = get_links(10)
         for link in links:
             link_dict = model_to_dict(link)
             link_dict['created_at'] = date_format(link.created_at.astimezone(), format='DATETIME_FORMAT') if link.created_at else 'N/A'
