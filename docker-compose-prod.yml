@@ -129,3 +129,5 @@ volumes:
   letsencrypt:
   certbot-www:
   redisdata:
+  caddy_data:
+  caddy_config:
