@@ -1,4 +1,4 @@
-tnav.me {
+tnav.me, www.tnav.me {
 	reverse_proxy {
 		to web:8000
 	}
