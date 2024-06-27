@@ -1,6 +1,5 @@
-tnav.me {
-    root /var/www
-    proxy / web:8000 {
-        transparent
-    }
+tnav.me 
+
+reverse_proxy {
+  to web:8000
 }
