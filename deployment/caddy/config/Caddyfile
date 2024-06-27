@@ -1,14 +1,7 @@
 tnav.me {
-  @http {
-    protocol http
-  }
-  redir @http https://{host}{uri}
+    file_server
 
-  reverse_proxy / {
-    to web:8000
-    header_up Host {host}
-    header_up X-Real-IP {remote}
-    header_up X-Forwarded-For {remote}
-    header_up X-Forwarded-Proto {scheme}
-  }
+    encode gzip
+
+    web:8000
 }
