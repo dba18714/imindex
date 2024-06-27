@@ -1,7 +1,6 @@
 tnav.me {
-  redir {
+  redir / https://{host}{uri} {
     if {scheme} is http
-    /  https://{host}{uri}
   }
 
   reverse_proxy / {
