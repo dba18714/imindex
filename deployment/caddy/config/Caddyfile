@@ -1,7 +1,6 @@
 tnav.me {
-    file_server
-
-    encode gzip
-
-    web:8000
+    root /var/www
+    proxy / localhost:8000 {
+        transparent
+    }
 }
