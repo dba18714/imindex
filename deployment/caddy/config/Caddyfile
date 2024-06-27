@@ -1,7 +1,8 @@
 tnav.me {
-#   redir / https://{host}{uri} {
-#     if {scheme} is http
-#   }
+  @http {
+    protocol http
+  }
+  redir @http https://{host}{uri}
 
   reverse_proxy / {
     to web:8000
