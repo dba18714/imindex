@@ -1,11 +1,9 @@
-tnav.me, www.tnav.me {
-    handle host www.tnav.me {
-        redir https://tnav.me{uri}
-    }
+www.tnav.me {
+    redir https://tnav.me{uri}
+}
 
-    handle {
-        reverse_proxy {
-            to web:8000
-        }
+tnav.me {
+    reverse_proxy {
+        to web:8000
     }
 }
