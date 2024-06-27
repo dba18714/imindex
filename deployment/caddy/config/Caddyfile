@@ -1,0 +1,23 @@
+# localhost {
+#     root * /var/www/public
+#     file_server
+
+#     encode gzip
+
+#     php_fastcgi app:9000
+# }
+
+tnav.me {
+  redir {
+    if {scheme} is http
+    /  https://{host}{uri}
+  }
+
+  reverse_proxy / {
+    to web:8000
+    header_up Host {host}
+    header_up X-Real-IP {remote}
+    header_up X-Forwarded-For {remote}
+    header_up X-Forwarded-Proto {scheme}
+  }
+}
