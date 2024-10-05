@@ -9,6 +9,10 @@ python npm_run.py
 ```shell
 python manage.py makemigrations
 ```
+### 运行迁移
+```shell
+python manage.py migrate
+```
 ### 构建镜像
 ```shell
 docker-compose -f docker-compose-dev.yml build

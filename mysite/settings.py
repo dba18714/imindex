@@ -102,6 +102,9 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
 ]
 
+MEDIA_URL = '/data/upload_file/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'data/upload_file')
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [

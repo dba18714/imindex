@@ -9,6 +9,7 @@ services:
     restart: always
     volumes:
       - ./common:/code/common
+      - ./data/upload_file:/code/data/upload_file
       - ./crawler:/code/crawler
       - ./tmp.py:/code/tmp.py
       - ./ims:/code/ims

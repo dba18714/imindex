@@ -8,7 +8,7 @@ from django.utils.formats import date_format
 from django.utils.html import format_html
 
 from . import tasks
-from .models import Link, Search
+from .models import Ad, Link, Search
 from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger('django')
@@ -91,6 +91,12 @@ admin.site.register(Link, LinkAdmin)
 class SearchAdmin(admin.ModelAdmin):
     list_display = ["id", "keyword", "search_count", "created_at", "last_search_at"]
 
-
 admin.site.register(Search, SearchAdmin)
+
+
+class AdAdmin(admin.ModelAdmin):
+    list_display = ["id", "title", "place", "image", "click_count", "created_at", "start_at", "end_at"]
+
+
+admin.site.register(Ad, AdAdmin)
 

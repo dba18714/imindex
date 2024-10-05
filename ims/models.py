@@ -34,6 +34,26 @@ class Search(models.Model):
         return self.keyword
 
 
+class Ad(models.Model):
+
+    PLACE_CHOICES = [
+        (1, _('首页')),
+        (2, _('详情页')),
+    ]
+
+    title = models.CharField(max_length=255, unique=True)
+    place = models.SmallIntegerField(choices=PLACE_CHOICES)
+    url = models.CharField(null=True, blank=True)
+    image = models.ImageField(upload_to='', null=True, blank=True)
+    click_count = models.IntegerField(default=0, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    start_at = models.DateTimeField()
+    end_at = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+
+
 class Link(models.Model):
     UNKNOWN = 'unknown'
     GROUP = 'group'
