@@ -1,3 +1,4 @@
+from datetime import timedelta
 import re
 from collections import Counter
 
@@ -14,6 +15,7 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 
 from common.utils import extract_keywords
+from ims import tasks
 from .forms import AddForm, MultiURLForm
 from .models import Link
 
@@ -77,7 +79,10 @@ class DetailView(generic.DetailView):
 
     def get_object(self):
         uuid = self.kwargs.get('uuid')
-        return get_object_or_404(Link, uuid=uuid)
+        link = get_object_or_404(Link, uuid=uuid)
+        if link.verified_start_at <= timezone.now() - timedelta(hours=1):
+            tasks.verify_telegram_dispatch(link.id)
+        return link
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
