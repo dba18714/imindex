@@ -35,9 +35,13 @@ urlpatterns = [
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
-+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
+# 添加静态文件的 URL
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# 添加国际化模式
 urlpatterns += i18n_patterns(
     # 包含需要国际化的 URL
     path("__debug__/", include("debug_toolbar.urls")),
