@@ -80,8 +80,11 @@ class DetailView(generic.DetailView):
     def get_object(self):
         uuid = self.kwargs.get('uuid')
         link = get_object_or_404(Link, uuid=uuid)
+
+        # 如果更新时间是一小时前，则派遣更新
         if link.verified_start_at <= timezone.now() - timedelta(hours=1):
             tasks.verify_telegram_dispatch(link.id)
+            
         return link
 
     def get_context_data(self, **kwargs):
