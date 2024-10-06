@@ -13,12 +13,24 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import F
+
 
 from common.utils import extract_keywords
 from ims import tasks
 from .forms import AddForm, MultiURLForm
-from .models import Link
+from .models import Ad, Link
 
+def ad_redirect_view(request, id):
+    # 获取广告对象
+    ad = get_object_or_404(Ad, id=id)
+
+    # 自增 click_count
+    ad.click_count = F('click_count') + 1
+    ad.save(update_fields=['click_count'])
+
+    # 跳转到广告的 URL
+    return redirect(ad.url)
 
 def index(request):
     return render(request, "ims/index.html")

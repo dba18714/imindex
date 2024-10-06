@@ -17,6 +17,7 @@ from . import views
 app_name = "ims"
 urlpatterns = [
     path("item/<str:uuid>/", views.DetailView.as_view(), name="detail"),
+    path('ad/<int:id>/redirect/', views.ad_redirect_view, name='ad-redirect'),
     path("get-telegram-url/<str:uuid>/", views.get_telegram_url, name="get-telegram-url"),
     path("", views.index, name="index"),
     path("add/", views.add, name="add"),

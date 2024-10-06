@@ -81,6 +81,19 @@
         <div class="text-gray-500 mt-5 text-sm">
             更新时间：{{ link.verified_at }}
         </div>
+
+        {% if ads %}
+            {% for ad in ads %}
+                <div class="mt-5">
+                    <span class="text-gray-500">AD:</span>
+                    <a href="{% url 'ims:ad-redirect' id=ad.id %}"
+                    class="border-b border-dashed border-gray-600 hover:border-gray-400 text-orange-500">
+                        {{ ad.title }}
+                    </a>  
+                </div>
+            {% endfor %}
+        {% endif %}
+
     </div>
 
     {% if hot_links %}
