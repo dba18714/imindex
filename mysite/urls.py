@@ -21,6 +21,7 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.views import serve
 from django.urls import path, include, re_path
+from django.http import HttpResponsePermanentRedirect
 
 from ims.sitemaps import LinkSitemap
 
@@ -29,25 +30,25 @@ sitemaps = {
 }
 
 urlpatterns = [
-    # re_path('^stiaic/(?P<path>.*)', serve, {'document_root': settings.STATIC_ROOT}),  # 用于处理static里的文件
+    path("__debug__/", include("debug_toolbar.urls")),
+    path('admin/', admin.site.urls),
+    path("", include("ims.urls")),
+    path("polls/", include("polls.urls")),
+    path("unicorn/", include("django_unicorn.urls")),
 
-    path('i18n/', include('django.conf.urls.i18n')),
-
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap'),
+    # 其他路径配置
+    path('i18n/', include('django.conf.urls.i18n')),  # 如果不需要 i18n 功能，可以移除这一行
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] 
 
 # 添加静态文件的 URL
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# 添加国际化模式
-urlpatterns += i18n_patterns(
-    # 包含需要国际化的 URL
-    path("__debug__/", include("debug_toolbar.urls")),
-    path('admin/', admin.site.urls),
-    path("", include("ims.urls")),
-    path("polls/", include("polls.urls")),
-
-    path("unicorn/", include("django_unicorn.urls")),
-)
+# 重定向旧版本带语言代码的URL，包括首页
+urlpatterns += [
+    path('en/', lambda request: HttpResponsePermanentRedirect("/")),
+    path('zh-hans/', lambda request: HttpResponsePermanentRedirect("/")),
+    path('en/<path:subpath>/', lambda request, subpath: HttpResponsePermanentRedirect(f"/{subpath}")),
+    path('zh-hans/<path:subpath>/', lambda request, subpath: HttpResponsePermanentRedirect(f"/{subpath}")),
+]

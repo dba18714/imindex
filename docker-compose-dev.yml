@@ -13,6 +13,7 @@ services:
       - ./crawler:/code/crawler
       - ./tmp.py:/code/tmp.py
       - ./ims:/code/ims
+      - ./mysite:/code/mysite
       - ./templates:/code/templates
       - ./static:/code/static
     ports:

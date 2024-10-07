@@ -2,6 +2,7 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% load lang_switch %}
 
+{% if false %} <!-- 取消多语言 -->
 <div class="flex justify-center items-center">
     <!-- Component: Basic dropdown menu -->
     <div class="relative inline-flex" x-data="{ open: false, selectedLanguage: '' }"
@@ -24,28 +25,28 @@
         <!-- Start Menu list -->
         <ul x-show="open" x-cloak
             class="absolute z-20 flex flex-col py-2 mt-1 list-none bg-white rounded shadow-md border w-72 bottom-full shadow-slate-500/10">
-            {% for lang in languages %}
-                <li>
+                {% for lang in languages %}
+                    <li>
 
-                    <form action="{% url 'set_language' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="language" value="{{ lang.code }}">
-                        <div onclick="this.closest('form').submit()"
-                             class="flex items-start justify-start gap-2 p-2 px-5 transition-colors duration-300
-                        {% if lang.code == LANGUAGE_CODE %}
-                            text-emerald-500
-                        {% else %}
-                            text-slate-500
-                        {% endif %}
-                        hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 focus:text-emerald-600 focus:outline-none focus-visible:outline-none cursor-pointer">
-                            <span class="flex flex-col gap-1 overflow-hidden whitespace-nowrap">
-                                <span class="leading-5 truncate">{{ lang.local_name }} ({{ lang.name }})</span>
-                            </span>
-                        </div>
-                    </form>
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="language" value="{{ lang.code }}">
+                            <div onclick="this.closest('form').submit()"
+                                class="flex items-start justify-start gap-2 p-2 px-5 transition-colors duration-300
+                            {% if lang.code == LANGUAGE_CODE %}
+                                text-emerald-500
+                            {% else %}
+                                text-slate-500
+                            {% endif %}
+                            hover:bg-emerald-50 hover:text-emerald-500 focus:bg-emerald-50 focus:text-emerald-600 focus:outline-none focus-visible:outline-none cursor-pointer">
+                                <span class="flex flex-col gap-1 overflow-hidden whitespace-nowrap">
+                                    <span class="leading-5 truncate">{{ lang.local_name }} ({{ lang.name }})</span>
+                                </span>
+                            </div>
+                        </form>
 
-                </li>
-            {% endfor %}
+                    </li>
+                {% endfor %}
         </ul>
         <!-- End Menu list -->
 
@@ -57,3 +58,4 @@
     </div>
     <!-- End Basic dropdown menu-->
 </div>
+{% endif %}
