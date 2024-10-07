@@ -78,7 +78,7 @@ class Link(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default=UNKNOWN)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(default="Updating...", max_length=128, verbose_name=_("Name"))
-    description = models.CharField(max_length=512, verbose_name=_("Description"))
+    description = models.TextField(max_length=512, verbose_name=_("Description"))
     member_count = models.IntegerField(default=0, verbose_name=_("用户数"))
     url = models.URLField(unique=True)  # Telegram链接
     
