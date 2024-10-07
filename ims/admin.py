@@ -95,7 +95,12 @@ admin.site.register(Search, SearchAdmin)
 
 
 class AdAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "place", "image", "click_count", "created_at", "start_at", "end_at"]
+    list_display = ["id", "status", "title", "display_places", "image", "click_count", "created_at", "start_at", "end_at"]
+
+    def display_places(self, obj):
+        return " + ".join([place.name for place in obj.place.all()])  # 获取所有 place 名称并以逗号分隔
+
+    display_places.short_description = '展示位置'  # 自定义列的标题
 
 
 admin.site.register(Ad, AdAdmin)

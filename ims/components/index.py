@@ -3,7 +3,8 @@ import time
 from django.db.models import Q
 from django_unicorn.components import UnicornView
 from django.core.paginator import Paginator
-from ..models import Link, Search
+from ..models import Ad, Link, Search
+from django.utils import timezone
 
 
 def update_search_statistics(query):
@@ -17,11 +18,14 @@ class IndexView(UnicornView):
     links = []
     page = 1
     query = ''
+    ads = []
     top_searches = []
     all_articles_loaded = False  # 新增一个属性来标记是否所有文章都已加载
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        now = timezone.now()
+        self.ads = Ad.objects.filter(status=True, place__code=1, start_at__lte=now, end_at__gte=now).order_by('end_at')
         self.top_searches = Search.objects.order_by('-search_count')[:15]
         self.links = []
         self.query = self.request.GET.get(key='q', default='').strip()

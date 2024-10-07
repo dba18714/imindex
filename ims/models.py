@@ -41,8 +41,10 @@ class Ad(models.Model):
         (2, _('详情页')),
     ]
 
+    status = models.BooleanField(default=True, verbose_name=_("启用"))
     title = models.CharField(max_length=255, unique=True)
-    place = models.SmallIntegerField(choices=PLACE_CHOICES)
+    # place = models.SmallIntegerField(choices=PLACE_CHOICES)
+    place = models.ManyToManyField('AdPlace', verbose_name='展示位置')
     url = models.CharField(null=True, blank=True)
     image = models.ImageField(upload_to='', null=True, blank=True)
     click_count = models.IntegerField(default=0, db_index=True)
@@ -53,6 +55,12 @@ class Ad(models.Model):
     def __str__(self):
         return self.title
 
+class AdPlace(models.Model):
+    code = models.SmallIntegerField(unique=True, db_index=True, verbose_name=_("位置代码"))
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
 
 class Link(models.Model):
     UNKNOWN = 'unknown'
